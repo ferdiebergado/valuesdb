@@ -30232,6 +30232,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
+  props: {
+    resourceid: {}
+  },
   /*
       Defines the data used by the component
     */
@@ -30255,7 +30258,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
       /*
                 Add the form data we need to submit
             */
+
       formData.append("file", this.file);
+      formData.append("id", this.resource_id);
 
       /*
           Make the request to the POST /single-file URL
@@ -30295,7 +30300,7 @@ var render = function() {
         _vm._v("File\n      "),
         _c("input", {
           ref: "file",
-          attrs: { type: "file", id: "file" },
+          attrs: { type: "file", id: "file", name: "avatar" },
           on: {
             change: function($event) {
               _vm.handleFileUpload()

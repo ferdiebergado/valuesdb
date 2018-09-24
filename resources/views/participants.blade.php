@@ -2,7 +2,7 @@
 
 @section('content')
 
-@if (count($participants) > 0)
+@if (count($participants) > 1)
 <p><h3>Search Results</h3></p>    
 <table class="table">
     <thead>
@@ -29,16 +29,18 @@
             <td><a href="{{ route('participants.show', ['participant' => $pax->id]) }}"><i class="fa fa-edit"></i> Update</a></td>
         </tr>            
         @endforeach
-    </tbody>
+    </tbody>    
 </table>
 
-@else 
+{{ $participants->links() }}
+
+@else
 
 <p>No records found.</p>
 
 @endif
 
-<a class="btn" href="{{ route('search') }}">Search again</a>
+<a class="btn" href="{{ route('home') }}">Search again</a>
 <a class="btn btn-success float-right" href="{{ route('participants.create') }}"><i class="fa fa-plus"></i> CREATE NEW</a>
 </div>    
 

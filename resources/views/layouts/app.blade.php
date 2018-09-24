@@ -11,27 +11,31 @@
     <meta name="csrf-token" content="{{ csrf_token() }}">
     
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
+
     @stack('styles')
+
 </head>
+
 <body>
     <div id="app">        
-        @if (Route::is('search'))
+
+        @if (Route::is('home'))
+
         <div class="flex-container">
             <div class="flex-row">
                 <p><h1 style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>        
                 @yield('content')                           
-                @include('footer')      
+                {{-- @include('footer')       --}}
             </div>        
-        </div>
+        </div> <!-- flex-container -->
+
         @else
+
         <div class="container-fluid">
             <p><h1 class="text-center" style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>
             <div class="row justify-content-center">            
                 <div class="card card-primary mt-4">
                     <div class="card">
-                        {{-- <div class="card-header">
-                            <h2>{{ config('app.name') }}</h2>
-                        </div> --}}
                         <div class="card-body">
                             @yield('content')
                         </div>
@@ -43,8 +47,9 @@
                     </div>
                 </div> 
             </div>
-        </div>
-        @include('footer')
+        </div> <!-- container-fluid -->
+
+        {{-- @include('footer') --}}
         @endif   
         
         <!-- Modal -->
@@ -65,9 +70,12 @@
                     </div>
                 </div>
             </div>
-        </div>
-    </div>    
+        </div> <!-- Modal -->
+
+    </div> <!-- app -->    
+
     <script src="{{ mix('js/app.js') }}"></script>
+    {{-- <script src="{{ mix('js/plugins.js') }}"></script> --}}
     @stack('scripts')
 </body>
 </html>

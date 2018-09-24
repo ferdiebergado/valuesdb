@@ -14,7 +14,8 @@ class ParticipantController extends Controller
      */
     public function index(Request $request)
     {
-
+        $participants = Participant::orderBy('lastname')->paginate(10);
+        return view('participants', compact('participants'));
     }
 
     /**
@@ -96,44 +97,17 @@ class ParticipantController extends Controller
 
         $search = "%" . $search['lastname'] . "%";
 
-        $participants = Participant::where('lastname', 'LIKE', $search)->orderBy('lastname')->get();
+        $participants = Participant::where('lastname', 'LIKE', $search)->orderBy('lastname')->paginate(10);
 
         return view('participants', compact('participants'));
     }
 
     public function avatar(Request $request, $id)
     {
-        try {
-            $this->validate($request, [
-                'avatar' => 'required|file|image|mimes:jpeg,jpg,png|max:512'
-            ]);
+        $this->validate($request, [
+            'avatar' => 'required|file|image|mimes:jpeg,jpg,png|max:512'
+        ]);
             // $file = $request->file('avatar')->store('/', 'avatars');
-            $file = Storage::disk('avatars')->putFile('/', $request->file('avatar'));
-            $avatar = $this->repository->find($id, ['avatar']);
-            if (!empty($avatar)) {
-                Storage::disk('avatars')->delete($avatar);
-            }
-            $user = $this->repository->update(['avatar' => $file], $id);
-            // Cache::forget('user_by_id'.$id);
-            Cache::forget('avatar_user_' . $id);
-            $message = 'Avatar changed.';
-            if (request()->wantsJson()) {
-                return response()->json([
-                    'message' => $message,
-                    'user' => $user,
-                ]);
-            }
-            return redirect()->back()->with(compact('message'));
-        } catch (ValidationException $e) {
-            if ($request->wantsJson()) {
-                return response()->json([
-                    'error' => true,
-                    'message' => $e->errors()
-                ]);
-            }
-            return redirect()->back()->withErrors($e->errors());
-        } catch (Exception $e) {
-            return redirect()->back()->withErrors($e->getMessage());
-        }
+            // $file = Storage::disk('avatars')->putFile('/', $request->file('avatar'));
     }
 }

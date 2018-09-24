@@ -2,7 +2,7 @@
 // @import url("https://fonts.googleapis.com/css?family=Nunito");
 
 // @import "~notosans-fontface/scss/notosans-fontface.scss";
-@import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
+// @import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
 // Variables
 // @import "variables";
 
@@ -17,7 +17,7 @@
 html,
 body {
     background-color: purple;
-    font-family: "Roboto", sans;
+    // font-family: "Roboto", sans;
     font-size: 200;
     height: 100%;
     margin: 0;
@@ -35,6 +35,7 @@ body {
     align-items: center;
     justify-content: center;
 }
+
 .flex-row {
     width: auto;
 }

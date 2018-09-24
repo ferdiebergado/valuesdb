@@ -214,7 +214,7 @@
         </div>
         @if (Route::is('participants.create'))            
         <div class="row">
-            <file-upload></file-upload>
+            <file-upload resourceid="{{ $participant }}"></file-upload>
 
                 <div class="col-6">
                         <img id="avatar-preview" width="30%" height="30%">

@@ -14,7 +14,7 @@
 Route::group(['prefix' => 'values'], function () {
     Route::get('/', function () {
         return view('search');
-    })->name('search');
+    })->name('home');
     Route::post('/search', 'ParticipantController@search')->name('participants.search');
     Route::post('/avatar', 'ParticipantController@avatar')->name('participants.avatar');
     Route::resource('participants', 'ParticipantController');
