@@ -19,11 +19,12 @@ class CreateParticipantsTable extends Migration
             $table->string('firstname', 75);
             $table->string('middlename', 75)->nullable();
             $table->string('lastname', 75);
-            $table->dateTime('birthday');
+            $table->dateTime('birthday')->nullable();
             $table->enum('gender', ['M', 'F', 'O']);
             $table->integer('yearsAsTeacher')->nullable();
             $table->integer('yearsAsSupervisor')->nullable();
             $table->integer('yearsAsCoordinator')->nullable();
+            $table->string('photo', 64)->nullable();
             $table->timestamps();
         });
     }

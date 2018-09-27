@@ -6,6 +6,8 @@ use App\Participant;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
 use App\Helpers\RequestParser;
+use \Exception;
+use App\Paxdata;
 
 class ParticipantController extends Controller
 {
@@ -71,7 +73,20 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'lastname' => 'required|string',
+            'firstname' => 'required|string'
+        ]);
+
+        DB::beginTransaction();
+        try {
+            $participant = Participant::create($request->all());
+            $paxdata = Paxdata::create(array_merge($request->all(), ['year' => config('app.year')]));
+            $participant->paxdata()->save($paxdata);
+        } catch (Exception $e) {
+            DB::rollback();
+        }
+        DB::commit();
     }
 
     /**
@@ -123,15 +138,15 @@ class ParticipantController extends Controller
 
     public function search(Request $request)
     {
-        $search = $this->validate($request, [
+        $this->validate($request, [
             'lastname' => 'required|string|min:2|max:150'
         ]);
 
-        $search = "%" . $search['lastname'] . "%";
+        $search = "%" . $request->lastname . "%";
 
         $participants = Participant::where('lastname', 'LIKE', $search)->orderBy('lastname')->paginate(10);
 
-        return view('participants', compact('participants'));
+        return view('results', compact('participants'));
     }
 
     public function avatar(Request $request)

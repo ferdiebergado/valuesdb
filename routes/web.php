@@ -14,11 +14,13 @@
 Route::group(['prefix' => 'values'], function () {
     Route::get('/', function () {
         return view('search');
-    })->name('home');
-    Route::post('/search', 'ParticipantController@search')->name('participants.search');
+    })->name('search');
+    Route::post('/searchresults', 'ParticipantController@search')->name('participants.search');
     Route::post('/avatar', 'ImageController@store')->name('participants.avatar');
     Route::resource('participants', 'ParticipantController');
     Route::resource('events', 'ActivityController');
+    Route::resource('jobtitles', 'JobtitleController');
+    Route::resource('divisions', 'DivisionController');
 });
 
 Auth::routes();

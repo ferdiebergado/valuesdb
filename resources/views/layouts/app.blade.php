@@ -20,7 +20,7 @@
 <body>
     <div id="app">        
 
-        @if (Route::is('home') || Route::is('login')) 
+        @if (Route::is('search') || Route::is('login')) 
 
         <div class="flex-container">
             <div class="flex-row">

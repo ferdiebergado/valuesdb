@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class CreateRegionsTable extends Migration
+class CreateRegionsDivisionsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,10 +13,10 @@ class CreateRegionsTable extends Migration
      */
     public function up()
     {
-        Schema::create('regions', function (Blueprint $table) {
-            $table->increments('id');
-            $table->string('name', 75);
-            $table->enum('area', ['L', 'V', 'M', 'O'])->nullable();
+        Schema::create('regions_divisions', function (Blueprint $table) {
+            $table->unsignedInteger('region_id');
+            $table->unsignedInteger('division_id');
+            $table->index(['region_id', 'division_id']);
         });
     }
 
@@ -27,6 +27,6 @@ class CreateRegionsTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('regions');
+        Schema::dropIfExists('regions_divisions');
     }
 }

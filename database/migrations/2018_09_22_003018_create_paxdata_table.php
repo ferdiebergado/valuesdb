@@ -16,13 +16,14 @@ class CreatePaxdataTable extends Migration
         Schema::create('paxdata', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('participant_id');
-            $table->unsignedInteger('jobtitle_id');
-            $table->unsignedInteger('region_id');
+            $table->unsignedInteger('jobtitle_id')->nullable();
+            $table->unsignedInteger('region_id')->nullable();
             $table->unsignedInteger('division_id')->nullable();
             $table->string('station', 255);
             $table->string('landline', 75)->nullable();
             $table->string('fax', 75)->nullable();
             $table->string('mobile', 100);
+            $table->string('email', 150)->nullable();
             $table->string('facebookid', 100)->nullable();
             $table->year('year');
             $table->timestamps();

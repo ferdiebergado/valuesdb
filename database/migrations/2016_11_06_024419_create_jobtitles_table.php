@@ -16,7 +16,6 @@ class CreateJobtitlesTable extends Migration
         Schema::create('jobtitles', function (Blueprint $table) {
             $table->increments('id');
             $table->string('name', 150);
-            $table->timestamps();
         });
     }
 

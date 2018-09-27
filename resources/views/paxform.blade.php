@@ -83,14 +83,13 @@
             <div class="col-9">            
                 <div class="form-group">
                     <label for="">Job Title</label>
-                    <select class="form-control" name="title" id="title">
-                        @php
-                        $titles = ['Mr.', 'Ms.', 'Mrs.', 'Dr.', 'Prof.'];              
-                        @endphp
+                    <select class="form-control" name="jobtitle_id" id="jobtitle_id">
                         <option value="">Select</option>
-                        @foreach ($titles as $title)
-                        <option value="{{ $title }}">{{ $title }}</option>
+                        @if (isset($jobtitles) && count($jobtitles) > 0)                           
+                        @foreach ($jobtitles as $jobtitle)
+                        <option value="{{ $jobtitle->id }}">{{ $jobtitle->name }}</option>
                         @endforeach
+                        @endif                            
                     </select>
                 </div>
             </div>
@@ -99,16 +98,22 @@
             <div class="col-4">    
                 <div class="form-group">
                     <label for="">Region</label>
-                    <select class="form-control" name="region" id="region">
+                    <select class="form-control" name="region_id" id="region_id" v-model.number="region" v-on-change="fetchDivisions">
                         <option value="">Select</option>
+                        @if (isset($regions) && count($regions) > 0)                           
+                        @foreach ($regions as $region)
+                        <option value="{{ $region->id }}">{{ $region->name }}</option>
+                        @endforeach
+                        @endif                             
                     </select>
                 </div>    
             </div>
             <div class="col-8">            
                 <div class="form-group">
                     <label for="">Division</label>
-                    <select class="form-control" name="division" id="division">
+                    <select class="form-control" name="division_id" id="division_id" v-if="divisions">
                         <option value="">Select</option>
+                        <option v-for="division in divisions" :key="division.id" :value="division.id">@{{ division.name }}</option>
                     </select>
                 </div>
             </div>
@@ -230,3 +235,31 @@
 </form>
 
 @endsection
+
+@push('scripts')
+
+<script>
+    export default {
+        data() { 
+            return {
+                region: 0,
+                divisions: {}
+            }
+        },
+        mounted() {
+            this.fetchDivisions();
+        },
+        methods: {
+            fetchDivisions() {
+                axios.get('{{ route('divisions.index') }}', { region_id: this.region}).then(function(res) {
+                    console.log(res.data);
+                    this.divisions = res.data;
+                }).catch(function(err) {
+                    console.log(err.response.data);
+                });
+            }
+        }
+    }
+</script>
+    
+@endpush

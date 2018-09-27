@@ -17,8 +17,6 @@ class CreateDivisionsTable extends Migration
             $table->increments('id');
             $table->string('name', 150);
             $table->unsignedInteger('region_id');
-            $table->year('year');
-            $table->timestamps();
         });
     }
 

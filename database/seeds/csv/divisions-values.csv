@@ -1,0 +1,256 @@
+name,region_id
+Alaminos City,1
+Candon City,1
+Dagupan City,1
+Ilocos Norte,1
+Ilocos Sur,1
+La Union,1
+Laoag City,1
+Pangasinan I,1
+"Pangasinan II, Binalonan",1
+San Carlos City,1
+San Fernando City,1
+Urdaneta City,1
+Vigan City,1
+Batanes,2
+Cagayan,2
+Cauayan City,2
+Isabela,2
+Nueva Vizcaya,2
+Quirino,2
+Santiago City,2
+Tuguegarao City,2
+Angeles City,3
+Aurora,3
+Balanga City,3
+Bataan,3
+Bulacan,3
+Cabanatuan City,3
+Gapan City,3
+Malolos City,3
+Munoz Science City,3
+Nueva Ecija,3
+Olongapo City,3
+Pampanga,3
+San Fernando City,3
+San Jose City,3
+San Jose del Monte City,3
+Tarlac,3
+Tarlac City,3
+Zambales,3
+Antipolo City,4
+Batangas Province,4
+Batangas City,4
+Calamba City,4
+Cavite,4
+Cavite City,4
+Dasmarinas City,4
+Laguna,4
+Lipa City,4
+Lucena City,4
+Quezon,4
+Rizal,4
+San Pablo City,4
+Sta. Rosa City,4
+Tanauan City,4
+Calapan City,5
+Marinduque,5
+Occidental Mindoro,5
+Oriental Mindoro,5
+Palawan,5
+Puerto Princesa City,5
+Romblon,5
+Albay,6
+Camarines Norte,6
+Camarines Sur,6
+Catanduanes,6
+Iriga City,6
+Legaspi City,6
+Ligao City,6
+Masbate,6
+Masbate City,6
+Naga City,6
+Sorsogon,6
+Sorsogon City,6
+Tabaco City,6
+Aklan,7
+Antique,7
+Bacolod City,7
+Bago City,7
+Cadiz City,7
+Capiz,7
+Escalante City,7
+Guimaras,7
+Iloilo,7
+Iloilo City,7
+Kabankalan City,7
+La Carlota City,7
+Negros Occidental,7
+Passi City,7
+Roxas City,7
+Sagay City,7
+San Carlos City,7
+Silay City,7
+Bais City,8
+Bayawan City,8
+Bogo City,8
+Bohol,8
+Carcar City,8
+Cebu City,8
+Cebu Province,8
+"City of Naga, Cebu",8
+Danao City,8
+Dumaguete City,8
+Guihulngan City,8
+Lapu-Lapu City,8
+Mandaue City,8
+Negros Oriental,8
+Siquijor,8
+Tagbilaran City,8
+Talisay City,8
+Tanjay City,8
+Toledo City,8
+Biliran,9
+Calbayog City,9
+Eastern Samar,9
+Leyte,9
+Maasin City,9
+Northern Samar,9
+Ormoc City,9
+Samar (Western Samar),9
+Southern Leyte,9
+Tacloban City,9
+Dapitan City,10
+Dipolog City,10
+Isabela City,10
+Pagadian City,10
+Zamboanga City,10
+Zamboanga del Norte,10
+Zamboanga del Sur,10
+Zamboanga Sibugay,10
+Bukidnon,11
+Cagayan de Oro City,11
+Camiguin,11
+Gingoog City,11
+Iligan City,11
+Lanao del Norte,11
+Malaybalay City,11
+Misamis Occidental,11
+Misamis Oriental,11
+Oroquieta City,11
+Ozamis City,11
+Tangub City,11
+Valencia City,11
+Compostela Valley,12
+Davao City,12
+Davao del Norte,12
+Davao del Sur,12
+Davao Oriental,12
+Digos City,12
+Island Garden City of Samal,12
+Panabo City,12
+Tagum City,12
+Cotabato City,13
+General Santos City,13
+Kidapawan City,13
+Koronadal City,13
+North Cotabato,13
+Sarangani,13
+South Cotabato,13
+Sultan Kudarat,13
+Tacurong City,13
+Agusan del Norte,14
+Agusan del Sur,14
+Bislig City,14
+Butuan City,14
+Dinagat Island,14
+Siargao,14
+Surigao City,14
+Surigao del Norte,14
+Surigao del Sur,14
+Basilan,15
+Lamitan City,15
+Lanao del Sur I-A,15
+Lanao del Sur I-B,15
+Lanao del Sur II,15
+Lanao del Sur - IIB,15
+Maguindanao II,15
+Maguindanao I,15
+Marawi City,15
+Sulu,15
+Sulu II,15
+Tawi-Tawi,15
+Abra,16
+Apayao,16
+Baguio City,16
+Benguet,16
+Ifugao,16
+Kalinga,16
+Mt. Province,16
+Caloocan City,17
+City of San Juan,17
+Las Piñas City,17
+Makati City,17
+Malabon,17
+Mandaluyong City,17
+Manila,17
+Marikina City,17
+Muntinlupa City,17
+Navotas,17
+Paranaque City,17
+Pasay City,17
+Pasig City,17
+Quezon City,17
+Taguig & Pateros,17
+Valenzuela City,17
+Mati City,12
+Bayugan City,14
+Imus City,4
+Catbalogan City,9
+RO I,1
+RO II,2
+RO III,3
+RO IV-A,4
+RO IV-B,5
+RO V,6
+RO VI,7
+RO VII,8
+RO VIII,9
+RO IX,10
+RO X,11
+RO XI,12
+RO XII,13
+RO CARAGA,14
+RO ARMM,15
+RO CAR,16
+RO NCR,17
+Mabalacat City,3
+Ilagan City,2
+Cabadbaran City,14
+Meycauayan City,3
+Borongan City,9
+Biñan City,4
+Bacoor City,4
+Baybay City,9
+TLD-BLD,98
+Sipalay City,7
+Himamaylan City,7
+Bago City,7
+Victorias City,18
+Canlaon City,18
+RO NIR,18
+El Salvador City,11
+Tayabas City,4
+CSDD-BCD,98
+SCPD-BCD,98
+OD-BLD,98
+Batac City,1
+YFD-BLSS,98
+QAD-NEAP,98
+Makati City,97
+Cabuyao City,4
+Tandag City,14
+Tabuk City,16
+Davao Occidental,12
+PD-BLR,98
+General Trias City,5

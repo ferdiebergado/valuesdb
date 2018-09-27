@@ -2,6 +2,7 @@
 
 use Intervention\Image\ImageServiceProviderLaravel5;
 use Faker\Provider\Image;
+use App\Providers\ViewComposerServiceProvider;
 
 return [
 
@@ -164,6 +165,7 @@ return [
         // App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
+        App\Providers\ViewComposerServiceProvider::class,
 
     ],
 
@@ -222,5 +224,6 @@ return [
     'facebook' => 'https://facebook.com/ferdie.bergado',
     'perpage' => 10,
     'perPageRange' => ['10', '20', '25', '50'],
+    'year' => 2018,
 
 ];
