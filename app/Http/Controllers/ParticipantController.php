@@ -4,9 +4,18 @@ namespace App\Http\Controllers;
 
 use App\Participant;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
+use App\Helpers\RequestParser;
 
 class ParticipantController extends Controller
 {
+    use RequestParser;
+
+    public function __construct()
+    {
+        // $this->middleware(['auth'])->only(['index']);
+    }
+
     /**
      * Display a listing of the resource.
      *
@@ -14,8 +23,31 @@ class ParticipantController extends Controller
      */
     public function index(Request $request)
     {
-        $participants = Participant::orderBy('lastname')->paginate(10);
-        return view('participants', compact('participants'));
+        $request = app()->make('request');
+        $this->validate($request, [
+            'length' => [
+                'integer',
+                \Illuminate\Validation\Rule::in(config('app.perPageRange'))
+            ],
+            'sortBy' => 'string|nullable',
+            'orderByMulti' => 'string|nullable'
+        ]);
+        $perPage = $this->getRequestLength($request);
+        // $this->pushCriteria(app('\Modules\Documents\Criteria\DocumentRequestCriteria'));
+        // $this->repository->with(['doctype', 'creator'])->getByOffice(auth()->user()->office_id);
+        // Sort fields based on request orderBy (nested sorting)
+        // $this->repository->pushCriteria(new MultiSortCriteria($request));
+        $participants = Participant::orderBy('lastname')->paginate($perPage);
+        // $documents = $this->repository->paginate($perPage);
+        // $documents = $this->sortFields($request, $model)->paginate($perPage);
+        if (request()->wantsJson()) {
+            return response()->json([
+                'draw' => $request->draw,
+                'data' => $participants,
+            ]);
+        }
+
+        return view('participants_index', compact('participants'));
     }
 
     /**
@@ -102,12 +134,13 @@ class ParticipantController extends Controller
         return view('participants', compact('participants'));
     }
 
-    public function avatar(Request $request, $id)
+    public function avatar(Request $request)
     {
         $this->validate($request, [
-            'avatar' => 'required|file|image|mimes:jpeg,jpg,png|max:512'
+            'file' => 'required|file|image|mimes:jpeg,jpg,png|max:512'
         ]);
-            // $file = $request->file('avatar')->store('/', 'avatars');
-            // $file = Storage::disk('avatars')->putFile('/', $request->file('avatar'));
+        // $filename = $request->file('file')->store('/', 'avatars');
+        $filename = Storage::disk('public')->putFile('/avatars', $request->file('file'));
+        return response()->json(['fileid' => $filename]);
     }
 }

@@ -16,7 +16,11 @@ Route::group(['prefix' => 'values'], function () {
         return view('search');
     })->name('home');
     Route::post('/search', 'ParticipantController@search')->name('participants.search');
-    Route::post('/avatar', 'ParticipantController@avatar')->name('participants.avatar');
+    Route::post('/avatar', 'ImageController@store')->name('participants.avatar');
     Route::resource('participants', 'ParticipantController');
     Route::resource('events', 'ActivityController');
 });
+
+Auth::routes();
+
+Route::get('/home', 'HomeController@index')->name('home');

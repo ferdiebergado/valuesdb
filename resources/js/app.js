@@ -7,6 +7,8 @@
 require("./bootstrap");
 
 window.Vue = require("vue");
+require("datatables.net");
+require("datatables.net-bs4");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -14,7 +16,7 @@ window.Vue = require("vue");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component("file-upload", require("./components/FileUpload.vue"));
+Vue.component("image-upload", require("./components/ImageUpload.vue"));
 
 const app = new Vue({
     el: "#app"
@@ -24,20 +26,20 @@ const app = new Vue({
  * @param  {input element}
  * @return {[file handle]}
  */
-try {
-    var readURL = function(input) {
-        if (input.files && input.files[0]) {
-            var reader = new FileReader();
-            reader.onload = function(e) {
-                $("#avatar-preview").attr("src", e.target.result);
-            };
-            reader.readAsDataURL(input.files[0]);
-        }
-    };
-} catch (err) {
-    console.log(err.message);
-}
+// try {
+//     var readURL = function(input) {
+//         if (input.files && input.files[0]) {
+//             var reader = new FileReader();
+//             reader.onload = function(e) {
+//                 $("#avatar-preview").attr("src", e.target.result);
+//             };
+//             reader.readAsDataURL(input.files[0]);
+//         }
+//     };
+// } catch (err) {
+//     console.log(err.message);
+// }
 
-$("#avatar-input").change(function() {
-    readURL(this);
-});
+// $("#avatar-input").change(function() {
+//     readURL(this);
+// });

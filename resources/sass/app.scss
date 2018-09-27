@@ -1,7 +1,7 @@
 // Fonts
 // @import url("https://fonts.googleapis.com/css?family=Nunito");
 
-// @import "~notosans-fontface/scss/notosans-fontface.scss";
+@import "~notosans-fontface/scss/notosans-fontface.scss";
 // @import "~roboto-fontface/css/roboto/sass/roboto-fontface.scss";
 // Variables
 // @import "variables";
@@ -17,8 +17,8 @@
 html,
 body {
     background-color: purple;
-    // font-family: "Roboto", sans;
-    font-size: 200;
+    font-family: "Noto Sans", sans;
+    font-size: 0.9rem;
     height: 100%;
     margin: 0;
 }
@@ -41,3 +41,9 @@ body {
 }
 
 @import "~@fortawesome/fontawesome-free/css/all.min.css";
+
+// Datatables
+@import "~datatables.net-bs4/css/dataTables.bootstrap4.min.css";
+@import "../jquery-datatable/jquery.dataTables.css";
+// @import "../jquery-datatable/skin/bootstrap/css/dataTables.bootstrap.css";
+@import "../jquery-datatable/extensions/dataTables.searchHighlight.css";

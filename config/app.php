@@ -1,5 +1,8 @@
 <?php
 
+use Intervention\Image\ImageServiceProviderLaravel5;
+use Faker\Provider\Image;
+
 return [
 
     /*
@@ -151,6 +154,8 @@ return [
          * Package Service Providers...
          */
 
+        Intervention\Image\ImageServiceProvider::class,
+
         /*
          * Application Service Providers...
          */
@@ -208,11 +213,14 @@ return [
         'URL' => Illuminate\Support\Facades\URL::class,
         'Validator' => Illuminate\Support\Facades\Validator::class,
         'View' => Illuminate\Support\Facades\View::class,
+        'Image' => \Intervention\Image\Facades\Image::class,
 
     ],
 
     'author' => 'Ferdinand Saporas Bergado',
     'degree' => 'MSITc',
     'facebook' => 'https://facebook.com/ferdie.bergado',
+    'perpage' => 10,
+    'perPageRange' => ['10', '20', '25', '50'],
 
 ];

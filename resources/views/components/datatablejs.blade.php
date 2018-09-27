@@ -37,8 +37,6 @@
                             dir = d.order[i].dir;
                         } else {
                             if (firstMultiple) {
-                                {{--  sortMultiple = sortField + ';' + d.columns[d.order[i].column].data;
-                                sortMultipleDir = dir + ';' + d.order[i].dir;  --}}
                                 sortMultiple = d.columns[d.order[i].column].data; 
                                 sortMultipleDir = d.order[i].dir;
                                 firstMultiple = false;
@@ -97,7 +95,7 @@
             });
 
             $("div.toolbar").html(`
-            <button id="btnRefresh" type="button" class="btn btn-sm btn-flat bg-gray pull-right" title="Refresh" style="margin-left: 6px;"><i class="fa fa-refresh"></i></button>
+            <button id="btnRefresh" type="button" class="btn btn-sm btn-flat bg-gray pull-right" title="Refresh" style="margin-left: 6px;"><i class="fa fa-sync"></i></button>
             `);
 
             $('#btnRefresh').on('click', function () {

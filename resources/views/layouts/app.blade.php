@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
     <title>{{ config('app.name') }}</title>
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
@@ -19,7 +20,7 @@
 <body>
     <div id="app">        
 
-        @if (Route::is('home'))
+        @if (Route::is('home') || Route::is('login')) 
 
         <div class="flex-container">
             <div class="flex-row">
@@ -36,6 +37,9 @@
             <div class="row justify-content-center">            
                 <div class="card card-primary mt-4">
                     <div class="card">
+                        <div class="card-header">
+                            @yield('boxtools')
+                        </div>
                         <div class="card-body">
                             @yield('content')
                         </div>
@@ -75,7 +79,6 @@
     </div> <!-- app -->    
 
     <script src="{{ mix('js/app.js') }}"></script>
-    {{-- <script src="{{ mix('js/plugins.js') }}"></script> --}}
     @stack('scripts')
 </body>
 </html>

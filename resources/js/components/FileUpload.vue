@@ -2,24 +2,22 @@
   <div class="container">
     <div class="large-12 medium-12 small-12 cell">
       <label>File
-        <input type="file" id="file" name="avatar" ref="file" v-on:change="handleFileUpload()"/>
+        <input type="file" id="file" ref="file" accept=".jpg,.jpeg,.png" v-on:change="handleFileUpload()"/>
       </label>
-      <button v-on:click="submitFile()">Submit</button>
+      <button @click.prevent="submitFile()">Submit</button>
     </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    resourceid: {}
-  },
   /*
       Defines the data used by the component
     */
   data() {
     return {
-      file: ""
+      file: "",
+      fileid: null
     };
   },
 
@@ -38,19 +36,19 @@ export default {
             */
 
       formData.append("file", this.file);
-      formData.append("id", this.resource_id);
 
       /*
           Make the request to the POST /single-file URL
         */
       axios
-        .post("/avatar", formData, {
+        .post("/values/avatar", formData, {
           headers: {
             "Content-Type": "multipart/form-data"
           }
         })
-        .then(function() {
-          console.log("SUCCESS!!");
+        .then(function(res) {
+          console.log(res);
+          this.fileid = res.data.fileid;
         })
         .catch(function() {
           console.log("FAILURE!!");
