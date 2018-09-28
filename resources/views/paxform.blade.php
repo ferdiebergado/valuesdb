@@ -98,7 +98,7 @@
             <div class="col-4">    
                 <div class="form-group">
                     <label for="">Region</label>
-                    <select class="form-control" name="region_id" id="region_id" v-model.number="region" v-on-change="fetchDivisions">
+                    <select class="form-control" name="region_id" id="region_id" v-model.number="region" v-on:change="fetchDivisions">
                         <option value="">Select</option>
                         @if (isset($regions) && count($regions) > 0)                           
                         @foreach ($regions as $region)
@@ -235,31 +235,3 @@
 </form>
 
 @endsection
-
-@push('scripts')
-
-<script>
-    export default {
-        data() { 
-            return {
-                region: 0,
-                divisions: {}
-            }
-        },
-        mounted() {
-            this.fetchDivisions();
-        },
-        methods: {
-            fetchDivisions() {
-                axios.get('{{ route('divisions.index') }}', { region_id: this.region}).then(function(res) {
-                    console.log(res.data);
-                    this.divisions = res.data;
-                }).catch(function(err) {
-                    console.log(err.response.data);
-                });
-            }
-        }
-    }
-</script>
-    
-@endpush

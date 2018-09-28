@@ -29210,7 +29210,30 @@ __webpack_require__(38);
 Vue.component("image-upload", __webpack_require__(39));
 
 var app = new Vue({
-  el: "#app"
+    el: "#app",
+    data: function data() {
+        return {
+            region: "",
+            divisions: {}
+        };
+    },
+    mounted: function mounted() {
+        this.fetchDivisions();
+    },
+
+    methods: {
+        fetchDivisions: function fetchDivisions() {
+            var vm = this;
+            axios.get("/values/divisions", {
+                params: { region_id: this.region }
+            }).then(function (res) {
+                console.log(res.data);
+                vm.$set(vm.$data, "divisions", res.data);
+            }).catch(function (err) {
+                console.log(err.response.data);
+            });
+        }
+    }
 });
 
 /**
@@ -45715,7 +45738,6 @@ module.exports = function normalizeComponent (
 
 "use strict";
 Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-//
 //
 //
 //

@@ -14,9 +14,14 @@ class DivisionController extends Controller
      */
     public function index(Request $request)
     {
+        $region = "*";
         $this->validate($request, [
-            'region_id' => 'integer'
+            'region_id' => 'integer|nullable'
         ]);
+        if (!empty($request->region_id)) {
+            $region = $request->region_id;
+        }
+        // return $request->all();
         return Division::where('region_id', $request->region_id)->orderBy('name')->get();
     }
 

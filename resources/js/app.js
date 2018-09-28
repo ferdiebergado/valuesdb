@@ -19,7 +19,32 @@ require("datatables.net-bs4");
 Vue.component("image-upload", require("./components/ImageUpload.vue"));
 
 const app = new Vue({
-    el: "#app"
+    el: "#app",
+    data() {
+        return {
+            region: "",
+            divisions: {}
+        };
+    },
+    mounted() {
+        this.fetchDivisions();
+    },
+    methods: {
+        fetchDivisions() {
+            var vm = this;
+            axios
+                .get("/values/divisions", {
+                    params: { region_id: this.region }
+                })
+                .then(function(res) {
+                    console.log(res.data);
+                    vm.$set(vm.$data, "divisions", res.data);
+                })
+                .catch(function(err) {
+                    console.log(err.response.data);
+                });
+        }
+    }
 });
 
 /**
