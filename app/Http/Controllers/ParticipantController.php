@@ -8,6 +8,8 @@ use Illuminate\Support\Facades\Storage;
 use App\Helpers\RequestParser;
 use \Exception;
 use App\Paxdata;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Validation\Rule;
 
 class ParticipantController extends Controller
 {
@@ -39,7 +41,7 @@ class ParticipantController extends Controller
         // $this->repository->with(['doctype', 'creator'])->getByOffice(auth()->user()->office_id);
         // Sort fields based on request orderBy (nested sorting)
         // $this->repository->pushCriteria(new MultiSortCriteria($request));
-        $participants = Participant::orderBy('lastname')->paginate($perPage);
+        $participants = Participant::with('paxdata')->orderBy('lastname')->paginate($perPage);
         // $documents = $this->repository->paginate($perPage);
         // $documents = $this->sortFields($request, $model)->paginate($perPage);
         if (request()->wantsJson()) {
@@ -59,7 +61,8 @@ class ParticipantController extends Controller
      */
     public function create()
     {
-        $participant = new Participant();
+        $participant = new Participant;
+        $participant->paxdata = null;
         $method = "POST";
         $route = route('participants.store');
         return view('paxform', compact('participant', 'method', 'route'));
@@ -74,19 +77,40 @@ class ParticipantController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
+            'title' => 'required|string',
             'lastname' => 'required|string',
-            'firstname' => 'required|string'
+            'firstname' => 'required|string',
+            'middlename' => 'string|nullable',
+            'gender' => [
+                'required',
+                Rule::in(['M', 'F', 'O'])
+            ],
+            'birthday' => 'date',
+            'yearsAsTeacher' => 'integer|nullable',
+            'yearsAsSupervisor' => 'integer|nullable',
+            'yearsAsCoordinator' => 'integer|nullable',
+            'photo' => 'string|nullable',
+            'jobtitle_id' => 'integer|nullable',
+            'region_id' => 'integer|nullable',
+            'division_id' => 'integer|nullable',
+            'station' => 'required|string',
+            'landline' => 'string|nullable',
+            'mobile' => 'required|string',
+            'fax' => 'string|nullable',
+            'email' => 'email|nullable',
+            'facebookid' => 'string|nullable'
         ]);
 
         DB::beginTransaction();
         try {
             $participant = Participant::create($request->all());
-            $paxdata = Paxdata::create(array_merge($request->all(), ['year' => config('app.year')]));
-            $participant->paxdata()->save($paxdata);
+            $paxdata = Paxdata::create(array_merge(['participant_id' => $participant->id], $request->all(), ['year' => config('app.year')]));
         } catch (Exception $e) {
             DB::rollback();
+            return back()->withErrors($e->getMessage());
         }
         DB::commit();
+        return redirect()->route('search')->with('status', 'New Participant saved.');
     }
 
     /**
@@ -97,8 +121,10 @@ class ParticipantController extends Controller
      */
     public function show(Participant $participant)
     {
-        $method = "PUT";
+        $method = "POST";
         $route = route('participants.update', ['participant' => $participant]);
+        $participant = Participant::with('paxdata')->findOrFail($participant->id);
+        dd($participant->paxdata);
         return view('paxform', compact('participant', 'method', 'route'));
     }
 

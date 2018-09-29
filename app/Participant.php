@@ -2,9 +2,9 @@
 
 namespace App;
 
+use App\BaseModel;
 use App\Activity;
 use App\Paxdata;
-use App\BaseModel;
 
 class Participant extends BaseModel
 {

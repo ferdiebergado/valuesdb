@@ -17,6 +17,7 @@ class CreateRegionsDivisionsTable extends Migration
             $table->unsignedInteger('region_id');
             $table->unsignedInteger('division_id');
             $table->index(['region_id', 'division_id']);
+            $table->year('year');
         });
     }
 

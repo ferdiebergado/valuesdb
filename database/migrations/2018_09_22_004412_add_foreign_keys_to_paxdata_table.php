@@ -13,7 +13,7 @@ class AddForeignKeysToPaxdataTable extends Migration
      */
     public function up()
     {
-        Schema::table('paxdata', function (Blueprint $table) {
+        Schema::table('paxdatas', function (Blueprint $table) {
             $table->foreign('participant_id')->references('id')->on('participants');
             $table->foreign('jobtitle_id')->references('id')->on('jobtitles');
             $table->foreign('region_id')->references('id')->on('regions');
@@ -28,7 +28,7 @@ class AddForeignKeysToPaxdataTable extends Migration
      */
     public function down()
     {
-        Schema::table('paxdata', function (Blueprint $table) {
+        Schema::table('paxdatas', function (Blueprint $table) {
             $table->dropForeign(['user_id', 'jobtitle_id', 'region_id', 'division_id']);
         });
     }

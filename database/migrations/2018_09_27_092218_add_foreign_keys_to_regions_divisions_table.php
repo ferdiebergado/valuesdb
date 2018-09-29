@@ -27,7 +27,8 @@ class AddForeignKeysToRegionsDivisionsTable extends Migration
     public function down()
     {
         Schema::table('regions_divisions', function (Blueprint $table) {
-            $table->dropForeign(['region_id', 'division_id']);
+            $table->dropForeign(['division_id']);
+            $table->dropForeign(['region_id']);
         });
     }
 }

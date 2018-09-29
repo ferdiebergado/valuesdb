@@ -2,15 +2,15 @@
 <html lang="en">
 <head>
     <title>{{ config('app.name') }}</title>
-    
+
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Ferdinand Saporas Bergado">
-    
+
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-    
+
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
 
     @stack('styles')
@@ -18,29 +18,30 @@
 </head>
 
 <body>
-    <div id="app">        
+    <div id="app">
 
-        @if (Route::is('search') || Route::is('login')) 
+        @if (Route::is('search') || Route::is('login'))
 
         <div class="flex-container">
             <div class="flex-row">
-                <p><h1 style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>        
-                @yield('content')                           
+                <p><h1 style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>
+                @yield('content')
                 {{-- @include('footer')       --}}
-            </div>        
+            </div>
         </div> <!-- flex-container -->
 
         @else
 
         <div class="container-fluid">
             <p><h1 class="text-center" style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>
-            <div class="row justify-content-center">            
+            <div class="row justify-content-center">
                 <div class="card card-primary mt-4">
                     <div class="card">
                         <div class="card-header">
                             @yield('boxtools')
                         </div>
                         <div class="card-body">
+                            @include('messages')
                             @yield('content')
                         </div>
                         <div class="card-footer text-muted">
@@ -49,13 +50,13 @@
                             </div>
                         </div>
                     </div>
-                </div> 
+                </div>
             </div>
         </div> <!-- container-fluid -->
 
         {{-- @include('footer') --}}
-        @endif   
-        
+        @endif
+
         <!-- Modal -->
         <div class="modal fade" id="license" tabindex="-1" role="dialog" aria-labelledby="License" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -76,7 +77,7 @@
             </div>
         </div> <!-- Modal -->
 
-    </div> <!-- app -->    
+    </div> <!-- app -->
 
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')

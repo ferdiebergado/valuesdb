@@ -2,16 +2,17 @@
 
 namespace App;
 
+use App\BaseModel;
 use App\Participant;
 use App\Region;
 use App\Division;
 use App\Role;
-use App\BaseModel;
 use App\Jobtitle;
 
 class Paxdata extends BaseModel
 {
     protected $fillable = [
+        'participant_id',
         'jobtitle_id',
         'region_id',
         'division_id',
@@ -26,7 +27,7 @@ class Paxdata extends BaseModel
 
     public function participant()
     {
-        return $this->belongsTo(Participant::class);
+        return $this->belongsTo(Participant::class)->withDefault();
     }
 
     public function region()

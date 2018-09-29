@@ -13,7 +13,7 @@ class CreatePaxdataTable extends Migration
      */
     public function up()
     {
-        Schema::create('paxdata', function (Blueprint $table) {
+        Schema::create('paxdatas', function (Blueprint $table) {
             $table->increments('id');
             $table->unsignedInteger('participant_id');
             $table->unsignedInteger('jobtitle_id')->nullable();
@@ -37,6 +37,6 @@ class CreatePaxdataTable extends Migration
      */
     public function down()
     {
-        Schema::dropIfExists('paxdata');
+        Schema::dropIfExists('paxdatas');
     }
 }

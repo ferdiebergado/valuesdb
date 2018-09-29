@@ -23,22 +23,27 @@ const app = new Vue({
     data() {
         return {
             region: "",
-            divisions: {}
+            divisions: {},
+            disabled: true,
+            loading: false
         };
-    },
-    mounted() {
-        this.fetchDivisions();
     },
     methods: {
         fetchDivisions() {
             var vm = this;
+            this.loading = true;
+            if (this.region === "" || this.region === 19) {
+                this.disabled = true;
+            } else {
+                this.disabled = false;
+            }
             axios
                 .get("/values/divisions", {
                     params: { region_id: this.region }
                 })
                 .then(function(res) {
-                    console.log(res.data);
                     vm.$set(vm.$data, "divisions", res.data);
+                    vm.$set(vm.$data, "loading", false);
                 })
                 .catch(function(err) {
                     console.log(err.response.data);
@@ -46,25 +51,3 @@ const app = new Vue({
         }
     }
 });
-
-/**
- * @param  {input element}
- * @return {[file handle]}
- */
-// try {
-//     var readURL = function(input) {
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 $("#avatar-preview").attr("src", e.target.result);
-//             };
-//             reader.readAsDataURL(input.files[0]);
-//         }
-//     };
-// } catch (err) {
-//     console.log(err.message);
-// }
-
-// $("#avatar-input").change(function() {
-//     readURL(this);
-// });

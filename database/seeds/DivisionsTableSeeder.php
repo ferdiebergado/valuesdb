@@ -9,6 +9,8 @@ class DivisionsTableSeeder extends CsvSeeder
     {
         $this->table = 'divisions';
         $this->filename = base_path() . '/database/seeds/csv/divisions-values.csv';
+        // $this->insert_chunk_size = 500;
+        // $this->should_trim = true;
     }
 
     public function run()

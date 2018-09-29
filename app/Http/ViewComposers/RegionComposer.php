@@ -4,6 +4,7 @@ namespace App\Http\ViewComposers;
 
 use App\Region;
 use \Illuminate\View\View;
+use Illuminate\Support\Facades\DB;
 
 class RegionComposer
 {
@@ -34,6 +35,13 @@ class RegionComposer
      */
     public function compose(View $view)
     {
-        $view->with('regions', $this->regions->orderBy('id')->get());
+        $regions = DB::table('regions_divisions')
+            ->join('regions', 'regions.id', '=', 'regions_divisions.region_id')
+            ->select('regions.*')
+            ->where('year', config('app.year'))
+            ->distinct()
+            ->orderBy('regions.id')
+            ->get();
+        $view->with('regions', $regions);
     }
 }

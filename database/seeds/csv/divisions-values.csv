@@ -12,6 +12,8 @@ San Carlos City,1
 San Fernando City,1
 Urdaneta City,1
 Vigan City,1
+RO I,1
+Batac City,1
 Batanes,2
 Cagayan,2
 Cauayan City,2
@@ -20,6 +22,8 @@ Nueva Vizcaya,2
 Quirino,2
 Santiago City,2
 Tuguegarao City,2
+RO II,2
+Ilagan City,2
 Angeles City,3
 Aurora,3
 Balanga City,3
@@ -38,6 +42,9 @@ San Jose del Monte City,3
 Tarlac,3
 Tarlac City,3
 Zambales,3
+RO III,3
+Mabalacat City,3
+Meycauayan City,3
 Antipolo City,4
 Batangas Province,4
 Batangas City,4
@@ -53,6 +60,12 @@ Rizal,4
 San Pablo City,4
 Sta. Rosa City,4
 Tanauan City,4
+Imus City,4
+RO IV-A,4
+Biñan City,4
+Bacoor City,4
+Tayabas City,4
+Cabuyao City,4
 Calapan City,5
 Marinduque,5
 Occidental Mindoro,5
@@ -60,6 +73,8 @@ Oriental Mindoro,5
 Palawan,5
 Puerto Princesa City,5
 Romblon,5
+RO IV-B,5
+General Trias City,5
 Albay,6
 Camarines Norte,6
 Camarines Sur,6
@@ -73,6 +88,7 @@ Naga City,6
 Sorsogon,6
 Sorsogon City,6
 Tabaco City,6
+RO V,6
 Aklan,7
 Antique,7
 Bacolod City,7
@@ -91,6 +107,10 @@ Roxas City,7
 Sagay City,7
 San Carlos City,7
 Silay City,7
+RO VI,7
+Sipalay City,7
+Himamaylan City,7
+Bago City,7
 Bais City,8
 Bayawan City,8
 Bogo City,8
@@ -110,6 +130,7 @@ Tagbilaran City,8
 Talisay City,8
 Tanjay City,8
 Toledo City,8
+RO VII,8
 Biliran,9
 Calbayog City,9
 Eastern Samar,9
@@ -120,6 +141,10 @@ Ormoc City,9
 Samar (Western Samar),9
 Southern Leyte,9
 Tacloban City,9
+Catbalogan City,9
+RO VIII,9
+Borongan City,9
+Baybay City,9
 Dapitan City,10
 Dipolog City,10
 Isabela City,10
@@ -128,6 +153,7 @@ Zamboanga City,10
 Zamboanga del Norte,10
 Zamboanga del Sur,10
 Zamboanga Sibugay,10
+RO IX,10
 Bukidnon,11
 Cagayan de Oro City,11
 Camiguin,11
@@ -141,6 +167,8 @@ Oroquieta City,11
 Ozamis City,11
 Tangub City,11
 Valencia City,11
+RO X,11
+El Salvador City,11
 Compostela Valley,12
 Davao City,12
 Davao del Norte,12
@@ -150,6 +178,9 @@ Digos City,12
 Island Garden City of Samal,12
 Panabo City,12
 Tagum City,12
+Mati City,12
+RO XI,12
+Davao Occidental,12
 Cotabato City,13
 General Santos City,13
 Kidapawan City,13
@@ -159,6 +190,7 @@ Sarangani,13
 South Cotabato,13
 Sultan Kudarat,13
 Tacurong City,13
+RO XII,13
 Agusan del Norte,14
 Agusan del Sur,14
 Bislig City,14
@@ -168,6 +200,10 @@ Siargao,14
 Surigao City,14
 Surigao del Norte,14
 Surigao del Sur,14
+Bayugan City,14
+RO CARAGA,14
+Cabadbaran City,14
+Tandag City,14
 Basilan,15
 Lamitan City,15
 Lanao del Sur I-A,15
@@ -180,6 +216,7 @@ Marawi City,15
 Sulu,15
 Sulu II,15
 Tawi-Tawi,15
+RO ARMM,15
 Abra,16
 Apayao,16
 Baguio City,16
@@ -187,6 +224,8 @@ Benguet,16
 Ifugao,16
 Kalinga,16
 Mt. Province,16
+RO CAR,16
+Tabuk City,16
 Caloocan City,17
 City of San Juan,17
 Las Piñas City,17
@@ -203,54 +242,14 @@ Pasig City,17
 Quezon City,17
 Taguig & Pateros,17
 Valenzuela City,17
-Mati City,12
-Bayugan City,14
-Imus City,4
-Catbalogan City,9
-RO I,1
-RO II,2
-RO III,3
-RO IV-A,4
-RO IV-B,5
-RO V,6
-RO VI,7
-RO VII,8
-RO VIII,9
-RO IX,10
-RO X,11
-RO XI,12
-RO XII,13
-RO CARAGA,14
-RO ARMM,15
-RO CAR,16
 RO NCR,17
-Mabalacat City,3
-Ilagan City,2
-Cabadbaran City,14
-Meycauayan City,3
-Borongan City,9
-Biñan City,4
-Bacoor City,4
-Baybay City,9
-TLD-BLD,98
-Sipalay City,7
-Himamaylan City,7
-Bago City,7
 Victorias City,18
 Canlaon City,18
 RO NIR,18
-El Salvador City,11
-Tayabas City,4
-CSDD-BCD,98
-SCPD-BCD,98
-OD-BLD,98
-Batac City,1
-YFD-BLSS,98
-QAD-NEAP,98
-Makati City,97
-Cabuyao City,4
-Tandag City,14
-Tabuk City,16
-Davao Occidental,12
-PD-BLR,98
-General Trias City,5
+TLD-BLD,19
+CSDD-BCD,19
+SCPD-BCD,19
+OD-BLD,19
+YFD-BLSS,19
+QAD-NEAP,19
+PD-BLR,19

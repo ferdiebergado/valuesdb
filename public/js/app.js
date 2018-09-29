@@ -29214,49 +29214,32 @@ var app = new Vue({
     data: function data() {
         return {
             region: "",
-            divisions: {}
+            divisions: {},
+            disabled: true,
+            loading: false
         };
-    },
-    mounted: function mounted() {
-        this.fetchDivisions();
     },
 
     methods: {
         fetchDivisions: function fetchDivisions() {
             var vm = this;
+            this.loading = true;
+            if (this.region === "" || this.region === 19) {
+                this.disabled = true;
+            } else {
+                this.disabled = false;
+            }
             axios.get("/values/divisions", {
                 params: { region_id: this.region }
             }).then(function (res) {
-                console.log(res.data);
                 vm.$set(vm.$data, "divisions", res.data);
+                vm.$set(vm.$data, "loading", false);
             }).catch(function (err) {
                 console.log(err.response.data);
             });
         }
     }
 });
-
-/**
- * @param  {input element}
- * @return {[file handle]}
- */
-// try {
-//     var readURL = function(input) {
-//         if (input.files && input.files[0]) {
-//             var reader = new FileReader();
-//             reader.onload = function(e) {
-//                 $("#avatar-preview").attr("src", e.target.result);
-//             };
-//             reader.readAsDataURL(input.files[0]);
-//         }
-//     };
-// } catch (err) {
-//     console.log(err.message);
-// }
-
-// $("#avatar-input").change(function() {
-//     readURL(this);
-// });
 
 /***/ }),
 /* 14 */
@@ -45753,8 +45736,6 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   data: function data() {
@@ -45835,7 +45816,7 @@ var render = function() {
       ]),
       _vm._v(" "),
       _c("input", {
-        attrs: { type: "hidden", name: "filename" },
+        attrs: { type: "hidden", name: "photo" },
         domProps: { value: _vm.filename }
       }),
       _vm._v(" "),
@@ -45852,7 +45833,7 @@ var render = function() {
               }
             }
           },
-          [_vm._v("Upload Image")]
+          [_vm._v("Upload Photo")]
         )
       ])
     ])
