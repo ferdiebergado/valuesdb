@@ -10,5 +10,6 @@ $factory->define(App\Participant::class, function (Faker $faker) {
         'birthday' => $faker->date(),
         'station' => $faker->company,
         'mobile' => $faker->phoneNumber,
+        'email' => $faker->email
     ];
 });

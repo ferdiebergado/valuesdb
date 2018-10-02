@@ -236,7 +236,7 @@
     <div class="col-12">
         <div class="form-group">
             <span class="float-right">
-                <a class="btn" href="javascript:void();" onclick="window.history.back();">Back to Search</a>
+                <a class="btn" href="javascript:void();" onclick="window.history.back();">Back</a>
                 <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> SAVE</button>
             </span>
         </div>

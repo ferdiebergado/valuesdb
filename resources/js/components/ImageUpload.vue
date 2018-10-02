@@ -42,13 +42,13 @@
         reader.readAsDataURL(file);
     },
     uploadImage() {
-      axios.post("/values/avatar", { file: this.image }).then(response => {
-        if (response.data.success) {
-          this.filename = response.data.filename;
-          alert(response.data.success);
-      }
-  });
-  }
-}
+        axios.post("/values/avatar", { file: this.image }).then(response => {
+            if (response.data.success) {
+                this.filename = response.data.filename;
+                alert(response.data.success);
+            }
+            });
+        }
+    }
 }
 </script>
