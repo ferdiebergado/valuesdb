@@ -7,6 +7,8 @@ $factory->define(App\Participant::class, function (Faker $faker) {
         'lastname' => $faker->firstName(),
         'firstname' => $faker->firstName(),
         'gender' => $faker->randomElement(['M', 'F', 'O']),
-        'birthday' => $faker->date()
+        'birthday' => $faker->date(),
+        'station' => $faker->company,
+        'mobile' => $faker->phoneNumber,
     ];
 });

@@ -21,6 +21,15 @@ class CreateParticipantsTable extends Migration
             $table->string('lastname', 75);
             $table->dateTime('birthday')->nullable();
             $table->enum('gender', ['M', 'F', 'O']);
+            $table->unsignedInteger('jobtitle_id')->nullable();
+            $table->unsignedInteger('region_id')->nullable();
+            $table->unsignedInteger('division_id')->nullable();
+            $table->string('station', 255);
+            $table->string('landline', 75)->nullable();
+            $table->string('fax', 75)->nullable();
+            $table->string('mobile', 100);
+            $table->string('email', 150)->nullable();
+            $table->string('facebookid', 100)->nullable();
             $table->integer('yearsAsTeacher')->nullable();
             $table->integer('yearsAsSupervisor')->nullable();
             $table->integer('yearsAsCoordinator')->nullable();

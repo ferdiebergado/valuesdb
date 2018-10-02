@@ -17,37 +17,12 @@ require("datatables.net-bs4");
  */
 
 Vue.component("image-upload", require("./components/ImageUpload.vue"));
+Vue.component('region-select', require('./components/RegionSelect.vue'));
+Vue.component('division-select', require('./components/DivisionSelect.vue'));
+Vue.component('data-viewer', require('./components/DataViewer.vue'));
+
+window.eventBus = new Vue();
 
 const app = new Vue({
-    el: "#app",
-    data() {
-        return {
-            region: "",
-            divisions: {},
-            disabled: true,
-            loading: false
-        };
-    },
-    methods: {
-        fetchDivisions() {
-            var vm = this;
-            this.loading = true;
-            if (this.region === "" || this.region === 19) {
-                this.disabled = true;
-            } else {
-                this.disabled = false;
-            }
-            axios
-                .get("/values/divisions", {
-                    params: { region_id: this.region }
-                })
-                .then(function(res) {
-                    vm.$set(vm.$data, "divisions", res.data);
-                    vm.$set(vm.$data, "loading", false);
-                })
-                .catch(function(err) {
-                    console.log(err.response.data);
-                });
-        }
-    }
+    el: "#app"
 });

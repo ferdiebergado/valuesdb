@@ -37,9 +37,6 @@
             <div class="row justify-content-center">
                 <div class="card card-primary mt-4">
                     <div class="card">
-                        <div class="card-header">
-                            @yield('boxtools')
-                        </div>
                         <div class="card-body">
                             @include('messages')
                             @yield('content')

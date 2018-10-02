@@ -10,17 +10,18 @@
         <hr>
     </div>
 
-    @if (Route::is('participants.show'))
+    @if (Route::is('participants.edit'))
 
     {{ method_field('PUT') }}
 
     <div class="row">
         <div class="col-8">
-            <h4>{{ $participant->lastname }}, {{ $participant->firstname }} . {{ $participant->middlename }}</h4>
-            <p>{{ $participant->paxdata->station }}</p>
+            <h4>{{ ucfirst($participant->lastname) }}, {{ ucfirst($participant->firstname) }} {{ ucfirst($participant->middlename) }}</h4>
+            <h6>{{ $participant->jobtitle->name }}</h6>
+            <h6>{{ $participant->station }}</h6>
         </div>
         <div class="col-4">
-            <img src="{{ asset('storage/avatars/' . $participant->photo) }}" alt="">
+            <img src="{{ asset('storage/avatars/' . $participant->photo) }}" alt="avatar" height="160" width="160">
         </div>
     </div>
     <hr>
@@ -29,7 +30,7 @@
     <div class="row">
         <div class="col-4">
             <div class="form-group">
-                <label>ID &nbsp;<span class="badge badge-success">{{ $participant->id ?? '(New)' }}</span></label>
+                <label>ID &nbsp;<span class="badge badge-info">{{ $participant->id ?? '(New)' }}</span></label>
             </div>
         </div>
     </div>
@@ -43,7 +44,7 @@
                     @endphp
                     <option value="">Select</option>
                     @foreach ($titles as $title)
-                    <option value="{{ $title }}">{{ $title }}</option>
+                    <option value="{{ $title }}" {{ $title === old('title') ? 'selected' : ($title === optional($participant)->title) ? 'selected' : '' }}>{{ $title }}</option>
                     @endforeach
                 </select>
             </div>
@@ -73,10 +74,18 @@
         <div class="col-3">
             <div class="form-group">
                 <label for="">Sex</label>
+                @php
+                    $genders = [
+                            'M' => 'Male',
+                            'F' => 'Female',
+                            'O' => 'Other'
+                    ]
+                @endphp
                 <select class="form-control" name="gender" id="gender" required>
                     <option value="">Select</option>
-                    <option value="M">Male</option>
-                    <option value="F">Female</option>
+                    @foreach ($genders as $key => $value)
+                    <option value="{{ $key }}" {{ $key === old('gender') ? 'selected' : ($key === optional($participant)->gender) ? 'selected' : '' }}>{{ $value }}</option>
+                    @endforeach
                 </select>
             </div>
         </div>
@@ -87,7 +96,7 @@
                     <option value="">Select</option>
                     @if (isset($jobtitles) && count($jobtitles) > 0)
                     @foreach ($jobtitles as $jobtitle)
-                    <option value="{{ $jobtitle->id }}">{{ $jobtitle->name }}</option>
+                    <option value="{{ $jobtitle->id }}" {{ $jobtitle->id === old('jobtitle_id') ? 'selected' : ($jobtitle->id === optional($participant)->jobtitle_id) ? 'selected' : '' }}>{{ $jobtitle->name }}</option>
                     @endforeach
                     @endif
                 </select>
@@ -98,14 +107,7 @@
         <div class="col-4">
             <div class="form-group">
                 <label for="">Region</label>
-                <select class="form-control" name="region_id" id="region_id" v-model.number="region" v-on:change="fetchDivisions">
-                    <option value="">Select</option>
-                    @if (isset($regions) && count($regions) > 0)
-                    @foreach ($regions as $region)
-                    <option value="{{ $region->id }}">{{ $region->name }}</option>
-                    @endforeach
-                    @endif
-                </select>
+                <region-select regionid="{{ old('region_id', optional($participant)->region_id) }}"></region-select>
             </div>
         </div>
         <div class="col-8">
@@ -114,10 +116,7 @@
                 <p id="ajax-loader" v-if="loading">
                     Updating... &nbsp;<img src="{{ url('/storage') . '/' . 'ajax-loader-square.gif' }}">
                 </p>
-                <select class="form-control" name="division_id" id="division_id" :disabled="disabled" v-show="!loading">
-                    <option value="">Select</option>
-                    <option v-for="division in divisions" :key="division.id" :value="division.id">@{{ division.name }}</option>
-                </select>
+                <division-select divisionid="{{ old('division_id', optional($participant)->division_id) }}"></division-select>
             </div>
         </div>
     </div>
@@ -125,7 +124,7 @@
         <div class="col-12">
             <div class="form-group">
                 <label for="">School/Office</label>
-                <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->paxdata->station}}">
+                <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->station}}">
             </div>
         </div>
     </div>
@@ -133,13 +132,13 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="">Tel. No.</label>
-                <input type="text" name="landline" id="landline" class="form-control" placeholder="Tel. No." aria-describedby="helpLandline" value="{{ !empty(old('landline')) ? old('landline') : !empty($participant->paxdata->landline) ? $participant->paxdata->landline : '' }}">
+                <input type="text" name="landline" id="landline" class="form-control" placeholder="Tel. No." aria-describedby="helpLandline" value="{{ !empty(old('landline')) ? old('landline') : !empty($participant->landline) ? $participant->landline : '' }}">
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="">Fax. No.</label>
-                <input type="text" name="fax" id="fax" class="form-control" placeholder="Fax. No." aria-describedby="helpFax" value="{{ old('fax') ?: isset($participant->paxdata->fax) ? $participant->paxdata->fax : '' }}">
+                <input type="text" name="fax" id="fax" class="form-control" placeholder="Fax. No." aria-describedby="helpFax" value="{{ old('fax') ?: isset($participant->fax) ? $participant->fax : '' }}">
             </div>
         </div>
     </div>
@@ -147,7 +146,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="mobile">Mobile No.</label>
-                <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No." aria-describedby="helpMobile" value="{!! old('mobile', optional($participant->paxdata)->mobile) !!}">
+                <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No." aria-describedby="helpMobile" value="{!! old('mobile', optional($participant)->mobile) !!}">
                 @if ($errors->has('mobile'))
                 <small id="passwordHelpBlock" class="form-text text-danger">
                     {{ $errors->mobile }}
@@ -158,7 +157,15 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->paxdata->email) ? $participant->paxdata->email : '' }}">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->email) ? $participant->email : '' }}">
+            </div>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-6">
+            <div class="form-group">
+                <label for="email">Facebook ID</label>
+                <input type="text" name="facebookid" id="facebookid" class="form-control" placeholder="Facebook ID" aria-describedby="helpFacebookId" value="{{ old('facebookid') ?: isset($participant->facebookid) ? $participant->facebookid : '' }}">
             </div>
         </div>
     </div>
@@ -176,15 +183,15 @@
         <div class="row">
             <div class="col-4">
                 <label for="yearsAsTeacher">Teacher</label>
-                <input type="number" class="form-control" name="yearsAsTeacher" id="yearsAsTeacher" aria-describedby="helpYearsAsTeacher">
+                <input type="number" class="form-control" name="yearsAsTeacher" id="yearsAsTeacher" aria-describedby="helpYearsAsTeacher" value="{{ old('yearsAsTeacher', optional($participant)->yearsAsTeacher) }}">
             </div>
             <div class="col-4">
                 <label for="yearsAsSupervisor">Supervisor</label>
-                <input type="number" class="form-control" name="yearsAsSupervisor" id="yearsAsSupervisor" aria-describedby="helpYearsAsSupervisor">
+                <input type="number" class="form-control" name="yearsAsSupervisor" id="yearsAsSupervisor" aria-describedby="helpYearsAsSupervisor" value="{{ old('yearsAsSupervisor', optional($participant)->yearsAsSupervisor) }}">
             </div>
             <div class="col-4">
                 <label for="yearsAsCoordinator">Coordinator</label>
-                <input type="number" class="form-control" name="yearsAsCoordinator" id="yearsAsCoordinator" aria-describedby="helpYearsAsCoordinator">
+                <input type="number" class="form-control" name="yearsAsCoordinator" id="yearsAsCoordinator" aria-describedby="helpYearsAsCoordinator" value="{{ old('yearsAsCoordinator', optional($participant)->yearsAsCoordinator) }}">
             </div>
         </div>
     </div>
@@ -221,12 +228,11 @@
             </table>
         </div>
     </div>
-    @if (Route::is('participants.create'))
+    @if (Route::is('participants.create') || Route::is('participants.edit'))
     <div class="row">
-        <image-upload></image-upload>
+        <image-upload defaultvalue="{{ old('photo', optional($participant)->photo) }}"></image-upload>
     </div>
     @endif
-
     <div class="col-12">
         <div class="form-group">
             <span class="float-right">

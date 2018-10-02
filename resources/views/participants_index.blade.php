@@ -2,8 +2,9 @@
 
 @section('content')
 
-    <table id="participants-table" class="table-hover table-striped table-condensed dataTable js-exportable"></table>
-    
+{{-- <data-viewer source="/values/api/participants" title="Participant Data" /> --}}
+<table id="participants-table" class="table-hover table-striped dataTable js-exportable"></table>
+
 @endsection
 
 @push('scripts')

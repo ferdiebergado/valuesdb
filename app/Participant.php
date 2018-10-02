@@ -4,16 +4,38 @@ namespace App;
 
 use App\BaseModel;
 use App\Activity;
-use App\Paxdata;
+use App\Helpers\DataViewer;
 
 class Participant extends BaseModel
 {
+    use DataViewer;
+
+    public static $columns = [
+        'id',
+        'lastname',
+        'firstname',
+        'middlename',
+        'gender',
+        'station',
+        'mobile',
+        'email',
+        'birthday'
+    ];
     protected $fillable = [
         'title',
         'lastname',
         'firstname',
         'middlename',
         'gender',
+        'jobtitle_id',
+        'region_id',
+        'division_id',
+        'station',
+        'landline',
+        'mobile',
+        'fax',
+        'email',
+        'facebookid',
         'birthday',
         'yearsAsTeacher',
         'yearsAsSupervisor',
@@ -26,8 +48,7 @@ class Participant extends BaseModel
         return $this->hasMany(Activity::class);
     }
 
-    public function paxdata()
-    {
-        return $this->hasMany(Paxdata::class);
+    public function jobtitle() {
+        return $this->belongsTo(Jobtitle::class);
     }
 }

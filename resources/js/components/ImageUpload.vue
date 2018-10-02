@@ -12,40 +12,43 @@
                 </div>
             </div>
         </template>
-<script>
-    export default {
-        data() {
-            return {
-              image: "",
-              filename: "",
-              disabled: true
-          };
-      },
-      methods: {
-        onImageChange(e) {
-          let files = e.target.files || e.dataTransfer.files;
-          if (!files.length) {
-            return;
-        }
-        this.disabled = false;
-        this.createImage(files[0]);
+        <script>
+        export default {
+            props: {
+                defaultvalue: String
+            },
+            data() {
+                return {
+                  image: "",
+                  filename: this.defaultvalue,
+                  disabled: true
+              };
+          },
+          methods: {
+            onImageChange(e) {
+              let files = e.target.files || e.dataTransfer.files;
+              if (!files.length) {
+                return;
+            }
+            this.disabled = false;
+            this.createImage(files[0]);
+        },
+        createImage(file) {
+          let reader = new FileReader();
+          let vm = this;
+          reader.onload = e => {
+            vm.image = e.target.result;
+        };
+        reader.readAsDataURL(file);
     },
-    createImage(file) {
-      let reader = new FileReader();
-      let vm = this;
-      reader.onload = e => {
-        vm.image = e.target.result;
-    };
-    reader.readAsDataURL(file);
-},
-uploadImage() {
-  axios.post("/values/avatar", { file: this.image }).then(response => {
-    if (response.data.success) {
-      this.filename = response.data.filename;
-      alert(response.data.success);
+    uploadImage() {
+      axios.post("/values/avatar", { file: this.image }).then(response => {
+        if (response.data.success) {
+          this.filename = response.data.filename;
+          alert(response.data.success);
+      }
+  });
   }
-});
-}
 }
 }
 </script>

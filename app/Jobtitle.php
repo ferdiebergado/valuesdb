@@ -2,10 +2,10 @@
 
 namespace App;
 
-use Illuminate\Database\Eloquent\Model;
+use App\BaseModel;
 use App\Participant;
 
-class Jobtitle extends Model
+class Jobtitle extends BaseModel
 {
     protected $fillable = [
         'name',

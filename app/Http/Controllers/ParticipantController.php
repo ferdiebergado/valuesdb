@@ -41,7 +41,7 @@ class ParticipantController extends Controller
         // $this->repository->with(['doctype', 'creator'])->getByOffice(auth()->user()->office_id);
         // Sort fields based on request orderBy (nested sorting)
         // $this->repository->pushCriteria(new MultiSortCriteria($request));
-        $participants = Participant::with('paxdata')->orderBy('lastname')->paginate($perPage);
+        $participants = Participant::orderBy('lastname')->paginate($perPage);
         // $documents = $this->repository->paginate($perPage);
         // $documents = $this->sortFields($request, $model)->paginate($perPage);
         if (request()->wantsJson()) {
@@ -62,7 +62,6 @@ class ParticipantController extends Controller
     public function create()
     {
         $participant = new Participant;
-        $participant->paxdata = null;
         $method = "POST";
         $route = route('participants.store');
         return view('paxform', compact('participant', 'method', 'route'));
@@ -77,7 +76,11 @@ class ParticipantController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'title' => 'required|string',
+            'title' => [
+                'required',
+                'string',
+                Rule::in(['Mr.', 'Ms.', 'Mrs.', 'Dr.', 'Prof.'])
+            ],
             'lastname' => 'required|string',
             'firstname' => 'required|string',
             'middlename' => 'string|nullable',
@@ -100,17 +103,9 @@ class ParticipantController extends Controller
             'email' => 'email|nullable',
             'facebookid' => 'string|nullable'
         ]);
-
-        DB::beginTransaction();
-        try {
-            $participant = Participant::create($request->all());
-            $paxdata = Paxdata::create(array_merge(['participant_id' => $participant->id], $request->all(), ['year' => config('app.year')]));
-        } catch (Exception $e) {
-            DB::rollback();
-            return back()->withErrors($e->getMessage());
-        }
-        DB::commit();
-        return redirect()->route('search')->with('status', 'New Participant saved.');
+        $participant = Participant::create($request->all());
+        $request->session()->flash('status', 'New participant saved.');
+        return redirect()->route('search');
     }
 
     /**
@@ -121,11 +116,7 @@ class ParticipantController extends Controller
      */
     public function show(Participant $participant)
     {
-        $method = "POST";
-        $route = route('participants.update', ['participant' => $participant]);
-        $participant = Participant::with('paxdata')->findOrFail($participant->id);
-        dd($participant->paxdata);
-        return view('paxform', compact('participant', 'method', 'route'));
+
     }
 
     /**
@@ -136,7 +127,10 @@ class ParticipantController extends Controller
      */
     public function edit(Participant $participant)
     {
-        //
+        $method = "POST";
+        $route = route('participants.update', ['participant' => $participant]);
+        $participant = Participant::with('jobtitle')->findOrFail($participant->id);
+        return view('paxform', compact('participant', 'method', 'route'));
     }
 
     /**
@@ -148,7 +142,11 @@ class ParticipantController extends Controller
      */
     public function update(Request $request, Participant $participant)
     {
-        //
+        if ($participant->update($request->all())) {
+            $request->session()->flash('status', 'Participant profile updated.');
+            return redirect()->route('participants.index');
+        }
+        return back()->withErrors('Update failed.');
     }
 
     /**
@@ -167,11 +165,8 @@ class ParticipantController extends Controller
         $this->validate($request, [
             'lastname' => 'required|string|min:2|max:150'
         ]);
-
         $search = "%" . $request->lastname . "%";
-
         $participants = Participant::where('lastname', 'LIKE', $search)->orderBy('lastname')->paginate(10);
-
         return view('results', compact('participants'));
     }
 
@@ -184,4 +179,16 @@ class ParticipantController extends Controller
         $filename = Storage::disk('public')->putFile('/avatars', $request->file('file'));
         return response()->json(['fileid' => $filename]);
     }
+    public function getData()
+    {
+        $model = Participant::searchPaginateAndOrder();
+        $columns = Participant::$columns;
+
+        return response()
+            ->json([
+                'model' => $model,
+                'columns' => $columns
+            ]);
+    }
+
 }
