@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers;
 
-use App\Activity;
+use App\Role;
 use Illuminate\Http\Request;
 
-class ActivityController extends Controller
+class RoleController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -14,8 +14,7 @@ class ActivityController extends Controller
      */
     public function index()
     {
-        $request = app()->make('request');
-        return Activity::with('role')->where('participant_id', $request->participantid)->orderBy('enddate', 'DESC')->get();
+        return Role::orderBy('name')->get();
     }
 
     /**
@@ -36,28 +35,16 @@ class ActivityController extends Controller
      */
     public function store(Request $request)
     {
-        $this->validate($request, [
-            'participant_id' => 'integer|nullable',
-            'activitytitle' => 'required|string',
-            'venue' => 'required|string',
-            'startdate' => 'required|date',
-            'enddate' => 'required|date',
-            'managedby' => 'string',
-            'role_id' => 'integer|nullable'
-        ]);
-        if (Activity::create($request->all())) {
-            $request->session()->flash('status', 'Activity saved.');
-        }
-        return back();
+        //
     }
 
     /**
      * Display the specified resource.
      *
-     * @param  \App\Activity  $activity
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function show(Activity $activity)
+    public function show(Role $role)
     {
         //
     }
@@ -65,10 +52,10 @@ class ActivityController extends Controller
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Activity  $activity
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function edit(Activity $activity)
+    public function edit(Role $role)
     {
         //
     }
@@ -77,10 +64,10 @@ class ActivityController extends Controller
      * Update the specified resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @param  \App\Activity  $activity
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function update(Request $request, Activity $activity)
+    public function update(Request $request, Role $role)
     {
         //
     }
@@ -88,13 +75,11 @@ class ActivityController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Activity  $activity
+     * @param  \App\Role  $role
      * @return \Illuminate\Http\Response
      */
-    public function destroy(Activity $activity)
+    public function destroy(Role $role)
     {
         //
     }
-
-
 }

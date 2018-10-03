@@ -77,38 +77,6 @@ table.dataTable span.column_highlight {
   background-color: #ffcc99;
   border-radius: 0.28571429rem;
 }
-@font-face {
-  font-family: 'Noto Sans';
-  src: url(/fonts/vendor/notosans-fontface/NotoSans-Regular.eot?327e30c20b77c3d422c2a30d0d12bccd);
-  src: local("Noto Sans Regular"), local("NotoSans-Regular"), url(/fonts/vendor/notosans-fontface/NotoSans-Regular.eot?327e30c20b77c3d422c2a30d0d12bccd) format("embedded-opentype"), url(/fonts/vendor/notosans-fontface/NotoSans-Regular.woff2?e50c34178d20d5fa4ab3c1f6c67901a9) format("woff2"), url(/fonts/vendor/notosans-fontface/NotoSans-Regular.woff?0695760218a052feda995a122b634858) format("woff"), url(/fonts/vendor/notosans-fontface/NotoSans-Regular.ttf?21f6235482ecdf67217dfa18483f7716) format("truetype"), url(/fonts/vendor/notosans-fontface/NotoSans-Regular.svg?505ad3dfb5803359b0ccb71d6e526b63) format("svg");
-  font-weight: 400;
-  font-style: normal;
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  src: url(/fonts/vendor/notosans-fontface/NotoSans-Bold.eot?2ebcb523dec0ce7b98d07e8ddeb5767b);
-  src: local("Noto Sans Bold"), local("NotoSans-Bold"), url(/fonts/vendor/notosans-fontface/NotoSans-Bold.eot?2ebcb523dec0ce7b98d07e8ddeb5767b) format("embedded-opentype"), url(/fonts/vendor/notosans-fontface/NotoSans-Bold.woff2?b85bf848c28799f5ad34ee29db68051c) format("woff2"), url(/fonts/vendor/notosans-fontface/NotoSans-Bold.woff?c5802f2add9b067f419c9ea07a008d67) format("woff"), url(/fonts/vendor/notosans-fontface/NotoSans-Bold.ttf?6a1f7cfe6252b44b6ea1e3fbf5b6661b) format("truetype"), url(/fonts/vendor/notosans-fontface/NotoSans-Bold.svg?c65fb6ac34e7d7fd7ca16f01c5d63df6) format("svg");
-  font-weight: 700;
-  font-style: standard;
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  src: url(/fonts/vendor/notosans-fontface/NotoSans-Italic.eot?2ca6e82f8250c3d3d40652f4f19b55f8);
-  src: local("Noto Sans Italic"), local("NotoSans-Italic"), url(/fonts/vendor/notosans-fontface/NotoSans-Italic.eot?2ca6e82f8250c3d3d40652f4f19b55f8) format("embedded-opentype"), url(/fonts/vendor/notosans-fontface/NotoSans-Italic.woff2?0b0b9b2b7159c9bc6463e7ab3b0e8bd0) format("woff2"), url(/fonts/vendor/notosans-fontface/NotoSans-Italic.woff?669a7edd16f586e69dfc12fcefcff6f0) format("woff"), url(/fonts/vendor/notosans-fontface/NotoSans-Italic.ttf?154da4697acc779b55af0a67f1241e4e) format("truetype"), url(/fonts/vendor/notosans-fontface/NotoSans-Italic.svg?157af96cae049006e0ccf28e97488ab2) format("svg");
-  font-weight: 400;
-  font-style: italic;
-}
-
-@font-face {
-  font-family: 'Noto Sans';
-  src: url(/fonts/vendor/notosans-fontface/NotoSans-BoldItalic.eot?df692395d4040e085ef903e7f3b95f9d);
-  src: local("Noto Sans BoldItalic"), local("NotoSans-BoldItalic"), url(/fonts/vendor/notosans-fontface/NotoSans-BoldItalic.eot?df692395d4040e085ef903e7f3b95f9d) format("embedded-opentype"), url(/fonts/vendor/notosans-fontface/NotoSans-BoldItalic.woff2?5a241c76c24e463ef9bcc5855d20209b) format("woff2"), url(/fonts/vendor/notosans-fontface/NotoSans-BoldItalic.woff?b825226429966b6a83ec76c203393db1) format("woff"), url(/fonts/vendor/notosans-fontface/NotoSans-BoldItalic.ttf?c55a24627ac4712e5fb9558ccd0e0add) format("truetype"), url(/fonts/vendor/notosans-fontface/NotoSans-BoldItalic.svg?04cda025221e2faff09243e4f50e73c5) format("svg");
-  font-weight: 700;
-  font-style: italic;
-}
-
 /*!
  * Bootstrap v4.1.3 (https://getbootstrap.com/)
  * Copyright 2011-2018 The Bootstrap Authors
@@ -10585,7 +10553,6 @@ a.text-dark:focus {
 html,
 body {
   background-color: purple;
-  font-family: "Noto Sans", sans;
   font-size: 0.9rem;
   height: 100%;
   margin: 0;

@@ -14,7 +14,7 @@ class AddForeignKeysToActivitiesTable extends Migration
     public function up()
     {
         Schema::table('activities', function (Blueprint $table) {
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('participant_id')->references('id')->on('participants');
             $table->foreign('role_id')->references('id')->on('roles');
         });
     }

@@ -20,6 +20,7 @@ Vue.component("image-upload", require("./components/ImageUpload.vue"));
 Vue.component('region-select', require('./components/RegionSelect.vue'));
 Vue.component('division-select', require('./components/DivisionSelect.vue'));
 Vue.component('data-viewer', require('./components/DataViewer.vue'));
+Vue.component('activity-list', require('./components/ActivityList.vue'));
 
 window.eventBus = new Vue();
 

@@ -26,7 +26,7 @@
             <td></td>
             <td></td>
             <td></td>
-            <td><a href="{{ route('participants.show', ['participant' => $pax->id]) }}"><i class="fa fa-edit"></i> Update</a></td>
+            <td><a href="{{ route('participants.edit', ['participant' => $pax->id]) }}"><i class="fa fa-edit"></i> Update</a></td>
         </tr>
         @endforeach
     </tbody>

@@ -21,6 +21,8 @@ Route::group(['prefix' => 'values'], function () {
     Route::resource('events', 'ActivityController');
     Route::resource('jobtitles', 'JobtitleController');
     Route::resource('divisions', 'DivisionController');
+    Route::resource('activities', 'ActivityController');
+    Route::resource('roles', 'RoleController');
     Route::get('/regions', 'RegionDivisionController@index');
     Route::get('/api/participants', 'ParticipantController@getData');
 });

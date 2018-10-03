@@ -157,7 +157,10 @@ class ParticipantController extends Controller
      */
     public function destroy(Participant $participant)
     {
-        //
+        if ($participant->delete()) {
+            session()->flash('status', 'Participant deleted.');
+            return back();
+        }
     }
 
     public function search(Request $request)

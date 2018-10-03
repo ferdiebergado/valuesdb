@@ -4,23 +4,23 @@ namespace App;
 
 use App\BaseModel;
 use App\Activity;
-use App\Helpers\DataViewer;
+// use App\Helpers\DataViewer;
 
 class Participant extends BaseModel
 {
-    use DataViewer;
+    // use DataViewer;
 
-    public static $columns = [
-        'id',
-        'lastname',
-        'firstname',
-        'middlename',
-        'gender',
-        'station',
-        'mobile',
-        'email',
-        'birthday'
-    ];
+    // public static $columns = [
+    //     'id',
+    //     'lastname',
+    //     'firstname',
+    //     'middlename',
+    //     'gender',
+    //     'station',
+    //     'mobile',
+    //     'email',
+    //     'birthday'
+    // ];
     protected $fillable = [
         'title',
         'lastname',

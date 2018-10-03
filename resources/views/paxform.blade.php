@@ -75,11 +75,11 @@
             <div class="form-group">
                 <label for="">Sex</label>
                 @php
-                    $genders = [
-                            'M' => 'Male',
-                            'F' => 'Female',
-                            'O' => 'Other'
-                    ]
+                $genders = [
+                    'M' => 'Male',
+                    'F' => 'Female',
+                    'O' => 'Other'
+                ]
                 @endphp
                 <select class="form-control" name="gender" id="gender" required>
                     <option value="">Select</option>
@@ -206,26 +206,12 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <table class="table">
-                <thead>
-                    <tr>
-                        <th>Title of the Activity</th>
-                        <th>Date</th>
-                        <th>Venue</th>
-                        <th>Managed By</th>
-                        <th>Role</th>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                        <td></td>
-                    </tr>
-                </tbody>
-            </table>
+            <activity-list participantid="{{ optional($participant)->id ?? '' }}"></activity-list>
+        </div>
+    </div>
+    <div class="row">
+        <div class="col-12">
+            <a class="btn btn-success float-right" href="javascript:void();" data-toggle="modal" data-target="#activity-form">Add...</a>
         </div>
     </div>
     @if (Route::is('participants.create') || Route::is('participants.edit'))

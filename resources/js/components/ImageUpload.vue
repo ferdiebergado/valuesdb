@@ -1,6 +1,6 @@
 <template>
     <div class="container">
-        <div class="form-group row">
+        <div class="form-group row mt-5">
             <div class="col-4" v-if="image" style="display: flex; align-items: center; justify-content: center; margin: 0;">
                 <img :src="image" class="img-responsive" height="120" width="160"></div>
                 <div class="col-5">
