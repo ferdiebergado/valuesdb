@@ -7,9 +7,10 @@
                     <input type="file" v-on:change="onImageChange" accept=".jpg,.jpeg,.png" class="form-control"></div>
                     <input type="hidden" name="photo" :value="filename">
                     <div class="col-3">
-                        <button class="btn btn-success btn-block" @click.prevent="uploadImage" :disabled="disabled">Upload Photo</button>
+                        <button class="btn btn-success btn-block" @click.prevent="uploadImage" :disabled="disabled"><i class="fa fa-upload"></i> Upload Photo</button>
                     </div>
                 </div>
+                <small class="form-text text-muted">Click "Choose File" and select an image file (.jpg, .jpeg, .png only). Then, click Upload Photo.</small>
             </div>
         </template>
         <script>

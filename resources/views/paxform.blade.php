@@ -201,7 +201,10 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <p>Attended Seminar/Workshop/Training related to Values Education/EsP for the last two (2) years:</p>
+            <div class="form-group">
+            <p>Attended Seminar/Workshop/Training related to Values Education/EsP for the last two (2) years:
+            <a class="btn btn-sm btn-success float-right" href="javascript:void();" data-toggle="modal" data-target="#activity-form"><i class="fa fa-plus"></i> ADD ACTIVITY</a></p>
+            </div>
         </div>
     </div>
     <div class="row">
@@ -211,7 +214,6 @@
     </div>
     <div class="row">
         <div class="col-12">
-            <a class="btn btn-success float-right" href="javascript:void();" data-toggle="modal" data-target="#activity-form">Add...</a>
         </div>
     </div>
     @if (Route::is('participants.create') || Route::is('participants.edit'))

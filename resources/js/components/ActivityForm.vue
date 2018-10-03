@@ -12,6 +12,9 @@
                     </div>
                     <div class="modal-body">
                         <div class="container">
+                            <div class="alert alert-danger" role="alert" v-if="error">
+                                <strong>Error</strong> {{ error }}
+                            </div>
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
@@ -32,13 +35,15 @@
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="startdate">Start Date:</label>
-                                        <input type="date" class="form-control" name="startdate" id="startdate" v-model="activity.startdate" placeholder="Start Date" required />
+                                        <flat-pickr v-model="activity.startdate"></flat-pickr>
+                                        <!-- <input type="date" class="form-control" name="startdate" id="startdate" v-model="activity.startdate" placeholder="Start Date" required /> -->
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="enddate">End Date</label>
-                                        <input type="date" class="form-control" name="enddate" id="enddate" v-model="activity.enddate" placeholder="End Date" required />
+                                        <flat-pickr v-model="activity.enddate"></flat-pickr>
+                                        <!-- <input type="date" class="form-control" name="enddate" id="enddate" v-model="activity.enddate" placeholder="End Date" required /> -->
                                     </div>
                                 </div>
                             </div>
@@ -59,8 +64,8 @@
                         </div> <!-- container -->
                     </div>
                     <div class="modal-footer">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                        <button type="submit" class="btn btn-primary">Save</button>
+                        <button type="button" class="btn btn-secondary float-left" data-dismiss="modal"><i class="fa fa-ban"></i> Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
                     </div>
                 </form>
             </div>
@@ -86,8 +91,12 @@ export default {
                 startdate: null,
                 enddate: null,
                 managedby: '',
-                role_id: null
-            }
+                role_id: null,
+                role: {
+                    name: ''
+                }
+            },
+            error: ''
         }
     },
     methods: {
@@ -95,12 +104,14 @@ export default {
             var vm = this;
             axios.post('/values/activities', this.activity).then(res => {
                 vm.$emit('activity-created', this.activity);
+                this.activity = {};
             }).catch(err => {
-                console.log(err.response.data);
-            })
+                this.error = err.response.data;
+            });
         },
         updateRole(role) {
-            this.activity.role_id = role;
+            this.activity.role_id = role.id;
+            this.activity.role.name = role.name;
         }
     }
 }

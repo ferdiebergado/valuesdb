@@ -9,7 +9,7 @@ export default {
     name: 'role-select',
     data() {
         return {
-            role: '',
+            role: null,
             roles: {}
         }
     },
@@ -26,7 +26,11 @@ export default {
             });
         },
         updateRole() {
-            this.$emit('role-updated', this.role);
+            function checkRole(role) {
+                return role.id === this;
+            }
+            var role = this.roles.find(checkRole, this.role);
+            this.$emit('role-updated', role);
         }
     }
 }

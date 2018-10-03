@@ -4,11 +4,11 @@
  * building robust, powerful web applications using Vue and Laravel.
  */
 
-require("./bootstrap");
+ require("./bootstrap");
 
-window.Vue = require("vue");
-require("datatables.net");
-require("datatables.net-bs4");
+ window.Vue = require("vue");
+ require("datatables.net");
+ require("datatables.net-bs4");
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to
@@ -16,14 +16,17 @@ require("datatables.net-bs4");
  * or customize the JavaScript scaffolding to fit your unique needs.
  */
 
-Vue.component("image-upload", require("./components/ImageUpload.vue"));
-Vue.component('region-select', require('./components/RegionSelect.vue'));
-Vue.component('division-select', require('./components/DivisionSelect.vue'));
-Vue.component('data-viewer', require('./components/DataViewer.vue'));
-Vue.component('activity-list', require('./components/ActivityList.vue'));
+ Vue.component("image-upload", require("./components/ImageUpload.vue"));
+ Vue.component('region-select', require('./components/RegionSelect.vue'));
+ Vue.component('division-select', require('./components/DivisionSelect.vue'));
+ Vue.component('data-viewer', require('./components/DataViewer.vue'));
+ Vue.component('activity-list', require('./components/ActivityList.vue'));
+ import flatPickr from 'vue-flatpickr-component';
+ import 'flatpickr/dist/flatpickr.css';
+ Vue.use(flatPickr);
 
-window.eventBus = new Vue();
+ window.eventBus = new Vue();
 
-const app = new Vue({
+ const app = new Vue({
     el: "#app"
 });

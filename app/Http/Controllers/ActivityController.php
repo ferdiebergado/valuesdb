@@ -15,7 +15,7 @@ class ActivityController extends Controller
     public function index()
     {
         $request = app()->make('request');
-        return Activity::with('role')->where('participant_id', $request->participantid)->orderBy('enddate', 'DESC')->get();
+        return Activity::with('role')->where('participant_id', $request->participantid)->orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
     }
 
     /**
