@@ -17,7 +17,7 @@ export default {
     data() {
         return {
             loading: false,
-            disabled: false,
+            disabled: true,
             division: parseInt(this.divisionid),
             divisions: {}
         }
@@ -46,6 +46,7 @@ export default {
                 vm.$set(vm.$data, "loading", false);
             })
             .catch(function(err) {
+                alert(err.response.data);
                 console.log(err.response.data);
             });
         }

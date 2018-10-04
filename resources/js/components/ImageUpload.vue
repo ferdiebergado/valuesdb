@@ -48,6 +48,9 @@
                 this.filename = response.data.filename;
                 alert(response.data.success);
             }
+            }).catch(err => {
+                alert(err.response.data);
+                return;
             });
         }
     }

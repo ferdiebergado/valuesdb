@@ -223,7 +223,7 @@ return [
     'degree' => 'MSITc',
     'facebook' => 'https://facebook.com/ferdie.bergado',
     'perpage' => 10,
-    'perPageRange' => ['10', '20', '25', '50'],
+    'perPageRange' => ['10', '20', '25', '50', '100'],
     'year' => 2018,
 
 ];

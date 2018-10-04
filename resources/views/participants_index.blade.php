@@ -23,7 +23,7 @@ participants-table
 @endslot
 
 @slot('datatablewith')
-
+{{-- jobtitle,region,division --}}
 @endslot
 
 @slot('ellipsiscol')
@@ -68,7 +68,7 @@ className: "text-center"
         <h3>Participants</h3>
     </div>
     <div class="col-8">
-        <span><a class="btn btn-success float-right" href="{{ route('participants.create') }}"><i class="fa fa-plus"></i> CREATE NEW</a></span>
+        <span><a class="btn btn-sm btn-success float-right" href="{{ route('participants.create') }}"><i class="fa fa-plus"></i> CREATE NEW</a></span>
     </div>
 </div>
 @endsection

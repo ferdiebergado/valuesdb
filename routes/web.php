@@ -18,6 +18,7 @@ Route::group(['prefix' => 'values'], function () {
     Route::post('/searchresults', 'ParticipantController@search')->name('participants.search');
     Route::post('/avatar', 'ImageController@store')->name('participants.avatar');
     Route::resource('participants', 'ParticipantController');
+    Route::resource('activity_participants', 'ActivityParticipantController');
     Route::resource('events', 'ActivityController');
     Route::resource('jobtitles', 'JobtitleController');
     Route::resource('divisions', 'DivisionController');

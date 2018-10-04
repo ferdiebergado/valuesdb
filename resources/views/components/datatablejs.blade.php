@@ -37,7 +37,7 @@
                             dir = d.order[i].dir;
                         } else {
                             if (firstMultiple) {
-                                sortMultiple = d.columns[d.order[i].column].data; 
+                                sortMultiple = d.columns[d.order[i].column].data;
                                 sortMultipleDir = d.order[i].dir;
                                 firstMultiple = false;
                             } else {

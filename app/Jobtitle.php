@@ -12,7 +12,7 @@ class Jobtitle extends BaseModel
         'priority'
     ];
 
-    public function participant()
+    public function participants()
     {
         return $this->hasMany(Participant::class);
     }

@@ -25,6 +25,7 @@ export default {
             axios.get('/values/regions').then(res => {
                 vm.$set(vm.$data, 'regions', res.data);
             }).catch(err => {
+                alert(err.response.data);
                 console.log(err.response.data);
             });
         },

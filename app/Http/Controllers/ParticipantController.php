@@ -10,10 +10,12 @@ use \Exception;
 use App\Paxdata;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
+use App\Helpers\RequestCriteria;
 
 class ParticipantController extends Controller
 {
     use RequestParser;
+    use RequestCriteria;
 
     public function __construct()
     {
@@ -37,20 +39,14 @@ class ParticipantController extends Controller
             'orderByMulti' => 'string|nullable'
         ]);
         $perPage = $this->getRequestLength($request);
-        // $this->pushCriteria(app('\Modules\Documents\Criteria\DocumentRequestCriteria'));
-        // $this->repository->with(['doctype', 'creator'])->getByOffice(auth()->user()->office_id);
-        // Sort fields based on request orderBy (nested sorting)
-        // $this->repository->pushCriteria(new MultiSortCriteria($request));
-        $participants = Participant::orderBy('lastname')->paginate($perPage);
-        // $documents = $this->repository->paginate($perPage);
-        // $documents = $this->sortFields($request, $model)->paginate($perPage);
+        $participants = $this->apply(app()->make('App\Participant'), $request);
+        $participants = $participants->with('activities')->paginate($perPage);
         if (request()->wantsJson()) {
             return response()->json([
                 'draw' => $request->draw,
                 'data' => $participants,
             ]);
         }
-
         return view('participants_index', compact('participants'));
     }
 
@@ -129,7 +125,7 @@ class ParticipantController extends Controller
     {
         $method = "POST";
         $route = route('participants.update', ['participant' => $participant]);
-        $participant = Participant::with('jobtitle')->findOrFail($participant->id);
+        $participant = Participant::with(['jobtitle', 'activities'])->findOrFail($participant->id);
         return view('paxform', compact('participant', 'method', 'route'));
     }
 
@@ -169,7 +165,7 @@ class ParticipantController extends Controller
             'lastname' => 'required|string|min:2|max:150'
         ]);
         $search = "%" . $request->lastname . "%";
-        $participants = Participant::where('lastname', 'LIKE', $search)->orderBy('lastname')->paginate(10);
+        $participants = Participant::with(['jobtitle', 'region', 'division'])->where('lastname', 'LIKE', $search)->orderBy('lastname')->paginate(10);
         return view('results', compact('participants'));
     }
 
@@ -182,6 +178,7 @@ class ParticipantController extends Controller
         $filename = Storage::disk('public')->putFile('/avatars', $request->file('file'));
         return response()->json(['fileid' => $filename]);
     }
+
     public function getData()
     {
         $model = Participant::searchPaginateAndOrder();
@@ -193,5 +190,4 @@ class ParticipantController extends Controller
                 'columns' => $columns
             ]);
     }
-
 }

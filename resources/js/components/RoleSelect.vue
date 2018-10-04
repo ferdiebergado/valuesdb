@@ -22,6 +22,7 @@ export default {
             axios.get('/values/roles').then(res => {
                 vm.$set(vm.$data, 'roles', res.data);
             }).catch(err => {
+                alert(err.response.data);
                 console.log(err.response.data);
             });
         },

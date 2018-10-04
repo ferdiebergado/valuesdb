@@ -17,7 +17,7 @@
     <div class="row">
         <div class="col-8">
             <h4>{{ ucfirst($participant->lastname) }}, {{ ucfirst($participant->firstname) }} {{ ucfirst($participant->middlename) }}</h4>
-            <h6>{{ $participant->jobtitle->name }}</h6>
+            <h6>{{ optional($participant->jobtitle)->name }}</h6>
             <h6>{{ $participant->station }}</h6>
         </div>
         <div class="col-4">
@@ -47,12 +47,18 @@
                     <option value="{{ $title }}" {{ $title === old('title') ? 'selected' : ($title === optional($participant)->title) ? 'selected' : '' }}>{{ $title }}</option>
                     @endforeach
                 </select>
+                @if ($errors->has('title'))
+                    <small class="form-text text-danger">{{ $errors->title }}</small>
+                @endif
             </div>
         </div>
         <div class="col-9">
             <div class="form-group">
                 <label for="">Lastname</label>
                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Lastname" aria-describedby="helpLastname" value="{{ old('lastname', optional($participant)->lastname) }}" required>
+                @if ($errors->has('lastname'))
+                    <small class="form-text text-danger">{{ $errors->lastname }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -61,12 +67,18 @@
             <div class="form-group">
                 <label for="">Firstname</label>
                 <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Firstname" aria-describedby="helpFirstname" value="{{ old('firstname') ?? $participant->firstname}}" required>
+                @if ($errors->has('firstname'))
+                    <small class="form-text text-danger">{{ $errors->firstname }}</small>
+                @endif
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="">Middle Name</label>
                 <input type="text" name="middlename" id="middlename" class="form-control" placeholder="Middle Name" aria-describedby="helpMiddlename" value="{{ old('middlename') ?? $participant->middlename}}">
+                @if ($errors->has('middlename'))
+                    <small class="form-text text-danger">{{ $errors->middlename }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -87,6 +99,9 @@
                     <option value="{{ $key }}" {{ $key === old('gender') ? 'selected' : ($key === optional($participant)->gender) ? 'selected' : '' }}>{{ $value }}</option>
                     @endforeach
                 </select>
+                @if ($errors->has('gender'))
+                    <small class="form-text text-danger">{{ $errors->gender }}</small>
+                @endif
             </div>
         </div>
         <div class="col-9">
@@ -100,6 +115,9 @@
                     @endforeach
                     @endif
                 </select>
+                @if ($errors->has('jobtitle'))
+                    <small class="form-text text-danger">{{ $errors->jobtitle }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -108,6 +126,9 @@
             <div class="form-group">
                 <label for="">Region</label>
                 <region-select regionid="{{ old('region_id', optional($participant)->region_id) }}"></region-select>
+                @if ($errors->has('region_id'))
+                    <small class="form-text text-danger">{{ $errors->region_id }}</small>
+                @endif
             </div>
         </div>
         <div class="col-8">
@@ -117,6 +138,9 @@
                     Updating... &nbsp;<img src="{{ url('/storage') . '/' . 'ajax-loader-square.gif' }}">
                 </p>
                 <division-select divisionid="{{ old('division_id', optional($participant)->division_id) }}"></division-select>
+                @if ($errors->has('division_id'))
+                    <small class="form-text text-danger">{{ $errors->division_id }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -125,6 +149,9 @@
             <div class="form-group">
                 <label for="">School/Office</label>
                 <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->station}}">
+                @if ($errors->has('station'))
+                    <small class="form-text text-danger">{{ $errors->station }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -133,12 +160,18 @@
             <div class="form-group">
                 <label for="">Tel. No.</label>
                 <input type="text" name="landline" id="landline" class="form-control" placeholder="Tel. No." aria-describedby="helpLandline" value="{{ !empty(old('landline')) ? old('landline') : !empty($participant->landline) ? $participant->landline : '' }}">
+                @if ($errors->has('landline'))
+                    <small class="form-text text-danger">{{ $errors->landline }}</small>
+                @endif
             </div>
         </div>
         <div class="col-6">
             <div class="form-group">
                 <label for="">Fax. No.</label>
                 <input type="text" name="fax" id="fax" class="form-control" placeholder="Fax. No." aria-describedby="helpFax" value="{{ old('fax') ?: isset($participant->fax) ? $participant->fax : '' }}">
+                @if ($errors->has('fax'))
+                    <small class="form-text text-danger">{{ $errors->fax }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -158,6 +191,9 @@
             <div class="form-group">
                 <label for="email">Email Address</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->email) ? $participant->email : '' }}">
+                @if ($errors->has('email'))
+                    <small class="form-text text-danger">{{ $errors->email }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -166,6 +202,9 @@
             <div class="form-group">
                 <label for="email">Facebook ID</label>
                 <input type="text" name="facebookid" id="facebookid" class="form-control" placeholder="Facebook ID" aria-describedby="helpFacebookId" value="{{ old('facebookid') ?: isset($participant->facebookid) ? $participant->facebookid : '' }}">
+                @if ($errors->has('facebookid'))
+                    <small class="form-text text-danger">{{ $errors->facebookid }}</small>
+                @endif
             </div>
         </div>
     </div>
@@ -173,7 +212,6 @@
         <h3>INVOLVEMENT IN VALUES EDUCATION/EsP</h3>
         <hr>
     </div>
-
     <div class="row">
         <div class="col-12">
             <p>Number of years in EsP/Values Education as:</p>
@@ -184,14 +222,23 @@
             <div class="col-4">
                 <label for="yearsAsTeacher">Teacher</label>
                 <input type="number" class="form-control" name="yearsAsTeacher" id="yearsAsTeacher" aria-describedby="helpYearsAsTeacher" value="{{ old('yearsAsTeacher', optional($participant)->yearsAsTeacher) }}">
+                @if ($errors->has('yearsAsTeacher'))
+                    <small class="form-text text-danger">{{ $errors->yearsAsTeacher }}</small>
+                @endif
             </div>
             <div class="col-4">
                 <label for="yearsAsSupervisor">Supervisor</label>
                 <input type="number" class="form-control" name="yearsAsSupervisor" id="yearsAsSupervisor" aria-describedby="helpYearsAsSupervisor" value="{{ old('yearsAsSupervisor', optional($participant)->yearsAsSupervisor) }}">
+                @if ($errors->has('yearsAsSupervisor'))
+                    <small class="form-text text-danger">{{ $errors->yearsAsSupervisor }}</small>
+                @endif
             </div>
             <div class="col-4">
                 <label for="yearsAsCoordinator">Coordinator</label>
                 <input type="number" class="form-control" name="yearsAsCoordinator" id="yearsAsCoordinator" aria-describedby="helpYearsAsCoordinator" value="{{ old('yearsAsCoordinator', optional($participant)->yearsAsCoordinator) }}">
+                @if ($errors->has('yearsAsCoordinator'))
+                    <small class="form-text text-danger">{{ $errors->yearsAsCoordinator }}</small>
+                @endif
             </div>
         </div>
     </div>
