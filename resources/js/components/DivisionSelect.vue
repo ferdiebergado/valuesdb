@@ -4,7 +4,7 @@
             Updating... &nbsp;<img src="/storage/ajax-loader-square.gif">
         </p>
         <select name="division_id" id="division_id" class="form-control" :disabled="disabled" v-show="!loading" v-model="division">
-            <option value="">Select</option>
+            <option value="">Select Division</option>
             <option v-for="division in divisions" :key="division.id" :value="division.id">{{ division.name }}</option>
         </select>
     </div>

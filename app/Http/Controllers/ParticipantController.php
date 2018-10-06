@@ -11,6 +11,7 @@ use App\Paxdata;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Validation\Rule;
 use App\Helpers\RequestCriteria;
+use App\Activity;
 
 class ParticipantController extends Controller
 {
@@ -71,6 +72,14 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
+        // foreach($request->activity as $activity) {
+        //     $obj = json_decode($activity);
+        //     $a = collect($obj->activity);
+        //     dd($a->all());
+        //     dd(array_keys($a));
+        //     dd(extract($obj->activity));
+        //     dd(array_merge($a, ['role_id' => $obj->role->id]));
+        // }
         $this->validate($request, [
             'title' => [
                 'required',
@@ -99,7 +108,21 @@ class ParticipantController extends Controller
             'email' => 'email|nullable',
             'facebookid' => 'string|nullable'
         ]);
-        $participant = Participant::create($request->all());
+        DB::beginTransaction();
+        try {
+            $participant = Participant::create($request->all());
+            if ($request->filled('activity')) {
+                foreach ($request->activity as $activity) {
+                    $obj = json_decode($activity);
+                    $activity = Activity::create(collect($obj->activity)->except('id')->all());
+                    $participant->activities()->attach($activity, ['role_id' => $obj->role->id]);
+                }
+            }
+        } catch (Exception $e) {
+            DB::rollback();
+            return back()->withErrors($e->getMessage());
+        }
+        DB::commit();
         $request->session()->flash('status', 'New participant saved.');
         return redirect()->route('search');
     }
@@ -138,11 +161,30 @@ class ParticipantController extends Controller
      */
     public function update(Request $request, Participant $participant)
     {
-        if ($participant->update($request->all())) {
-            $request->session()->flash('status', 'Participant profile updated.');
-            return redirect()->route('participants.index');
+        DB::beginTransaction();
+        try {
+            if ($participant->update($request->all())) {
+                if ($request->filled('activity')) {
+                    foreach ($request->activity as $activity) {
+                        $obj = json_decode($activity);
+                        $activity = Activity::create(collect($obj->activity)->except('id')->all());
+                        $participant->activities()->attach($activity, ['role_id' => $obj->role->id]);
+                    }
+                }
+                if ($request->filled('activities')) {
+                    foreach ($request->activities as $a) {
+                        $o = json_decode($a);
+                        $participant->activities()->attach(Activity::findOrFail($o->activity->id), ['role_id' => $o->activity->role]);
+                    }
+                }
+            }
+        } catch(Exception $e) {
+            DB::rollBack();
+            return back()->withErrors($e->getMessage());
         }
-        return back()->withErrors('Update failed.');
+        DB::commit();
+        $request->session()->flash('status', 'Participant profile updated.');
+        return redirect()->route('search');
     }
 
     /**
@@ -185,9 +227,9 @@ class ParticipantController extends Controller
         $columns = Participant::$columns;
 
         return response()
-            ->json([
-                'model' => $model,
-                'columns' => $columns
-            ]);
+        ->json([
+            'model' => $model,
+            'columns' => $columns
+        ]);
     }
 }

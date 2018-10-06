@@ -1,6 +1,6 @@
 <template>
     <select name="region_id" id="region_id" class="form-control" v-model.number="region" @change="updateDivisions">
-        <option value="">Select</option>
+        <option value="">Select Region</option>
         <option v-for="region in regions" :key="region.id" :value="region.id">{{ region.name }}</option>
     </select>
 </template>

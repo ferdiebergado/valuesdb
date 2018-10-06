@@ -9,6 +9,7 @@
  window.Vue = require("vue");
  require("datatables.net");
  require("datatables.net-bs4");
+ require('bootstrap-select');
 
 /**
  * Next, we will create a fresh Vue application instance and attach it to

@@ -13,8 +13,7 @@ class Activity extends BaseModel
         'venue',
         'startdate',
         'enddate',
-        'managedby',
-        'role_id'
+        'managedby'
     ];
 
     public function participants()

@@ -36,14 +36,12 @@
                                     <div class="form-group">
                                         <label for="startdate">Start Date:</label>
                                         <flat-pickr v-model="activity.startdate"></flat-pickr>
-                                        <!-- <input type="date" class="form-control" name="startdate" id="startdate" v-model="activity.startdate" placeholder="Start Date" required /> -->
                                     </div>
                                 </div>
                                 <div class="col-6">
                                     <div class="form-group">
                                         <label for="enddate">End Date</label>
                                         <flat-pickr v-model="activity.enddate"></flat-pickr>
-                                        <!-- <input type="date" class="form-control" name="enddate" id="enddate" v-model="activity.enddate" placeholder="End Date" required /> -->
                                     </div>
                                 </div>
                             </div>
@@ -79,22 +77,18 @@ export default {
     components: {
         RoleSelect
     },
-    props: {
-        participantid: String
-    },
     data() {
         return {
             activity: {
-                participant_id: this.participantid,
                 activitytitle: '',
                 venue: '',
                 startdate: null,
                 enddate: null,
-                managedby: '',
-                role_id: null,
-                role: {
-                    name: ''
-                }
+                managedby: ''
+            },
+            role: {
+                id: '',
+                name: ''
             },
             error: ''
         }
@@ -103,15 +97,16 @@ export default {
         save() {
             var vm = this;
             axios.post('/values/activities', this.activity).then(res => {
-                vm.$emit('activity-created', this.activity);
+                console.table([res.data.data]);
+                vm.$emit('activity-created', {activity: res.data.data, role: this.role, new: true});
                 this.activity = {};
             }).catch(err => {
                 this.error = err.response.data;
             });
         },
         updateRole(role) {
-            this.activity.role_id = role.id;
-            this.activity.role.name = role.name;
+            this.role.id = role.id;
+            this.role.name = role.name;
         }
     }
 }

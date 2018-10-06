@@ -1,6 +1,6 @@
 <template>
     <select class="form-control" v-model="role" @change="updateRole">
-        <option value="">Select</option>
+        <option value="">Select Role</option>
         <option v-for="role in roles" :key="role.id" :value="role.id">{{ role.name }}</option>
     </select>
 </template>
@@ -9,9 +9,15 @@ export default {
     name: 'role-select',
     data() {
         return {
-            role: null,
+            role: '',
             roles: {}
         }
+    },
+    created() {
+        eventBus.$on('list-updated', this.resetRole);
+    },
+    beforeDestroy() {
+        eventBus.$off('list-updated', this.resetRole);
     },
     mounted() {
         this.fetchRoles();
@@ -32,6 +38,9 @@ export default {
             }
             var role = this.roles.find(checkRole, this.role);
             this.$emit('role-updated', role);
+        },
+        resetRole() {
+            this.role = '';
         }
     }
 }

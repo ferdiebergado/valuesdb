@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Activity;
+use App\Participant;
 use Illuminate\Http\Request;
 
 class ActivityController extends Controller
@@ -14,6 +15,12 @@ class ActivityController extends Controller
      */
     public function index()
     {
+        $request = app()->make('request');
+        if ($request->filled('participantid')) {
+            $participant = Participant::with('activities')->where('id', $request->participantid)->first();
+            $activities = $participant->activities->pluck('id');
+            return Activity::whereNotIn('id', $activities)->orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+        }
         return Activity::orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
     }
 
@@ -36,15 +43,19 @@ class ActivityController extends Controller
     public function store(Request $request)
     {
         $this->validate($request, [
-            'participant_id' => 'integer|nullable',
             'activitytitle' => 'required|string',
             'venue' => 'required|string',
             'startdate' => 'required|date',
             'enddate' => 'required|date',
             'managedby' => 'string',
-            'role_id' => 'integer|nullable'
         ]);
-        if (Activity::create($request->all())) {
+        $activity = Activity::create($request->all());
+        if ($activity) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'data' => $activity
+                ]);
+            }
             $request->session()->flash('status', 'Activity saved.');
         }
         return back();
