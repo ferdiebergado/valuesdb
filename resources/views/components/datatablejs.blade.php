@@ -71,7 +71,7 @@
                 columnDefs: [
                 {
                     targets:  {{ $ellipsiscol }},
-                    render:   Ellipsis(25, true)
+                    render:   Ellipsis(50, true)
                 },
                 {{ $slot }}
                 ],

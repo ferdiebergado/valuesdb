@@ -35,7 +35,20 @@ class RoleController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'name' => 'required|string|unique:roles',
+            'priority' => 'integer'
+        ]);
+        $role = Role::create($request->all());
+        if ($role) {
+            if ($request->wantsJson()) {
+                return response()->json([
+                    'data' => $role
+                ]);
+            }
+            $request->session()->flash('status', 'Role saved.');
+        }
+        return redirect()->route('roles.index');
     }
 
     /**

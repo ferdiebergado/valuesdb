@@ -4,17 +4,17 @@
             <div class="col-7">
                 <activity-select :participantid="participantid" @activity-selected="updateActivity"></activity-select>
             </div>
-            <div class="col-3">
-                <role-select @role-updated="updateRole"></role-select>
+            <div class="col-4">
+                <role-select @role-selected="updateRole"></role-select>
             </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-success" @click.prevent="updateList" title="Add to List"><i class="fa fa-th-list"></i></button>
-                <a class="btn btn-primary" href="javascript:void();" data-toggle="modal" data-target="#activity-form" title="Create new"><i class="fa fa-plus"></i></a></p>
+            <div class="col-1">
+                <button type="button" class="btn btn-success btn-block" @click.prevent="updateList" :disabled="disabled" title="Add to List"><i class="fa fa-th-list"></i></button>
             </div>
         </div>
-        <table class="table table-hover table-condensed table-striped">
+        <table class="table table-hover table-condensed table-striped mt-3">
             <thead>
                 <tr>
+                    <th>#</th>
                     <th>Title of the Activity</th>
                     <th>Venue</th>
                     <th>Start Date</th>
@@ -24,28 +24,25 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="activity in activities" :key="activity.id">
+                <tr v-for="(activity, index) in activities" :key="activity.id">
+                    <td>{{ index+=1 }}</td>
                     <td>{{ activity.activity.activitytitle }}</td>
                     <td>{{ activity.activity.venue }}</td>
                     <td>{{ activity.activity.startdate }}</td>
                     <td>{{ activity.activity.enddate }}</td>
                     <td>{{ activity.activity.managedby }}</td>
                     <td>{{ activity.role.name }}</td>
-                    <input v-if="!activity.new" type="hidden" name="activity[]" :value="JSON.stringify(activity)">
                     <input v-if="activity.new" type="hidden" name="activities[]" :value="JSON.stringify({ activity: {id: activity.activity.id, role: activity.role.id}})">
                 </tr>
             </tbody>
-            <activity-form @activity-created="pushNewActivity"></activity-form>
         </table>
     </div>
 </template>
 <script>
-import ActivityForm from './ActivityForm.vue';
 import ActivitySelect from './ActivitySelect.vue';
 import RoleSelect from './RoleSelect.vue';
 export default {
     components: {
-        ActivityForm,
         ActivitySelect,
         RoleSelect
     },
@@ -57,7 +54,8 @@ export default {
             activities: {},
             activityindex: '',
             activity: '',
-            role: {}
+            role: '',
+            disabled: true,
         }
     },
     mounted() {
@@ -78,25 +76,30 @@ export default {
         updateActivity(activity, index) {
             this.activityindex = index;
             this.activity = activity;
+            this.enableAddToList();
         },
         updateRole(role) {
             this.role = role;
+            this.enableAddToList();
+        },
+        enableAddToList() {
+            if (!this.activity || !this.role)  {
+                this.disabled = true;
+            } else {
+                this.disabled = false;
+            }
         },
         updateList() {
             if (this.activity && this.role) {
                 var i = this.activityindex;
-                this.activities.splice(0, 0, {activity: this.activity, role: this.role});
+                this.activities.splice(0, 0, {activity: this.activity, role: this.role, new: true});
                 this.activityindex = '';
                 this.activity = {};
+                this.role = '';
                 eventBus.$emit('list-updated', i);
             } else {
                 alert('Please select an Activity and a Role.');
             }
-        },
-        pushNewActivity(activity) {
-            console.log(activity);
-            this.activities.splice(0, 0, activity);
-            $('#activity-form').modal('hide');
         }
     }
 }

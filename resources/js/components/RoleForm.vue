@@ -1,0 +1,71 @@
+<template>
+    <!-- Modal -->
+    <div class="modal fade" id="role-form" tabindex="-1" role="dialog" aria-labelledby="Role" aria-hidden="true">
+        <div class="modal-dialog modal-lg" role="document">
+            <div class="modal-content">
+                <form @submit.prevent="save">
+                    <div class="modal-header">
+                        <h4 class="modal-title"> &nbsp;Role</h4>
+                        <span class="float-right"><button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button></span>
+                    </div>
+                    <div class="modal-body">
+                        <div class="container">
+                            <div class="alert alert-danger" role="alert" v-if="error">
+                                <strong>Error</strong> {{ error }}
+                            </div>
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="name">Name</label>
+                                        <input type="text" class="form-control" name="name" id="name" v-model="role.name" required />
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="row">
+                                <div class="col-12">
+                                    <div class="form-group">
+                                        <label for="priority">Priority</label>
+                                        <input type="number" class="form-control" name="priority" id="priority" v-model="role.priority" />
+                                    </div>
+                                </div>
+                            </div>
+                        </div> <!-- container -->
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary float-left" data-dismiss="modal"><i class="fa fa-ban"></i> Close</button>
+                        <button type="submit" class="btn btn-primary"><i class="fa fa-save"></i> Save</button>
+                    </div>
+                </form>
+            </div>
+        </div> <!-- modal dialog -->
+    </div> <!-- Modal -->
+</template>
+<script>
+export default {
+    name: 'role-form',
+    data() {
+        return {
+            role: {
+                name: '',
+                priority: '',
+            },
+            error: ''
+        }
+    },
+    methods: {
+        save() {
+            var vm = this;
+            axios.post('/values/roles', this.role).then(res => {
+                console.table([res.data.data]);
+                this.$emit('role-created');
+                this.role = {};
+            }).catch(err => {
+                this.error = err.response.data.error;
+            });
+        }
+    }
+}
+</script>

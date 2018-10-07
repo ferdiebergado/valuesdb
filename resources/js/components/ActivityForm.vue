@@ -53,12 +53,12 @@
                                     </div>
                                 </div>
                             </div>
-                            <div class="row">
+<!--                             <div class="row">
                                 <div class="col-12">
                                     <label for="role_id">Role</label>
                                     <role-select :required="true" @role-updated="updateRole"></role-select>
                                 </div>
-                            </div>
+                            </div> -->
                         </div> <!-- container -->
                     </div>
                     <div class="modal-footer">
@@ -71,12 +71,12 @@
     </div> <!-- Modal -->
 </template>
 <script>
-import RoleSelect from './RoleSelect.vue';
+// import RoleSelect from './RoleSelect.vue';
 export default {
     name: 'activity-form',
-    components: {
-        RoleSelect
-    },
+    // components: {
+    //     RoleSelect
+    // },
     data() {
         return {
             activity: {
@@ -86,10 +86,10 @@ export default {
                 enddate: null,
                 managedby: ''
             },
-            role: {
-                id: '',
-                name: ''
-            },
+            // role: {
+            //     id: '',
+            //     name: ''
+            // },
             error: ''
         }
     },
@@ -98,16 +98,17 @@ export default {
             var vm = this;
             axios.post('/values/activities', this.activity).then(res => {
                 console.table([res.data.data]);
-                vm.$emit('activity-created', {activity: res.data.data, role: this.role, new: true});
+                // this.$emit('activity-created', {activity: res.data.data, new: true});
+                this.$emit('activity-created');
                 this.activity = {};
             }).catch(err => {
                 this.error = err.response.data;
             });
         },
-        updateRole(role) {
-            this.role.id = role.id;
-            this.role.name = role.name;
-        }
+        // updateRole(role) {
+        //     this.role.id = role.id;
+        //     this.role.name = role.name;
+        // }
     }
 }
 </script>

@@ -164,13 +164,6 @@ class ParticipantController extends Controller
         DB::beginTransaction();
         try {
             if ($participant->update($request->all())) {
-                if ($request->filled('activity')) {
-                    foreach ($request->activity as $activity) {
-                        $obj = json_decode($activity);
-                        $activity = Activity::create(collect($obj->activity)->except('id')->all());
-                        $participant->activities()->attach($activity, ['role_id' => $obj->role->id]);
-                    }
-                }
                 if ($request->filled('activities')) {
                     foreach ($request->activities as $a) {
                         $o = json_decode($a);

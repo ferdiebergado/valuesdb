@@ -37,7 +37,7 @@
             <div class="row justify-content-center">
                 <div class="card card-primary mt-4">
                     <div class="card">
-                        @if (Route::is('participants.index'))
+                        @if (Route::is('*.index'))
                         <div class="card-header">
                             @yield('boxtools')
                         </div>

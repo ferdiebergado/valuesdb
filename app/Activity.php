@@ -16,6 +16,12 @@ class Activity extends BaseModel
         'managedby'
     ];
 
+    protected $searchable = [
+        'activitytitle',
+        'venue',
+        'managedby'
+    ];
+
     public function participants()
     {
         return $this->belongsToMany(Participant::class)->withPivot('role_id')->using(ActivityParticipant::class);

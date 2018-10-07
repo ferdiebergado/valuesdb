@@ -5,9 +5,14 @@ namespace App\Http\Controllers;
 use App\Activity;
 use App\Participant;
 use Illuminate\Http\Request;
+use App\Helpers\RequestParser;
+use App\Helpers\RequestCriteria;
 
 class ActivityController extends Controller
 {
+    use RequestParser;
+    use RequestCriteria;
+
     /**
      * Display a listing of the resource.
      *
@@ -16,12 +21,33 @@ class ActivityController extends Controller
     public function index()
     {
         $request = app()->make('request');
-        if ($request->filled('participantid')) {
-            $participant = Participant::with('activities')->where('id', $request->participantid)->first();
-            $activities = $participant->activities->pluck('id');
-            return Activity::whereNotIn('id', $activities)->orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+        $this->validate($request, [
+            'length' => [
+                'integer',
+                \Illuminate\Validation\Rule::in(config('app.perPageRange'))
+            ],
+            'sortBy' => 'string|nullable',
+            'orderByMulti' => 'string|nullable'
+        ]);
+        if ($request->wantsJson()) {
+            if ($request->has('length')) {
+                $perPage = $this->getRequestLength($request);
+                $a = $this->apply(app()->make('App\Activity'), $request);
+                $a = $a->paginate($perPage);
+                return response()->json([
+                    'draw' => $request->draw,
+                    'data' => $a
+                ]);
+            }
+            $a = Activity::orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+            if ($request->filled('participantid')) {
+                $participant = Participant::with('activities')->where('id', $request->participantid)->first();
+                $activities = $participant->activities->pluck('id');
+                $a = Activity::whereNotIn('id', $activities)->orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+            }
+            return $a;
         }
-        return Activity::orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+        return view('activities', compact('a'));
     }
 
     /**
@@ -31,7 +57,10 @@ class ActivityController extends Controller
      */
     public function create()
     {
-        //
+        $activity = new Activity;
+        $method = 'POST';
+        $route = route('activities.store');
+        return view('aform', compact('method', 'route', 'activity'));
     }
 
     /**
@@ -58,7 +87,7 @@ class ActivityController extends Controller
             }
             $request->session()->flash('status', 'Activity saved.');
         }
-        return back();
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -80,7 +109,10 @@ class ActivityController extends Controller
      */
     public function edit(Activity $activity)
     {
-        //
+        $method = 'POST';
+        $route = route('activities.update', ['activity' => $activity]);
+        $activity = Activity::findOrFail($activity->id);
+        return view('aform', compact('method', 'route', 'activity'));
     }
 
     /**
@@ -92,7 +124,18 @@ class ActivityController extends Controller
      */
     public function update(Request $request, Activity $activity)
     {
-        //
+        $this->validate($request, [
+            'activitytitle' => 'required|string',
+            'venue' => 'required|string',
+            'startdate' => 'required|date',
+            'enddate' => 'required|date',
+            'managedby' => 'string',
+        ]);
+
+        if ($activity->update($request->all())) {
+            $request->session()->flash('status', 'Activity updated.');
+        }
+        return redirect()->route('activities.index');
     }
 
     /**
@@ -103,8 +146,9 @@ class ActivityController extends Controller
      */
     public function destroy(Activity $activity)
     {
-        //
+        if ($activity->delete()) {
+            session()->flash('status', 'Activity deleted.');
+        }
+        return redirect()->back();
     }
-
-
 }

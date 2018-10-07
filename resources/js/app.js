@@ -24,6 +24,9 @@
  Vue.component('activity-list', require('./components/ActivityList.vue'));
  import flatPickr from 'vue-flatpickr-component';
  import 'flatpickr/dist/flatpickr.css';
+ window.flatpickrhtml = require('flatpickr');
+ // require('bootstrap-select');
+
  Vue.use(flatPickr);
 
  window.eventBus = new Vue();
@@ -31,3 +34,5 @@
  const app = new Vue({
     el: "#app"
 });
+
+$("#divAlertSuccess").delay(4000).fadeOut(600);

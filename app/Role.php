@@ -8,6 +8,11 @@ use App\ActivityParticipant;
 
 class Role extends BaseModel
 {
+    protected $fillable = [
+        'name',
+        'priority'
+    ];
+
     public function activities() {
         return $this->hasMany(Activity::class);
     }

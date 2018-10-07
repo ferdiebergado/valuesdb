@@ -1,12 +1,24 @@
 <template>
-    <select name="activity_id" id="activity_id" class="form-control" v-model="activity" @change="updateActivity">
-        <option value="">Select Activity</option>
-        <option v-for="activity in activities" :key="activity.id" :value="activity.id">{{ `${activity.id} - ${activity.activitytitle} - ${activity.venue}` }}</option>
-    </select>
+    <div class="input-group">
+        <select name="activity_id" id="activity_id" class="form-control" v-model="activity" @change="updateActivity">
+            <option value="">Select Activity</option>
+            <option v-for="activity in activities" :key="activity.id" :value="activity.id">{{ `${activity.id} - ${activity.activitytitle} - ${activity.venue}` }}</option>
+        </select>
+        <div class="input-group-append">
+            <span class="input-group-text">
+                <a href="javascript:void();" data-toggle="modal" data-target="#activity-form" title="Create Activity"><i class="fa fa-plus"></i></a>
+            </span>
+        </div>
+        <activity-form @activity-created="refreshActivities"></activity-form>
+    </div>
 </template>
 <script>
+import ActivityForm from './ActivityForm.vue';
 export default {
     name: 'activity-select',
+    components: {
+        ActivityForm
+    },
     props: {
         participantid: String
     },
@@ -18,11 +30,9 @@ export default {
     },
     created() {
         eventBus.$on('list-updated', this.updateList);
-        eventBus.$on('activity-created', this.updateActivities);
     },
     beforeDestroy() {
         eventBus.$off('list-updated', this.updateList);
-        eventBus.$off('activity-created', this.updateActivities);
     },
     mounted() {
         this.fetchActivities();
@@ -54,8 +64,9 @@ export default {
             this.activities.splice(activityidx, 1);
             this.activity = '';
         },
-        updateActivities(activity) {
-            this.activities.splice(0, 0, activity);
+        refreshActivities() {
+            this.fetchActivities();
+            $('#activity-form').modal('hide');
         }
     }
 }
