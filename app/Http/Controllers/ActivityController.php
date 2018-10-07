@@ -39,11 +39,11 @@ class ActivityController extends Controller
                     'data' => $a
                 ]);
             }
-            $a = Activity::orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+            $a = Activity::orderBy('enddate', 'DESC')->get();
             if ($request->filled('participantid')) {
                 $participant = Participant::with('activities')->where('id', $request->participantid)->first();
                 $activities = $participant->activities->pluck('id');
-                $a = Activity::whereNotIn('id', $activities)->orderBy('enddate', 'DESC')->orderBy('id', 'DESC')->get();
+                $a = Activity::whereNotIn('id', $activities)->orderBy('enddate', 'DESC')->get();
             }
             return $a;
         }
@@ -98,7 +98,8 @@ class ActivityController extends Controller
      */
     public function show(Activity $activity)
     {
-        //
+        $route = 'participants.byactivity';
+        return view('participants_index', compact('activity', 'route'));
     }
 
     /**

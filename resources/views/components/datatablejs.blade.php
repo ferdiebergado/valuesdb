@@ -6,14 +6,14 @@
             serverSide:         true,
             searchHighlight:    true,
             responsive:         true,
-            stateSave:          true,
+            stateSave:          false,
             paging:             true,
             lengthChange:       true,
             searching:          true,
             ordering:           true,
             info:               true,
             autoWidth:          false,
-            processing:         true,
+            processing:         false,
             language:   {
                 loadingRecords: '&nbsp;',
                 processing:     '<div class="spinner"></div>'

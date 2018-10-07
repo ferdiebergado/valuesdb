@@ -9,7 +9,7 @@
 @push('scripts')
 
 @php
-$url = route('participants.index')
+$url = route($route, $params ?? array())
 @endphp
 
 @component('components.datatablejs')
@@ -35,19 +35,26 @@ participants-table
 { name: 'lastname', title: 'Lastname', data: 'lastname', width: '15%' },
 { name: 'firstname', title: 'Firstname', data: 'firstname', width: '15%' },
 { name: 'gender', title: 'Sex', data: 'gender', width: '2%' },
-{ name: 'station', title: 'Office/School', data: 'station', width: '23%' },
+{ name: 'station', title: 'Office/School', data: 'station', width: '20%' },
 { name: 'mobile', title: 'Mobile', data: 'mobile', width: '10%' },
-{ name: 'email', title: 'Email', data: 'email', width: '20%' },
+{ name: 'email', title: 'Email', data: 'email', width: '15%' },
+{ name: 'total_activities', title: 'No. of Activities', data: 'total_activities', width: '5%' },
 { title: 'Task(s)', data: 'id', searchable: false, orderable: false, width: '10%' }
 @endslot
 
 { targets: 0,
     render: function (data, type, row) {
-    return `<span class=\ "label bg-gray\">${data}</span>`;
+    return `<span class=\"badge badge-info\">${data}</span>`;
 }
 },
 
 { targets: 7,
+    render: function (data, type, row) {
+    return `<span class=\"badge badge-success text-center\">${data}</span>`;
+}
+},
+
+{ targets: 8,
     render: function(data, type, row) {
     const btnclass = "btn btn-sm btn-flat";
     const baseurl = "{!! $url !!}";

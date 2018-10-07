@@ -25,6 +25,7 @@
         <div class="flex-container">
             <div class="flex-row">
                 <p><h1 style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>
+                @include('messages')
                 @yield('content')
                 {{-- @include('footer')       --}}
             </div>

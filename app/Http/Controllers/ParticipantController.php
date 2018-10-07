@@ -48,7 +48,8 @@ class ParticipantController extends Controller
                 'data' => $participants,
             ]);
         }
-        return view('participants_index', compact('participants'));
+        $route = 'participants.index';
+        return view('participants', compact('participants', 'route'));
     }
 
     /**
@@ -224,5 +225,33 @@ class ParticipantController extends Controller
             'model' => $model,
             'columns' => $columns
         ]);
+    }
+
+    public function byActivity(Request $request, Activity $activity)
+    {
+        // dd($activity);
+        $request = app()->make('request');
+        $this->validate($request, [
+            'length' => [
+                'integer',
+                \Illuminate\Validation\Rule::in(config('app.perPageRange'))
+            ],
+            'sortBy' => 'string|nullable',
+            'orderByMulti' => 'string|nullable'
+        ]);
+        $perPage = $this->getRequestLength($request);
+        $participants = $this->apply(app()->make('App\Participant'), $request);
+        $participants = $participants->whereHas('activities', function($q) use($activity) {
+            $q->where('activity_id', $activity->id);
+        })->paginate($perPage);
+        if (request()->wantsJson()) {
+            return response()->json([
+                'draw' => $request->draw,
+                'data' => $participants,
+            ]);
+        }
+        $route = 'participants.byactivity';
+        $params = ['activity' => $activity];
+        return view('participants', compact('route', 'params'));
     }
 }

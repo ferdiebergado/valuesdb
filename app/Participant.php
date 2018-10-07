@@ -47,12 +47,17 @@ class Participant extends BaseModel
     ];
 
     protected $searchable = [
+        'id',
         'lastname',
         'firstname',
         'gender',
         'station',
         'mobile',
         'email',
+    ];
+
+    protected $appends = [
+        'total_activities'
     ];
 
     public function setLastnameAttribute($value) {
@@ -65,6 +70,10 @@ class Participant extends BaseModel
 
     public function setMiddlenameAttribute($value) {
         $this->attributes['middlename'] = ucfirst($value);
+    }
+
+    public function getTotalActivitiesAttribute() {
+        return $this->activities()->count();
     }
 
     public function activities()
@@ -83,4 +92,5 @@ class Participant extends BaseModel
     public function division() {
         return $this->belongsTo(Division::class);
     }
+
 }

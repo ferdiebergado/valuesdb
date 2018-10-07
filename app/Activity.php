@@ -22,8 +22,16 @@ class Activity extends BaseModel
         'managedby'
     ];
 
+    protected $appends = [
+        'totalpax'
+    ];
+
     public function participants()
     {
         return $this->belongsToMany(Participant::class)->withPivot('role_id')->using(ActivityParticipant::class);
+    }
+
+    public function getTotalpaxAttribute() {
+        return $this->participants()->count();
     }
 }
