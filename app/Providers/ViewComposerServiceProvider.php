@@ -22,6 +22,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             ['layouts.app', 'activities'],
             'App\Http\ViewComposers\CurrentEventComposer'
         );
+        View::composer(
+            ['search'],
+            'App\Http\ViewComposers\CurrentEventPaxComposer'
+        );
     }
 
     /**
