@@ -7,6 +7,8 @@ use App\Participant;
 use Illuminate\Http\Request;
 use App\Helpers\RequestParser;
 use App\Helpers\RequestCriteria;
+use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Cache;
 
 class ActivityController extends Controller
 {
@@ -151,5 +153,22 @@ class ActivityController extends Controller
             session()->flash('status', 'Activity deleted.');
         }
         return redirect()->back();
+    }
+
+    public static function setCurrent(Request $request, Activity $activity) {
+        if (DB::table('current_event')->where('id', 1)->update(['activity_id' => $activity->id])) {
+            Cache::forget('current_event');
+            $request->session()->flash('status', 'Current Event updated.');
+        }
+        return redirect()->route('activities.index');
+    }
+
+    public static function getCurrent() {
+        $current = Cache::remember('current_event', 10, function() {
+            if (DB::table('current_event')->first()) {
+                return DB::table('current_event')->where('id', 1)->value('activity_id');
+            }
+        });
+        return Activity::find($current);
     }
 }

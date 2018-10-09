@@ -19,30 +19,37 @@
 
 <body>
     <div id="app">
+        <div class="text-center" style="color: white;">
+            <h1 class="mt-5"><strong>{{ optional($currentevent)->activitytitle ?? config('app.name') }}</h1></strong>
+            <h3>{{ optional($currentevent)->venue }}</h3>
+            @php
+            $start = \Carbon\Carbon::parse(optional($currentevent)->startdate);
+            $end = \Carbon\Carbon::parse(optional($currentevent)->enddate);
+            @endphp
+            <h4 class="mb-5">{{ $start->format('F d')}} to {{ ($end->month >= $start->month) ? $end->day : ($end->month > $start->month) ? $end->format('F d') : $end->day }}, {{ $end->year }}</h4>
+        </div>
 
         @if (Route::is('search') || Route::is('login'))
 
         <div class="flex-container">
-            <div class="flex-row">
-                <p><h1 style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>
+            <div class="flex-row col-6 mt-3">
                 @include('messages')
                 @yield('content')
-                {{-- @include('footer')       --}}
             </div>
         </div> <!-- flex-container -->
 
         @else
 
         <div class="container-fluid">
-            <p><h1 class="text-center" style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p>
+            {{-- <p><h1 class="text-center" style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p> --}}
             <div class="row justify-content-center">
                 <div class="card card-primary mt-4">
                     <div class="card">
-                        @if (Route::is('*.index'))
+                        {{-- @if (Route::is('*.index')) --}}
                         <div class="card-header">
                             @yield('boxtools')
                         </div>
-                        @endif
+                        {{-- @endif --}}
                         <div class="card-body">
                             @include('messages')
                             @yield('content')

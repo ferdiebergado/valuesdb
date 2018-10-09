@@ -57,12 +57,12 @@ participants-table
 { targets: 8,
     render: function(data, type, row) {
     const btnclass = "btn btn-sm btn-flat";
-    const baseurl = "{!! $url !!}";
-    let editurl = `<a class="${btnclass} btn-primary" href="${baseurl}/${data}/edit" title="{{ __('Edit') }}"><i class="fa fa-edit"></i></a> `;
+    const baseurl = "/values/participants";
+    let editurl = `<a class="${btnclass} btn-primary" href="${baseurl}/${data}/edit" title="Edit"><i class="fa fa-edit"></i></a> `;
     let delurl = `<form id="del-form-${data}" method="POST" action="${baseurl}/${data}" style="display: inline;">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
-        <a href="#" class="${btnclass} btn-warning" title="{{ __('messages.delete') }}" onclick="if (confirm('Are your sure?')) { document.querySelector('#del-form-${data}').submit(); }"><i class="fa fa-trash"></i></a>
+        <a href="#" class="${btnclass} btn-warning" title="Delete" onclick="if (confirm('Are your sure?')) { document.querySelector('#del-form-${data}').submit(); }"><i class="fa fa-trash"></i></a>
     </form>`;
     return editurl + delurl;
 },
@@ -73,6 +73,10 @@ className: "text-center"
 <div class="row">
     <div class="col-4">
         <h3>Participants</h3>
+        @isset($activityofpax)
+        <h4>{{ $activityofpax->activitytitle }}</h4>
+        <h5>{{ $activityofpax->venue }} <small>{{ $activityofpax->startdate }} {{$activityofpax->enddate}}</small></h5>
+        @endisset
     </div>
     <div class="col-8">
         <span><a class="btn btn-sm btn-success float-right" href="{{ route('participants.create') }}"><i class="fa fa-plus"></i> CREATE NEW</a></span>

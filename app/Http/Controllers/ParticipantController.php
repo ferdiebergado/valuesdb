@@ -252,6 +252,7 @@ class ParticipantController extends Controller
         }
         $route = 'participants.byactivity';
         $params = ['activity' => $activity];
-        return view('participants', compact('route', 'params'));
+        $activityofpax = $activity;
+        return view('participants', compact('route', 'params', 'activityofpax'));
     }
 }

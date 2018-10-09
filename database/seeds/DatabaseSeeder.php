@@ -20,5 +20,6 @@ class DatabaseSeeder extends Seeder
         $this->call(RegionsDivisionsTableSeeder::class);
         $this->call(ActivitySeeder::class);
         $this->call(ActivityParticipantSeeder::class);
+        $this->call(CurrentEventSeeder::class);
     }
 }

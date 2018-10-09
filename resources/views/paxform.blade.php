@@ -282,3 +282,7 @@
 </form>
 
 @endsection
+
+@section('boxtools')
+<h3><strong>{{ Route::is('*.create') ? 'New' : 'Edit' }} Participant</strong></h3>
+@endsection

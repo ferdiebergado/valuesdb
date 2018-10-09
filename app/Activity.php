@@ -26,6 +26,18 @@ class Activity extends BaseModel
         'totalpax'
     ];
 
+    // protected $dates = [
+    //     'startdate',
+    //     'enddate'
+    // ];
+
+    // protected $casts = [
+    //     'startdate' => 'date',
+    //     'enddate' => 'date',
+    // ];
+
+    // protected $dateFormat = 'Y-m-d';
+
     public function participants()
     {
         return $this->belongsToMany(Participant::class)->withPivot('role_id')->using(ActivityParticipant::class);

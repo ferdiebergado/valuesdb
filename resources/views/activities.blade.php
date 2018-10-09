@@ -7,7 +7,7 @@
 @push('scripts')
 
 @php
-$url = route('activities.index')
+$url = route('activities.index');
 @endphp
 
 @component('components.datatablejs')
@@ -50,16 +50,17 @@ activities-table
 },
 { targets: 7,
     render: function(data, type, row) {
-    const btnclass = "btn btn-sm btn-flat";
+    const btnclass = "btn btn-sm";
     const baseurl = "{!! $url !!}";
+    let setcurrenturl = `<a class="${btnclass} btn-danger" href="${baseurl}/setascurrent/${data}" title="Set as Current Event"><i class="fa fa-thumbtack"></i></a> `;
     let viewurl = `<a class="${btnclass} btn-info" href="${baseurl}/participants/${data}" title="View"><i class="fa fa-eye"></i></a> `;
     let editurl = `<a class="${btnclass} btn-primary" href="${baseurl}/${data}/edit" title="Edit"><i class="fa fa-edit"></i></a> `;
     let delurl = `<form id="del-form-${data}" method="POST" action="${baseurl}/${data}" style="display: inline;">
         {{ method_field('DELETE') }}
         {{ csrf_field() }}
-        <a href="#" class="${btnclass} btn-warning" title="{{ __('messages.delete') }}" onclick="if (confirm('Are your sure?')) { document.querySelector('#del-form-${data}').submit(); }"><i class="fa fa-trash"></i></a>
+        <a href="#" class="${btnclass} btn-warning" title="Delete" onclick="if (confirm('Are your sure?')) { document.querySelector('#del-form-${data}').submit(); }"><i class="fa fa-trash"></i></a>
     </form>`;
-    return viewurl + editurl + delurl;
+    return setcurrenturl + viewurl + editurl + delurl;
 },
 className: "text-center"
 }

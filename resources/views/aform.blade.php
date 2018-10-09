@@ -4,15 +4,9 @@
 
 <form method="{{ $method }}" action="{{ $route }}">
     @csrf
-    <div class="card-title">
-        <h3>Activity Profile</h3>
-    </div>
 
     @if (Route::is('activities.edit'))
-
     {{ method_field('PUT') }}
-
-    <hr>
     @endif
 
     <div class="row">
@@ -48,7 +42,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="startdate">Start Date:</label>
-                <input type="date" name="startdate" id="startdate" class="form-control" placeholder="Start Date" value="{{ old('startdate') ?? $activity->startdate}}" required>
+                <input type="date" name="startdate" id="startdate" class="form-control" placeholder="Start Date" value="{{ old('startdate', optional($activity)->startdate) }}" required>
                 @if ($errors->has('startdate'))
                 <small class="form-text text-danger">{{ $errors->startdate }}</small>
                 @endif
@@ -57,7 +51,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="enddate">End Date</label>
-                <input type="date" name="enddate" id="enddate" class="form-control" placeholder="End Date" value="{{ old('enddate') ?? $activity->enddate}}" required>
+                <input type="date" name="enddate" id="enddate" class="form-control" placeholder="End Date" value="{{ old('enddate', optional($activity)->enddate) }}" required>
                 @if ($errors->has('enddate'))
                 <small class="form-text text-danger">{{ $errors->enddate }}</small>
                 @endif
@@ -90,9 +84,13 @@
 
 @endsection
 
+@section('boxtools')
+    <h3>{{ Route::is('*.create') ? 'New' : 'Edit' }} Activity</h3>
+@endsection
+
 @push('scripts')
 <script type="text/javascript">
-    flatpickrhtml('#startdate', {});
-    flatpickrhtml('#enddate', {});
+    flatpickrhtml('#startdate', {allowInput: true});
+    flatpickrhtml('#enddate', {allowInput: true});
 </script>
 @endpush

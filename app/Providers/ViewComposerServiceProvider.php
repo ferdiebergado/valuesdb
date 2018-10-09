@@ -18,10 +18,10 @@ class ViewComposerServiceProvider extends ServiceProvider
             'paxform',
             'App\Http\ViewComposers\JobtitleComposer'
         );
-        // View::composer(
-        //     'paxform',
-        //     'App\Http\ViewComposers\RegionComposer'
-        // );
+        View::composer(
+            ['layouts.app', 'activities'],
+            'App\Http\ViewComposers\CurrentEventComposer'
+        );
     }
 
     /**
