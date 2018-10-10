@@ -2,11 +2,6 @@
 
 @section('content')
 
-
-
-
-
-
 @if (count($participants) >= 1)
 <div class="table-responsive">
     <table class="table table-condensed table-hover table-striped">
@@ -62,5 +57,5 @@
 @endsection
 
 @section('boxtools')
-<div><span class="float-left"><h3>Search Results &nbsp;&nbsp;</h3></span><span class="float-right"><a class="btn btn-sm btn-success" href="{{ route('participants.create') }}"><i class="fa fa-plus"></i> CREATE NEW</a></span></div>
+<div><span class="float-left"><h3>Search Results &nbsp;&nbsp;</h3></span><span class="float-right"><a class="btn btn-success" href="{{ route('participants.create') }}"><i class="fa fa-user-plus"></i> CREATE NEW</a></span></div>
 @endsection

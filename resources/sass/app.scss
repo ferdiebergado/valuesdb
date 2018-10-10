@@ -7,7 +7,9 @@
 // @import "variables";
 
 // Bootstrap
+@import "~bootswatch/dist/pulse/variables";
 @import "~bootstrap/scss/bootstrap";
+@import "~bootswatch/dist/pulse/bootswatch";
 
 // .navbar-laravel {
 //     background-color: #fff;
@@ -18,7 +20,7 @@ html,
 body {
     background-color: purple;
     // font-family: "Noto Sans", sans;
-    font-size: 0.9rem;
+    // font-size: 0.9rem;
     height: 100%;
     margin: 0;
 }

@@ -23,9 +23,13 @@ class ViewComposerServiceProvider extends ServiceProvider
             'App\Http\ViewComposers\CurrentEventComposer'
         );
         View::composer(
-            ['search'],
+            'search',
             'App\Http\ViewComposers\CurrentEventPaxComposer'
         );
+        // View::composer(
+        //     'paxform',
+        //     'App\Http\ViewComposers\CurrentEventPaxIdsComposer'
+        // );
     }
 
     /**

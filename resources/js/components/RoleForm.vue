@@ -18,7 +18,7 @@
                             <div class="row">
                                 <div class="col-12">
                                     <div class="form-group">
-                                        <label for="name">Name</label>
+                                        <label for="name">Name <span><small class="text-muted">(Required)</small></span></label>
                                         <input type="text" class="form-control" name="name" id="name" v-model="role.name" required />
                                     </div>
                                 </div>
@@ -45,27 +45,30 @@
 </template>
 <script>
 export default {
-    name: 'role-form',
-    data() {
-        return {
-            role: {
-                name: '',
-                priority: '',
-            },
-            error: ''
-        }
-    },
-    methods: {
-        save() {
-            var vm = this;
-            axios.post('/values/roles', this.role).then(res => {
-                console.table([res.data.data]);
-                this.$emit('role-created');
-                this.role = {};
-            }).catch(err => {
-                this.error = err.response.data.error;
-            });
-        }
+  name: "role-form",
+  data() {
+    return {
+      role: {
+        name: "",
+        priority: ""
+      },
+      error: ""
+    };
+  },
+  methods: {
+    save() {
+      var vm = this;
+      axios
+        .post("/values/roles", this.role)
+        .then(res => {
+          console.table([res.data.data]);
+          this.$emit("role-created");
+          this.role = {};
+        })
+        .catch(err => {
+          this.error = err.response.data.error;
+        });
     }
-}
+  }
+};
 </script>

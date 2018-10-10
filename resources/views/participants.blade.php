@@ -86,9 +86,9 @@ participants-table
         <h3>Participants</h3>
     </div>
     <div class="col-8">
-        <span><a class="btn btn-sm btn-success float-right" href="{{ route('participants.create') }}"><i class="fa fa-user-plus"></i> CREATE NEW</a></span>
-        <span><a class="btn btn-sm btn-info float-right mr-3" href="{{ route('activities.index') }}"><i class="fa fa-list"></i> ACTIVITIES</a></span>                
-        <span><a class="btn btn-sm btn-default float-right mr-3" href="{{ route('search') }}"><i class="fa fa-search"></i> Back to Search</a></span>          
+        <span><a class="btn btn-success float-right" href="{{ route('participants.create') }}"><i class="fa fa-user-plus"></i> CREATE NEW</a></span>
+        <span><a class="btn btn-info float-right mr-3" href="{{ route('activities.index') }}"><i class="fa fa-list"></i> ACTIVITIES</a></span>                
+        <span><a class="btn btn-default float-right mr-3" href="{{ route('search') }}"><i class="fa fa-search"></i> Back to Search</a></span>          
     </div>
 </div>
 @endsection

@@ -67,14 +67,14 @@ activities-table
 
 @section('boxtools')
 <div class="row">
-    <div class="col-4">
+    <div class="col-3">
         <h3>Activities</h3>
     </div>
-    <div class="col-8">
-        <span><a class="btn btn-sm btn-success float-right mr-3" href="{{ route('activities.create') }}"><i class="fa fa-plus-circle"></i> CREATE NEW</a></span>
-        <span><a class="btn btn-sm btn-danger float-right mr-3" href="{{ route('activities.clearcurrent') }}"><i class="fa fa-calendar-times"></i> CLEAR CURRENT EVENT</a></span>   
-        <span><a class="btn btn-sm btn-info float-right mr-3" href="{{ route('participants.index') }}"><i class="fa fa-users"></i> PARTICIPANTS</a></span>                
-        <span><a class="btn btn-sm btn-default float-right mr-3" href="{{ route('search') }}"><i class="fa fa-search"></i> Back to Search</a></span>                
+    <div class="col-9">
+        <span><a class="btn btn-success float-right mr-3" href="{{ route('activities.create') }}"><i class="fa fa-plus-circle"></i> CREATE NEW</a></span>
+        <span><a class="btn btn-danger float-right mr-3 {{ empty($currentevent) ? 'disabled' : '' }}" href="{{ route('activities.clearcurrent') }}"><i class="fa fa-calendar-times"></i> CLEAR CURRENT EVENT</a></span>   
+        <span><a class="btn btn-info float-right mr-3" href="{{ route('participants.index') }}"><i class="fa fa-users"></i> PARTICIPANTS</a></span>                
+        <span><a class="btn btn-default float-right mr-3" href="{{ route('search') }}"><i class="fa fa-search"></i> Back to Search</a></span>                
     </div>
 </div>
 @endsection

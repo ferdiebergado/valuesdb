@@ -37,7 +37,7 @@
     <div class="row">
         <div class="col-3">
             <div class="form-group">
-                <label for="">Title</label>
+                <label for="">Title <span><small class="text-muted">(Required)</small></span></label>
                 <select class="form-control" name="title" id="title" required autofocus>
                     @php
                     $titles = ['Mr.', 'Ms.', 'Mrs.', 'Dr.', 'Prof.'];
@@ -54,7 +54,7 @@
         </div>
         <div class="col-9">
             <div class="form-group">
-                <label for="">Lastname</label>
+                <label for="">Lastname <span><small class="text-muted">(Required)</small></span></label>
                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Lastname" aria-describedby="helpLastname" value="{{ old('lastname', optional($participant)->lastname) }}" required>
                 @if ($errors->has('lastname'))
                 <small class="form-text text-danger">{{ $errors->first('lastname') }}</small>
@@ -65,7 +65,7 @@
     <div class="row">
         <div class="col-6">
             <div class="form-group">
-                <label for="">Firstname</label>
+                <label for="">Firstname <span><small class="text-muted">(Required)</small></span></label>
                 <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Firstname" aria-describedby="helpFirstname" value="{{ old('firstname') ?? $participant->firstname}}" required>
                 @if ($errors->has('firstname'))
                 <small class="form-text text-danger">{{ $errors->first('firstname') }}</small>
@@ -85,7 +85,7 @@
     <div class="row">
         <div class="col-3">
             <div class="form-group">
-                <label for="">Sex</label>
+                <label for="">Sex <span><small class="text-muted">(Required)</small></span></label>
                 @php
                 $genders = [
                 'M' => 'Male',
@@ -106,7 +106,7 @@
         </div>
         <div class="col-9">
             <div class="form-group">
-                <label for="">Job Title</label>
+                <label for="">Job Title <span><small class="text-muted">(Required)</small></span></label>
                 <select class="form-control" name="jobtitle_id" id="jobtitle_id">
                     <option value="">Select Jobtitle</option>
                     @if (isset($jobtitles) && count($jobtitles) > 0)
@@ -147,7 +147,7 @@
     <div class="row">
         <div class="col-12">
             <div class="form-group">
-                <label for="">School/Office</label>
+                <label for="">School/Office <span><small class="text-muted">(Required)</small></span></label>
                 <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->station}}">
                 @if ($errors->has('station'))
                 <small class="form-text text-danger">{{ $errors->first('station') }}</small>
@@ -178,7 +178,7 @@
     <div class="row">
         <div class="col-6">
             <div class="form-group">
-                <label for="mobile">Mobile No.</label>
+                <label for="mobile">Mobile No. <span><small class="text-muted">(Required)</small></span></label>
                 <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No." aria-describedby="helpMobile" value="{!! old('mobile', optional($participant)->mobile) !!}">
                 @if ($errors->has('mobile'))
                 <small id="passwordHelpBlock" class="form-text text-danger">
@@ -189,7 +189,7 @@
         </div>
         <div class="col-6">
             <div class="form-group">
-                <label for="email">Email Address</label>
+                <label for="email">Email Address <span><small class="text-muted">(Required)</small></span></label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->email) ? $participant->email : '' }}">
                 @if ($errors->has('email'))
                 <small class="form-text text-danger">{{ $errors->first('email') }}</small>
