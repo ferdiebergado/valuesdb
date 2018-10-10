@@ -73,14 +73,6 @@ class ParticipantController extends Controller
      */
     public function store(Request $request)
     {
-        // foreach($request->activity as $activity) {
-        //     $obj = json_decode($activity);
-        //     $a = collect($obj->activity);
-        //     dd($a->all());
-        //     dd(array_keys($a));
-        //     dd(extract($obj->activity));
-        //     dd(array_merge($a, ['role_id' => $obj->role->id]));
-        // }
         $this->validate($request, [
             'title' => [
                 'required',
@@ -121,10 +113,10 @@ class ParticipantController extends Controller
             }
         } catch (Exception $e) {
             DB::rollback();
-            return back()->withErrors($e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
         DB::commit();
-        $request->session()->flash('status', 'New participant saved.');
+        session()->flash('status', 'New participant saved.');
         return redirect()->route('search');
     }
 
@@ -172,12 +164,12 @@ class ParticipantController extends Controller
                     }
                 }
             }
-        } catch(Exception $e) {
+        } catch (Exception $e) {
             DB::rollBack();
-            return back()->withErrors($e->getMessage());
+            return back()->with('error', $e->getMessage());
         }
         DB::commit();
-        $request->session()->flash('status', 'Participant profile updated.');
+        session()->flash('status', 'Participant profile updated.');
         return redirect()->route('search');
     }
 
@@ -221,10 +213,10 @@ class ParticipantController extends Controller
         $columns = Participant::$columns;
 
         return response()
-        ->json([
-            'model' => $model,
-            'columns' => $columns
-        ]);
+            ->json([
+                'model' => $model,
+                'columns' => $columns
+            ]);
     }
 
     public function byActivity(Request $request, Activity $activity)
@@ -241,7 +233,7 @@ class ParticipantController extends Controller
         ]);
         $perPage = $this->getRequestLength($request);
         $participants = $this->apply(app()->make('App\Participant'), $request);
-        $participants = $participants->whereHas('activities', function($q) use($activity) {
+        $participants = $participants->whereHas('activities', function ($q) use ($activity) {
             $q->where('activity_id', $activity->id);
         })->paginate($perPage);
         if (request()->wantsJson()) {

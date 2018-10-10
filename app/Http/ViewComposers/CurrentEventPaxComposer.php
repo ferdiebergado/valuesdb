@@ -35,9 +35,13 @@ class CurrentEventPaxComposer
      */
     public function compose(View $view)
     {
-        $cid = ActivityController::getCurrent()->id;
-        $view->with('currentpax', $this->participants->with(['jobtitle', 'region', 'division', 'activities'])->whereHas('activities', function ($q) use ($cid) {
-            $q->where('activity_id', $cid);
-        })->orderBy('lastname')->get());
+        $cid = optional(ActivityController::getCurrent())->id;
+        if ($cid) {
+            $view->with('currentpax', $this->participants->with(['jobtitle', 'region', 'division', 'activities'])->whereHas('activities', function ($q) use ($cid) {
+                $q->where('activity_id', $cid);
+            })->orderBy('lastname')->paginate(5));
+        } else {
+            $view->with('currentpax', null);
+        }
     }
 }

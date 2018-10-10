@@ -87,7 +87,7 @@ class ActivityController extends Controller
                     'data' => $activity
                 ]);
             }
-            $request->session()->flash('status', 'Activity saved.');
+            session()->flash('status', 'Activity saved.');
         }
         return redirect()->route('activities.index');
     }
@@ -136,7 +136,7 @@ class ActivityController extends Controller
         ]);
 
         if ($activity->update($request->all())) {
-            $request->session()->flash('status', 'Activity updated.');
+            session()->flash('status', 'Activity updated.');
         }
         return redirect()->route('activities.index');
     }
@@ -155,20 +155,31 @@ class ActivityController extends Controller
         return redirect()->back();
     }
 
-    public static function setCurrent(Request $request, Activity $activity) {
+    public static function setCurrent(Request $request, Activity $activity)
+    {
         if (DB::table('current_event')->where('id', 1)->update(['activity_id' => $activity->id])) {
             Cache::forget('current_event');
-            $request->session()->flash('status', 'Current Event updated.');
+            session()->flash('status', 'Current Event updated.');
         }
         return redirect()->route('activities.index');
     }
 
-    public static function getCurrent() {
-        $current = Cache::remember('current_event', 10, function() {
-            if (DB::table('current_event')->first()) {
+    public static function getCurrent()
+    {
+        $current = Cache::remember('current_event', 10, function () {
+            if (DB::table('current_event')->where('id', 1)->exists()) {
                 return DB::table('current_event')->where('id', 1)->value('activity_id');
             }
         });
         return Activity::find($current);
+    }
+
+    public static function clearCurrent()
+    {
+        if (DB::table('current_event')->where('id', 1)->update(['activity_id' => null])) {
+            Cache::forget('current_event');
+            session()->flash('status', 'Current Event cleared.');
+        }
+        return redirect()->route('activities.index');
     }
 }

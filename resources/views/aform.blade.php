@@ -22,7 +22,7 @@
                 <label for="activitytitle">Title</label>
                 <textarea name="activitytitle" id="activitytitle" class="form-control" placeholder="Title" rows="5" required>{{ old('activitytitle', optional($activity)->activitytitle) }}</textarea>
                 @if ($errors->has('activitytitle'))
-                <small class="form-text text-danger">{{ $errors->activitytitle }}</small>
+                <small class="form-text text-danger">{{ $errors->first('activitytitle') }}</small>
                 @endif
             </div>
         </div>
@@ -33,7 +33,7 @@
                 <label for="venue">Venue</label>
                 <textarea name="venue" id="venue" class="form-control" placeholder="Venue" rows="2" required>{{ old('venue') ?? $activity->venue}}</textarea>
                 @if ($errors->has('venue'))
-                <small class="form-text text-danger">{{ $errors->venue }}</small>
+                <small class="form-text text-danger">{{ $errors->first('venue') }}</small>
                 @endif
             </div>
         </div>
@@ -44,7 +44,7 @@
                 <label for="startdate">Start Date:</label>
                 <input type="date" name="startdate" id="startdate" class="form-control" placeholder="Start Date" value="{{ old('startdate', optional($activity)->startdate) }}" required>
                 @if ($errors->has('startdate'))
-                <small class="form-text text-danger">{{ $errors->startdate }}</small>
+                <small class="form-text text-danger">{{ $errors->first('startdate') }}</small>
                 @endif
             </div>
         </div>
@@ -53,7 +53,7 @@
                 <label for="enddate">End Date</label>
                 <input type="date" name="enddate" id="enddate" class="form-control" placeholder="End Date" value="{{ old('enddate', optional($activity)->enddate) }}" required>
                 @if ($errors->has('enddate'))
-                <small class="form-text text-danger">{{ $errors->enddate }}</small>
+                <small class="form-text text-danger">{{ $errors->first('enddate') }}</small>
                 @endif
             </div>
         </div>
@@ -64,7 +64,7 @@
                 <label for="">Managed By</label>
                 <input type="text" name="managedby" id="managedby" class="form-control" placeholder="Managed By" value="{{ old('managedby') ?? $activity->managedby}}">
                 @if ($errors->has('managedby'))
-                <small class="form-text text-danger">{{ $errors->managedby }}</small>
+                <small class="form-text text-danger">{{ $errors->first('managedby') }}</small>
                 @endif
             </div>
         </div>

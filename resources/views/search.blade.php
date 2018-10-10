@@ -12,33 +12,59 @@
   </div>
 </form>
 
-@if (count($currentpax) >= 1)
+@php
+$totalpax = optional($currentpax)->total();
+@endphp
+
+@if ($totalpax >= 1)
 <br><br>
 <div class="container">
-  <h3 class="text-white mt-6">Registered Participants</h3>
-  
+  <div class="row">    
+    <div class="col-12">
+      <h3 class="text-white">{{ $totalpax }} Registered Participants</h3>
+    </div>
+  </div>
+
+  @php
+  $i = 1 + ($currentpax->perPage() * ($currentpax->currentPage() - 1));
+  @endphp
+
   @foreach ($currentpax as $pax)
-  
   <div class="card-deck mt-3">
     <div class="card">
       <div class="card-body">
         <div class="row">        
           <div class="col-3">
-            <img class="card-img-top" src="{{ asset('storage/avatars/' . $pax->photo) }}" width="96px" height="96px" alt="Card image cap">
+            <img class="card-img-top" src="{{ asset('storage/avatars/' . $pax->photo) }}" width="72px" height="72px" alt="Card image cap">
           </div>
           <div class="col-9">
-            <h5 class="card-title">{{ $pax->lastname . ', ' . $pax->firstname . ' ' . $pax->middlename }}</h5>
+            <h6 class="card-title"><strong>{{ $pax->lastname . ', ' . $pax->firstname . ' ' . $pax->middlename }}</strong></h6>
             <h6 class="card-text">{{ $pax->jobtitle->name }}</h6>
-            <p><small class="card-text">{{ $pax->division->name }}, Region {{ $pax->region->name }}</small></p>
+            <p class="card-text">{{ $pax->division->name }}, Region {{ $pax->region->name }}</p>
           </div>
         </div>
       </div>
       <div class="card-footer">
-        <small class="text-muted float-right">Registered {{ $pax->updated_at->diffForHumans() }}</small>
+        <div class="row">
+          <div class="col-3">
+            <span class="badge badge-info float-left">{{ $i }}</span></h3>
+          </div>
+          <div class="col-9">
+            <small class="text-muted float-right">Registered {{ $pax->updated_at->diffForHumans() }}</small>
+          </div>          
+        </div>               
       </div>
     </div>
   </div>
+  @php
+  $i++
+  @endphp
   @endforeach
+  <div class="row mt-5 float-right">
+    <div class="col-12">
+      {!! $currentpax->links() !!}    
+    </div>
+  </div>
 </div>    
 @endif
 

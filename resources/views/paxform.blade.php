@@ -4,16 +4,16 @@
 
 <form method="{{ $method }}" action="{{ $route }}">
     @csrf
-
+    
     <div class="card-title">
         <h3>Participant Profile</h3>
         <hr>
     </div>
-
+    
     @if (Route::is('participants.edit'))
-
+    
     {{ method_field('PUT') }}
-
+    
     <div class="row">
         <div class="col-8">
             <h4>{{ ucfirst($participant->lastname) }}, {{ ucfirst($participant->firstname) }} {{ ucfirst($participant->middlename) }}</h4>
@@ -26,7 +26,7 @@
     </div>
     <hr>
     @endif
-
+    
     <div class="row">
         <div class="col-4">
             <div class="form-group">
@@ -48,7 +48,7 @@
                     @endforeach
                 </select>
                 @if ($errors->has('title'))
-                <small class="form-text text-danger">{{ $errors->title }}</small>
+                <small class="form-text text-danger">{{ $errors->first('title') }}</small>
                 @endif
             </div>
         </div>
@@ -57,7 +57,7 @@
                 <label for="">Lastname</label>
                 <input type="text" name="lastname" id="lastname" class="form-control" placeholder="Lastname" aria-describedby="helpLastname" value="{{ old('lastname', optional($participant)->lastname) }}" required>
                 @if ($errors->has('lastname'))
-                <small class="form-text text-danger">{{ $errors->lastname }}</small>
+                <small class="form-text text-danger">{{ $errors->first('lastname') }}</small>
                 @endif
             </div>
         </div>
@@ -68,7 +68,7 @@
                 <label for="">Firstname</label>
                 <input type="text" name="firstname" id="firstname" class="form-control" placeholder="Firstname" aria-describedby="helpFirstname" value="{{ old('firstname') ?? $participant->firstname}}" required>
                 @if ($errors->has('firstname'))
-                <small class="form-text text-danger">{{ $errors->firstname }}</small>
+                <small class="form-text text-danger">{{ $errors->first('firstname') }}</small>
                 @endif
             </div>
         </div>
@@ -77,7 +77,7 @@
                 <label for="">Middle Name</label>
                 <input type="text" name="middlename" id="middlename" class="form-control" placeholder="Middle Name" aria-describedby="helpMiddlename" value="{{ old('middlename') ?? $participant->middlename}}">
                 @if ($errors->has('middlename'))
-                <small class="form-text text-danger">{{ $errors->middlename }}</small>
+                <small class="form-text text-danger">{{ $errors->first('middlename') }}</small>
                 @endif
             </div>
         </div>
@@ -88,9 +88,9 @@
                 <label for="">Sex</label>
                 @php
                 $genders = [
-                    'M' => 'Male',
-                    'F' => 'Female',
-                    'O' => 'Other'
+                'M' => 'Male',
+                'F' => 'Female',
+                'O' => 'Other'
                 ]
                 @endphp
                 <select class="form-control" name="gender" id="gender" required>
@@ -100,7 +100,7 @@
                     @endforeach
                 </select>
                 @if ($errors->has('gender'))
-                <small class="form-text text-danger">{{ $errors->gender }}</small>
+                <small class="form-text text-danger">{{ $errors->first('gender') }}</small>
                 @endif
             </div>
         </div>
@@ -116,7 +116,7 @@
                     @endif
                 </select>
                 @if ($errors->has('jobtitle'))
-                <small class="form-text text-danger">{{ $errors->jobtitle }}</small>
+                <small class="form-text text-danger">{{ $errors->first('jobtitle') }}</small>
                 @endif
             </div>
         </div>
@@ -127,7 +127,7 @@
                 <label for="">Region</label>
                 <region-select regionid="{{ old('region_id', optional($participant)->region_id) }}"></region-select>
                 @if ($errors->has('region_id'))
-                <small class="form-text text-danger">{{ $errors->region_id }}</small>
+                <small class="form-text text-danger">{{ $errors->first('region_id') }}</small>
                 @endif
             </div>
         </div>
@@ -139,7 +139,7 @@
                 </p>
                 <division-select divisionid="{{ old('division_id', optional($participant)->division_id) }}"></division-select>
                 @if ($errors->has('division_id'))
-                <small class="form-text text-danger">{{ $errors->division_id }}</small>
+                <small class="form-text text-danger">{{ $errors->first('division_id') }}</small>
                 @endif
             </div>
         </div>
@@ -150,7 +150,7 @@
                 <label for="">School/Office</label>
                 <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->station}}">
                 @if ($errors->has('station'))
-                <small class="form-text text-danger">{{ $errors->station }}</small>
+                <small class="form-text text-danger">{{ $errors->first('station') }}</small>
                 @endif
             </div>
         </div>
@@ -161,7 +161,7 @@
                 <label for="">Tel. No.</label>
                 <input type="text" name="landline" id="landline" class="form-control" placeholder="Tel. No." aria-describedby="helpLandline" value="{{ !empty(old('landline')) ? old('landline') : !empty($participant->landline) ? $participant->landline : '' }}">
                 @if ($errors->has('landline'))
-                <small class="form-text text-danger">{{ $errors->landline }}</small>
+                <small class="form-text text-danger">{{ $errors->first('landline') }}</small>
                 @endif
             </div>
         </div>
@@ -170,7 +170,7 @@
                 <label for="">Fax. No.</label>
                 <input type="text" name="fax" id="fax" class="form-control" placeholder="Fax. No." aria-describedby="helpFax" value="{{ old('fax') ?: isset($participant->fax) ? $participant->fax : '' }}">
                 @if ($errors->has('fax'))
-                <small class="form-text text-danger">{{ $errors->fax }}</small>
+                <small class="form-text text-danger">{{ $errors->first('fax') }}</small>
                 @endif
             </div>
         </div>
@@ -182,7 +182,7 @@
                 <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No." aria-describedby="helpMobile" value="{!! old('mobile', optional($participant)->mobile) !!}">
                 @if ($errors->has('mobile'))
                 <small id="passwordHelpBlock" class="form-text text-danger">
-                    {{ $errors->mobile }}
+                    {{ $errors->first('mobile') }}
                 </small>
                 @endif
             </div>
@@ -192,7 +192,7 @@
                 <label for="email">Email Address</label>
                 <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->email) ? $participant->email : '' }}">
                 @if ($errors->has('email'))
-                <small class="form-text text-danger">{{ $errors->email }}</small>
+                <small class="form-text text-danger">{{ $errors->first('email') }}</small>
                 @endif
             </div>
         </div>
@@ -203,7 +203,7 @@
                 <label for="email">Facebook ID</label>
                 <input type="text" name="facebookid" id="facebookid" class="form-control" placeholder="Facebook ID" aria-describedby="helpFacebookId" value="{{ old('facebookid') ?: isset($participant->facebookid) ? $participant->facebookid : '' }}">
                 @if ($errors->has('facebookid'))
-                <small class="form-text text-danger">{{ $errors->facebookid }}</small>
+                <small class="form-text text-danger">{{ $errors->first('facebookid') }}</small>
                 @endif
             </div>
         </div>
@@ -223,21 +223,21 @@
                 <label for="yearsAsTeacher">Teacher</label>
                 <input type="number" class="form-control" name="yearsAsTeacher" id="yearsAsTeacher" aria-describedby="helpYearsAsTeacher" value="{{ old('yearsAsTeacher', optional($participant)->yearsAsTeacher) }}">
                 @if ($errors->has('yearsAsTeacher'))
-                <small class="form-text text-danger">{{ $errors->yearsAsTeacher }}</small>
+                <small class="form-text text-danger">{{ $errors->first('yearsAsTeacher') }}</small>
                 @endif
             </div>
             <div class="col-4">
                 <label for="yearsAsSupervisor">Supervisor</label>
                 <input type="number" class="form-control" name="yearsAsSupervisor" id="yearsAsSupervisor" aria-describedby="helpYearsAsSupervisor" value="{{ old('yearsAsSupervisor', optional($participant)->yearsAsSupervisor) }}">
                 @if ($errors->has('yearsAsSupervisor'))
-                <small class="form-text text-danger">{{ $errors->yearsAsSupervisor }}</small>
+                <small class="form-text text-danger">{{ $errors->first('yearsAsSupervisor') }}</small>
                 @endif
             </div>
             <div class="col-4">
                 <label for="yearsAsCoordinator">Coordinator</label>
                 <input type="number" class="form-control" name="yearsAsCoordinator" id="yearsAsCoordinator" aria-describedby="helpYearsAsCoordinator" value="{{ old('yearsAsCoordinator', optional($participant)->yearsAsCoordinator) }}">
                 @if ($errors->has('yearsAsCoordinator'))
-                <small class="form-text text-danger">{{ $errors->yearsAsCoordinator }}</small>
+                <small class="form-text text-danger">{{ $errors->first('yearsAsCoordinator') }}</small>
                 @endif
             </div>
         </div>
@@ -266,7 +266,13 @@
     <div class="row">
         <div class="col-12">
             <image-upload defaultvalue="{{ old('photo', optional($participant)->photo) }}"></image-upload>
+            @if ($errors->has('photo'))
+            <small class="form-text text-danger">
+                {{ $errors->first('photo') }}
+            </small>
+            @endif            
         </div>
+        
     </div>
     @endif
     <div class="row">

@@ -14,10 +14,10 @@
 </div>
 @endif
 
-@if (session('errors'))
+@if (session('error'))
 <div id="divErrors" class="alert alert-danger" role="alert">
     <button type="button" class="close" data-dismiss="alert" aria-hidden="true">×</button>
     <h4><span><i class="fa fa-ban"></i></span> Error</h4>
-    <h5 id="errorMsg">{!! session('errors') !!}</h5>
+    <h5 id="errorMsg">{!! session('error') !!}</h5>
 </div>
 @endif

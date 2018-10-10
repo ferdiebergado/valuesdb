@@ -15,7 +15,7 @@ class CreateCurrentEventsTable extends Migration
     {
         Schema::create('current_event', function (Blueprint $table) {
             $table->increments('id');
-            $table->integer('activity_id');
+            $table->integer('activity_id')->nullable();
         });
     }
 
