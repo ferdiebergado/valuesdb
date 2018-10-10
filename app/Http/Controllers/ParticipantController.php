@@ -104,11 +104,12 @@ class ParticipantController extends Controller
         DB::beginTransaction();
         try {
             $participant = Participant::create($request->all());
-            if ($request->filled('activity')) {
-                foreach ($request->activity as $activity) {
+            if ($request->filled('activities')) {
+                foreach ($request->activities as $activity) {
                     $obj = json_decode($activity);
-                    $activity = Activity::create(collect($obj->activity)->except('id')->all());
-                    $participant->activities()->attach($activity, ['role_id' => $obj->role->id]);
+                    // $activity = Activity::create(collect($obj->activity)->except('id')->all());
+                    // $participant->activities()->attach($activity, ['role_id' => $obj->role->id]);
+                    $participant->activities()->attach(Activity::findOrFail($obj->activity->id), ['role_id' => $obj->activity->role]);
                 }
             }
         } catch (Exception $e) {

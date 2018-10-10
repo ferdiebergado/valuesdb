@@ -39,8 +39,8 @@ $totalpax = optional($currentpax)->total();
           </div>
           <div class="col-9">
             <h6 class="card-title"><strong>{{ $pax->lastname . ', ' . $pax->firstname . ' ' . $pax->middlename }}</strong></h6>
-            <h6 class="card-text">{{ $pax->jobtitle->name }}</h6>
-            <p class="card-text">{{ $pax->division->name }}, Region {{ $pax->region->name }}</p>
+            <h6 class="card-text">{{ optional($pax->jobtitle)->name }}</h6>
+            <p class="card-text">{{ optional($pax->division)->name }}, Region {{ optional($pax->region)->name }}</p>
           </div>
         </div>
       </div>
