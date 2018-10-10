@@ -21,6 +21,7 @@
                     <th>End Date</th>
                     <th>Managed By</th>
                     <th>Role</th>
+                    <th>Task(s)</th>
                 </tr>
             </thead>
             <tbody>
@@ -32,7 +33,8 @@
                     <td>{{ activity.activity.enddate }}</td>
                     <td>{{ activity.activity.managedby }}</td>
                     <td>{{ activity.role.name }}</td>
-                    <input v-if="activity.new" type="hidden" name="activities[]" :value="JSON.stringify({ activity: {id: activity.activity.id, role: activity.role.id}})">                   
+                    <td class="text-center"><a v-if="activity.new" href="javascript:void();" title="Remove" @click.prevent="removeItem(index - 1)"><i class="fa fa-trash-alt"></i></a></td>
+                    <input v-if="activity.new" type="hidden" name="activities[]" :value="JSON.stringify({ activity: {id: activity.activity.id, role: activity.role.id}})">     
                 </tr>
             </tbody>
         </table>
@@ -55,7 +57,8 @@ export default {
       activityindex: "",
       activity: "",
       role: "",
-      disabled: true
+      disabled: true,
+      forremoval: {}
     };
   },
   mounted() {
@@ -109,6 +112,13 @@ export default {
       } else {
         alert("Please select an Activity and a Role.");
       }
+    },
+    removeItem(index) {
+      var vm = this;
+      let a = vm.$data.activities;
+      console.log(a);
+      console.log(index);
+      a.splice(index, 1);
     }
   }
 };

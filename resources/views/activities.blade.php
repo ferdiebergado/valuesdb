@@ -58,7 +58,7 @@ activities-table
         let delurl = `<form id="del-form-${data}" method="POST" action="${baseurl}/${data}" style="display: inline;">
             {{ method_field('DELETE') }}
             {{ csrf_field() }}
-            <a href="#" class="${btnclass} btn-warning" title="Delete" onclick="if (confirm('Are your sure?')) { document.querySelector('#del-form-${data}').submit(); }"><i class="fa fa-trash"></i></a>
+            <a href="#" class="${btnclass} btn-warning" title="Delete" onclick="if (confirm('Are your sure?')) { document.querySelector('#del-form-${data}').submit(); }"><i class="fa fa-trash-alt"></i></a>
         </form>`;
         return setcurrenturl + viewurl + editurl + delurl;
     },
@@ -71,8 +71,8 @@ activities-table
         <h3>Activities</h3>
     </div>
     <div class="col-8">
-        <span><a class="btn btn-sm btn-success float-right mr-3" href="{{ route('activities.create') }}"><i class="fa fa-plus"></i> CREATE NEW</a></span>
-        <span><a class="btn btn-sm btn-danger float-right mr-3" href="{{ route('activities.clearcurrent') }}"><i class="fa fa-plus"></i> CLEAR CURRENT EVENT</a></span>   
+        <span><a class="btn btn-sm btn-success float-right mr-3" href="{{ route('activities.create') }}"><i class="fa fa-plus-circle"></i> CREATE NEW</a></span>
+        <span><a class="btn btn-sm btn-danger float-right mr-3" href="{{ route('activities.clearcurrent') }}"><i class="fa fa-calendar-times"></i> CLEAR CURRENT EVENT</a></span>   
         <span><a class="btn btn-sm btn-info float-right mr-3" href="{{ route('participants.index') }}"><i class="fa fa-users"></i> PARTICIPANTS</a></span>                
         <span><a class="btn btn-sm btn-default float-right mr-3" href="{{ route('search') }}"><i class="fa fa-search"></i> Back to Search</a></span>                
     </div>

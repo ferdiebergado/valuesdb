@@ -290,5 +290,5 @@
 @endsection
 
 @section('boxtools')
-<h3><strong>{{ Route::is('*.create') ? 'New' : 'Edit' }} Participant</strong></h3>
+<h4><strong><i class="fa fa-user"></i> {{ Route::is('*.create') ? 'New' : 'Edit' }} Participant</strong></h4>
 @endsection

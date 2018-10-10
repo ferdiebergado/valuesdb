@@ -85,7 +85,7 @@
 @endsection
 
 @section('boxtools')
-    <h3>{{ Route::is('*.create') ? 'New' : 'Edit' }} Activity</h3>
+    <h4><strong><i class="fa fa-list"></i> {{ Route::is('*.create') ? 'New' : 'Edit' }} Activity</strong></h4>
 @endsection
 
 @push('scripts')
