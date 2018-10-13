@@ -21,7 +21,7 @@
             <h6>{{ $participant->station }}</h6>
         </div>
         <div class="col-4">
-            <img src="{{ asset('storage/avatars/' . $participant->photo ?? 'default.png') }}" alt="avatar" height="160" width="160">
+            <img src="{{ (isset($participant->photo) && Storage::disk('avatars')->exists($participant->photo)) ? asset('storage/avatars/' . $participant->photo) : asset('img/avatar.png') }}" alt="avatar" height="160" width="160">
         </div>
     </div>
     <hr>

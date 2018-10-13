@@ -157,6 +157,13 @@ class ParticipantController extends Controller
     {
         DB::beginTransaction();
         try {
+            if ($participant->photo !== $request->photo) {
+                $photo = $participant->photo;
+                $storage = Storage::disk('avatars');
+                if ($storage->exists($photo)) {
+                    $storage->delete($photo);
+                }
+            }
             if ($participant->update($request->all())) {
                 if ($request->filled('activities')) {
                     foreach ($request->activities as $a) {
@@ -198,16 +205,6 @@ class ParticipantController extends Controller
         return view('results', compact('participants'));
     }
 
-    public function avatar(Request $request)
-    {
-        $this->validate($request, [
-            'file' => 'required|file|image|mimes:jpeg,jpg,png|max:512'
-        ]);
-        // $filename = $request->file('file')->store('/', 'avatars');
-        $filename = Storage::disk('public')->putFile('/avatars', $request->file('file'));
-        return response()->json(['fileid' => $filename]);
-    }
-
     public function getData()
     {
         $model = Participant::searchPaginateAndOrder();
@@ -222,7 +219,6 @@ class ParticipantController extends Controller
 
     public function byActivity(Request $request, Activity $activity)
     {
-        // dd($activity);
         $request = app()->make('request');
         $this->validate($request, [
             'length' => [

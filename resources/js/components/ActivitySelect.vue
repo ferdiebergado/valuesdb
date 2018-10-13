@@ -30,9 +30,11 @@ export default {
   },
   created() {
     eventBus.$on("list-updated", this.updateList);
+    eventBus.$on("activity-removed", this.restoreActivity);
   },
   beforeDestroy() {
     eventBus.$off("list-updated", this.updateList);
+    eventBus.$off("activity-removed", this.restoreActivity);
   },
   mounted() {
     this.fetchActivities();
@@ -72,6 +74,9 @@ export default {
     refreshActivities() {
       this.fetchActivities();
       $("#activity-form").modal("hide");
+    },
+    restoreActivity(activity) {
+      this.activities.push(activity);
     }
   }
 };

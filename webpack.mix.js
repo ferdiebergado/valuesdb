@@ -16,6 +16,7 @@ mix.js("resources/js/app.js", "public/js")
         "node_modules/@fortawesome/fontawesome-free/webfonts",
         "public/webfonts"
     )
+    .copyDirectory("resources/img", "public/img")
     .scripts(
         [
             // "resources/jquery-datatable/jquery.dataTables.js",

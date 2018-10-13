@@ -32,7 +32,7 @@
         @if (Route::is('search') || Route::is('login'))
 
         <div class="flex-container">
-            <div class="flex-row col-6 mt-3">
+            <div class="flex-row col-6">
                 @include('messages')
                 @yield('content')
             </div>
@@ -43,7 +43,7 @@
         <div class="container-fluid">
             {{-- <p><h1 class="text-center" style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p> --}}
             <div class="row justify-content-center">
-                <div class="card card-primary mt-4">
+                <div class="card card-primary">
                     <div class="card">
                         {{-- @if (Route::is('*.index')) --}}
                         <div class="card-header">

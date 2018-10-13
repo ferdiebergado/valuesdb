@@ -33,7 +33,7 @@
                     <td>{{ activity.activity.enddate }}</td>
                     <td>{{ activity.activity.managedby }}</td>
                     <td>{{ activity.role.name }}</td>
-                    <td class="text-center"><a v-if="activity.new" href="javascript:void();" title="Remove" @click.prevent="removeItem(index - 1)"><i class="fa fa-trash-alt"></i></a></td>
+                    <td class="text-center"><a v-if="activity.new" href="javascript:void();" title="Remove" @click.prevent="removeItem(index - 1, activity.activity)"><i class="fa fa-trash-alt"></i></a></td>
                     <input v-if="activity.new" type="hidden" name="activities[]" :value="JSON.stringify({ activity: {id: activity.activity.id, role: activity.role.id}})">     
                 </tr>
             </tbody>
@@ -112,8 +112,9 @@ export default {
         alert("Please select an Activity and a Role.");
       }
     },
-    removeItem(index) {
+    removeItem(index, activity) {
       this.activities.splice(index, 1);
+      eventBus.$emit("activity-removed", activity);
     }
   }
 };

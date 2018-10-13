@@ -35,7 +35,7 @@ $totalpax = optional($currentpax)->total();
       <div class="card-body">
         <div class="row">        
           <div class="col-3">
-            <img class="card-img-top" src="{{ asset('storage/avatars/' . $pax->photo) }}" width="72px" height="72px" alt="Card image cap">
+            <img class="card-img-top" src="{{ (isset($pax->photo) && Storage::disk('avatars')->exists($pax->photo)) ? asset('storage/avatars/' . $pax->photo) : asset('img/avatar.png') }}" width="72px" height="72px" alt="Card image cap">
           </div>
           <div class="col-9">
             <h6 class="card-title"><strong>{{ $pax->lastname . ', ' . $pax->firstname . ' ' . $pax->middlename }}</strong></h6>
