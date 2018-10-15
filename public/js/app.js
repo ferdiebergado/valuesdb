@@ -50655,6 +50655,8 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
   props: {
@@ -50664,7 +50666,9 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     return {
       image: "",
       filename: this.defaultvalue,
-      disabled: true
+      disabled: true,
+      uploadPercentage: 0,
+      uploading: false
     };
   },
 
@@ -50688,10 +50692,16 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
     uploadImage: function uploadImage() {
       var _this = this;
 
-      axios.post("/values/avatar", { file: this.image }).then(function (response) {
+      this.uploading = true;
+      axios.post("/values/avatar", { file: this.image }, {
+        onUploadProgress: function (progressEvent) {
+          this.uploadPercentage = parseInt(Math.round(progressEvent.loaded * 100 / progressEvent.total));
+        }.bind(this)
+      }).then(function (response) {
         if (response.data.success) {
           _this.filename = response.data.filename;
-          alert(response.data.success);
+          _this.uploading = false;
+          console.log(response.data.success);
         }
       }).catch(function (err) {
         alert(err.response.data);
@@ -50709,7 +50719,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", { staticClass: "container" }, [
+  return _c("div", [
     _c("div", { staticClass: "form-group row mt-5" }, [
       _vm.image
         ? _c(
@@ -50732,10 +50742,10 @@ var render = function() {
           )
         : _vm._e(),
       _vm._v(" "),
-      _c("div", { staticClass: "col-5" }, [
+      _c("div", { staticClass: "col-4" }, [
         _c("input", {
           staticClass: "form-control",
-          attrs: { type: "file", accept: ".jpg,.jpeg,.png" },
+          attrs: { type: "file", accept: ".jpg,.jpeg,.png", required: "" },
           on: { change: _vm.onImageChange }
         })
       ]),
@@ -50745,7 +50755,7 @@ var render = function() {
         domProps: { value: _vm.filename }
       }),
       _vm._v(" "),
-      _c("div", { staticClass: "col-3" }, [
+      _c("div", { staticClass: "col-4" }, [
         _c(
           "button",
           {
@@ -50758,14 +50768,31 @@ var render = function() {
               }
             }
           },
-          [_c("i", { staticClass: "fa fa-upload" }), _vm._v("Upload Photo")]
+          [
+            !_vm.uploading
+              ? _c("i", { staticClass: "fa fa-upload" })
+              : _vm._e(),
+            _vm.uploading
+              ? _c("span", [
+                  _c("img", {
+                    attrs: { src: "/img/ajax-loader.gif", alt: "ajax loader" }
+                  }),
+                  _vm._v(" Uploading (" + _vm._s(_vm.uploadPercentage) + "%)")
+                ])
+              : _vm._e(),
+            _vm._v(
+              "\n                            " +
+                _vm._s(!_vm.uploading ? "Upload Photo" : "") +
+                " "
+            )
+          ]
         )
       ])
     ]),
     _vm._v(" "),
     _c("small", { staticClass: "form-text text-muted" }, [
       _vm._v(
-        'Click "Choose File" and select an image file (.jpg, .jpeg, .png only). Then, click Upload Photo.'
+        'Click "Choose File" and select an image file (.jpg, .jpeg, .png only). Then, click Upload Photo. (Required)'
       )
     ])
   ])
@@ -51058,58 +51085,54 @@ var render = function() {
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c(
-      "select",
-      {
-        directives: [
+    !_vm.loading
+      ? _c(
+          "select",
           {
-            name: "show",
-            rawName: "v-show",
-            value: !_vm.loading,
-            expression: "!loading"
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.division,
+                expression: "division"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              name: "division_id",
+              id: "division_id",
+              disabled: _vm.disabled
+            },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.division = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
           },
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.division,
-            expression: "division"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: {
-          name: "division_id",
-          id: "division_id",
-          disabled: _vm.disabled
-        },
-        on: {
-          change: function($event) {
-            var $$selectedVal = Array.prototype.filter
-              .call($event.target.options, function(o) {
-                return o.selected
-              })
-              .map(function(o) {
-                var val = "_value" in o ? o._value : o.value
-                return val
-              })
-            _vm.division = $event.target.multiple
-              ? $$selectedVal
-              : $$selectedVal[0]
-          }
-        }
-      },
-      [
-        _c("option", { attrs: { value: "" } }, [_vm._v("Select Division")]),
-        _vm._v(" "),
-        _vm._l(_vm.divisions, function(division) {
-          return _c(
-            "option",
-            { key: division.id, domProps: { value: division.id } },
-            [_vm._v(_vm._s(division.name))]
-          )
-        })
-      ],
-      2
-    )
+          [
+            _c("option", { attrs: { value: "" } }, [_vm._v("Select Division")]),
+            _vm._v(" "),
+            _vm._l(_vm.divisions, function(division) {
+              return _c(
+                "option",
+                { key: division.id, domProps: { value: division.id } },
+                [_vm._v(_vm._s(division.name))]
+              )
+            })
+          ],
+          2
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -52509,7 +52532,11 @@ var render = function() {
                       " - " +
                       activity.activitytitle +
                       " - " +
-                      activity.venue
+                      activity.venue +
+                      " - " +
+                      activity.startdate +
+                      " - " +
+                      activity.enddate
                   )
                 )
               ]
