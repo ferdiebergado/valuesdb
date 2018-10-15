@@ -75,6 +75,21 @@ class Participant extends BaseModel
         $this->attributes['middlename'] = ucfirst($value);
     }
 
+    public function setLandlineAttribute($value)
+    {
+        $this->attributes['landline'] = str_replace('-', '', $value);
+    }
+
+    public function setFaxAttribute($value)
+    {
+        $this->attributes['fax'] = str_replace('-', '', $value);
+    }
+
+    public function setMobileAttribute($value)
+    {
+        $this->attributes['mobile'] = str_replace('-', '', $value);
+    }
+
     public function getTotalActivitiesAttribute()
     {
         return $this->activities()->count();
