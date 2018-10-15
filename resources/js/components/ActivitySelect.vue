@@ -2,7 +2,7 @@
     <div class="input-group">
         <select name="activity_id" id="activity_id" class="form-control" v-model="activity" @change="updateActivity">
             <option value="">Select Activity</option>
-            <option v-for="activity in activities" :key="activity.id" :value="activity.id">{{ `${activity.id} - ${activity.activitytitle} - ${activity.venue}` }}</option>
+            <option v-for="activity in activities" :key="activity.id" :value="activity.id">{{ `${activity.id} - ${activity.activitytitle} - ${activity.venue} - ${activity.startdate} - ${activity.enddate}` }}</option>
         </select>
         <div class="input-group-append">
             <span class="input-group-text">
