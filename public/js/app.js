@@ -42509,9 +42509,9 @@ window.Popper = __webpack_require__(5).default;
  */
 
 try {
-  window.$ = window.jQuery = __webpack_require__(2);
+    window.$ = window.jQuery = __webpack_require__(2);
 
-  __webpack_require__(19);
+    __webpack_require__(19);
 } catch (e) {}
 
 /**
@@ -42533,9 +42533,9 @@ window.axios.defaults.headers.common["X-Requested-With"] = "XMLHttpRequest";
 var token = document.head.querySelector('meta[name="csrf-token"]');
 
 if (token) {
-  window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
+    window.axios.defaults.headers.common["X-CSRF-TOKEN"] = token.content;
 } else {
-  console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
+    console.error("CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token");
 }
 
 /**
@@ -50655,51 +50655,50 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
-//
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        defaultvalue: String
-    },
-    data: function data() {
-        return {
-            image: "",
-            filename: this.defaultvalue,
-            disabled: true
-        };
-    },
+  props: {
+    defaultvalue: String
+  },
+  data: function data() {
+    return {
+      image: "",
+      filename: this.defaultvalue,
+      disabled: true
+    };
+  },
 
-    methods: {
-        onImageChange: function onImageChange(e) {
-            var files = e.target.files || e.dataTransfer.files;
-            if (!files.length) {
-                return;
-            }
-            this.disabled = false;
-            this.createImage(files[0]);
-        },
-        createImage: function createImage(file) {
-            var reader = new FileReader();
-            var vm = this;
-            reader.onload = function (e) {
-                vm.image = e.target.result;
-            };
-            reader.readAsDataURL(file);
-        },
-        uploadImage: function uploadImage() {
-            var _this = this;
+  methods: {
+    onImageChange: function onImageChange(e) {
+      var files = e.target.files || e.dataTransfer.files;
+      if (!files.length) {
+        return;
+      }
+      this.disabled = false;
+      this.createImage(files[0]);
+    },
+    createImage: function createImage(file) {
+      var reader = new FileReader();
+      var vm = this;
+      reader.onload = function (e) {
+        vm.image = e.target.result;
+      };
+      reader.readAsDataURL(file);
+    },
+    uploadImage: function uploadImage() {
+      var _this = this;
 
-            axios.post("/values/avatar", { file: this.image }).then(function (response) {
-                if (response.data.success) {
-                    _this.filename = response.data.filename;
-                    alert(response.data.success);
-                }
-            }).catch(function (err) {
-                alert(err.response.data);
-                return;
-            });
+      axios.post("/values/avatar", { file: this.image }).then(function (response) {
+        if (response.data.success) {
+          _this.filename = response.data.filename;
+          alert(response.data.success);
         }
+      }).catch(function (err) {
+        alert(err.response.data);
+        return;
+      });
     }
+  }
 });
 
 /***/ }),
@@ -50710,7 +50709,7 @@ var render = function() {
   var _vm = this
   var _h = _vm.$createElement
   var _c = _vm._self._c || _h
-  return _c("div", [
+  return _c("div", { staticClass: "container" }, [
     _c("div", { staticClass: "form-group row mt-5" }, [
       _vm.image
         ? _c(
@@ -50759,7 +50758,7 @@ var render = function() {
               }
             }
           },
-          [_c("i", { staticClass: "fa fa-upload" }), _vm._v(" Upload Photo")]
+          [_c("i", { staticClass: "fa fa-upload" }), _vm._v("Upload Photo")]
         )
       ])
     ]),
@@ -51003,44 +51002,44 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    props: {
-        divisionid: String
-    },
-    data: function data() {
-        return {
-            loading: false,
-            disabled: true,
-            division: parseInt(this.divisionid),
-            divisions: {}
-        };
-    },
-    created: function created() {
-        eventBus.$on('region-updated', this.fetchDivisions);
-    },
-    beforeDestroy: function beforeDestroy() {
-        eventBus.$off('region-updated', this.fetchDivisions);
-    },
+  props: {
+    divisionid: String
+  },
+  data: function data() {
+    return {
+      loading: false,
+      disabled: true,
+      division: parseInt(this.divisionid),
+      divisions: {}
+    };
+  },
+  created: function created() {
+    eventBus.$on("region-updated", this.fetchDivisions);
+  },
+  beforeDestroy: function beforeDestroy() {
+    eventBus.$off("region-updated", this.fetchDivisions);
+  },
 
-    methods: {
-        fetchDivisions: function fetchDivisions(region) {
-            var vm = this;
-            this.loading = true;
-            if (region === "" || region === 19) {
-                this.disabled = true;
-            } else {
-                this.disabled = false;
-            }
-            axios.get("/values/divisions", {
-                params: { region_id: region }
-            }).then(function (res) {
-                vm.$set(vm.$data, "divisions", res.data);
-                vm.$set(vm.$data, "loading", false);
-            }).catch(function (err) {
-                alert(err.response.data);
-                console.log(err.response.data);
-            });
-        }
+  methods: {
+    fetchDivisions: function fetchDivisions(region) {
+      var vm = this;
+      this.loading = true;
+      if (region === "" || region === 19) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+      axios.get("/values/divisions", {
+        params: { region_id: region }
+      }).then(function (res) {
+        vm.$set(vm.$data, "divisions", res.data);
+        vm.$set(vm.$data, "loading", false);
+      }).catch(function (err) {
+        alert(err.response.data);
+        console.log(err.response.data);
+      });
     }
+  }
 });
 
 /***/ }),
@@ -51055,62 +51054,58 @@ var render = function() {
     _vm.loading
       ? _c("p", { attrs: { id: "ajax-loader" } }, [
           _vm._v("\n        Updating...  "),
-          _c("img", { attrs: { src: "/storage/ajax-loader-square.gif" } })
+          _c("img", { attrs: { src: "/img/ajax-loader-square.gif" } })
         ])
       : _vm._e(),
     _vm._v(" "),
-    _c(
-      "select",
-      {
-        directives: [
+    !_vm.loading
+      ? _c(
+          "select",
           {
-            name: "show",
-            rawName: "v-show",
-            value: !_vm.loading,
-            expression: "!loading"
+            directives: [
+              {
+                name: "model",
+                rawName: "v-model",
+                value: _vm.division,
+                expression: "division"
+              }
+            ],
+            staticClass: "form-control",
+            attrs: {
+              name: "division_id",
+              id: "division_id",
+              disabled: _vm.disabled
+            },
+            on: {
+              change: function($event) {
+                var $$selectedVal = Array.prototype.filter
+                  .call($event.target.options, function(o) {
+                    return o.selected
+                  })
+                  .map(function(o) {
+                    var val = "_value" in o ? o._value : o.value
+                    return val
+                  })
+                _vm.division = $event.target.multiple
+                  ? $$selectedVal
+                  : $$selectedVal[0]
+              }
+            }
           },
-          {
-            name: "model",
-            rawName: "v-model",
-            value: _vm.division,
-            expression: "division"
-          }
-        ],
-        staticClass: "form-control",
-        attrs: {
-          name: "division_id",
-          id: "division_id",
-          disabled: _vm.disabled
-        },
-        on: {
-          change: function($event) {
-            var $$selectedVal = Array.prototype.filter
-              .call($event.target.options, function(o) {
-                return o.selected
-              })
-              .map(function(o) {
-                var val = "_value" in o ? o._value : o.value
-                return val
-              })
-            _vm.division = $event.target.multiple
-              ? $$selectedVal
-              : $$selectedVal[0]
-          }
-        }
-      },
-      [
-        _c("option", { attrs: { value: "" } }, [_vm._v("Select Division")]),
-        _vm._v(" "),
-        _vm._l(_vm.divisions, function(division) {
-          return _c(
-            "option",
-            { key: division.id, domProps: { value: division.id } },
-            [_vm._v(_vm._s(division.name))]
-          )
-        })
-      ],
-      2
-    )
+          [
+            _c("option", { attrs: { value: "" } }, [_vm._v("Select Division")]),
+            _vm._v(" "),
+            _vm._l(_vm.divisions, function(division) {
+              return _c(
+                "option",
+                { key: division.id, domProps: { value: division.id } },
+                [_vm._v(_vm._s(division.name))]
+              )
+            })
+          ],
+          2
+        )
+      : _vm._e()
   ])
 }
 var staticRenderFns = []
@@ -51733,71 +51728,83 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 //
 //
+//
+//
 
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    components: {
-        ActivitySelect: __WEBPACK_IMPORTED_MODULE_0__ActivitySelect_vue___default.a,
-        RoleSelect: __WEBPACK_IMPORTED_MODULE_1__RoleSelect_vue___default.a
-    },
-    props: {
-        participantid: String
-    },
-    data: function data() {
-        return {
-            activities: {},
-            activityindex: '',
-            activity: '',
-            role: '',
-            disabled: true
-        };
-    },
-    mounted: function mounted() {
-        this.fetchActivities();
-    },
+  components: {
+    ActivitySelect: __WEBPACK_IMPORTED_MODULE_0__ActivitySelect_vue___default.a,
+    RoleSelect: __WEBPACK_IMPORTED_MODULE_1__RoleSelect_vue___default.a
+  },
+  props: {
+    participantid: String
+  },
+  data: function data() {
+    return {
+      activities: {},
+      activityindex: "",
+      activity: "",
+      role: "",
+      disabled: true
+    };
+  },
+  mounted: function mounted() {
+    this.fetchActivities();
+  },
 
-    methods: {
-        fetchActivities: function fetchActivities() {
-            var vm = this;
-            axios.get('/values/activity_participants', { params: {
-                    participantid: parseInt(vm.participantid)
-                } }).then(function (res) {
-                vm.$set(vm.$data, 'activities', res.data);
-            }).catch(function (err) {
-                alert(err.response.data);
-                console.log(err.response.data);
-            });
-        },
-        updateActivity: function updateActivity(activity, index) {
-            this.activityindex = index;
-            this.activity = activity;
-            this.enableAddToList();
-        },
-        updateRole: function updateRole(role) {
-            this.role = role;
-            this.enableAddToList();
-        },
-        enableAddToList: function enableAddToList() {
-            if (!this.activity || !this.role) {
-                this.disabled = true;
-            } else {
-                this.disabled = false;
-            }
-        },
-        updateList: function updateList() {
-            if (this.activity && this.role) {
-                var i = this.activityindex;
-                this.activities.splice(0, 0, { activity: this.activity, role: this.role, new: true });
-                this.activityindex = '';
-                this.activity = {};
-                this.role = '';
-                eventBus.$emit('list-updated', i);
-            } else {
-                alert('Please select an Activity and a Role.');
-            }
+  methods: {
+    fetchActivities: function fetchActivities() {
+      var vm = this;
+      axios.get("/values/activity_participants", {
+        params: {
+          participantid: parseInt(vm.participantid)
         }
+      }).then(function (res) {
+        vm.$set(vm.$data, "activities", res.data);
+      }).catch(function (err) {
+        alert(err.response.data);
+        console.log(err.response.data);
+      });
+    },
+    updateActivity: function updateActivity(activity, index) {
+      this.activityindex = index;
+      this.activity = activity;
+      this.enableAddToList();
+    },
+    updateRole: function updateRole(role) {
+      this.role = role;
+      this.enableAddToList();
+    },
+    enableAddToList: function enableAddToList() {
+      if (!this.activity || !this.role) {
+        this.disabled = true;
+      } else {
+        this.disabled = false;
+      }
+    },
+    updateList: function updateList() {
+      if (this.activity && this.role) {
+        var i = this.activityindex;
+        this.activities.splice(0, 0, {
+          activity: this.activity,
+          role: this.role,
+          new: true
+        });
+        this.activityindex = "";
+        this.activity = {};
+        this.role = "";
+        eventBus.$emit("list-updated", i);
+      } else {
+        alert("Please select an Activity and a Role.");
+      }
+    },
+    removeItem: function removeItem(index, activity) {
+      this.activities.splice(index, 1);
+      eventBus.$emit("activity-removed", activity);
     }
+  }
 });
 
 /***/ }),
@@ -51872,61 +51879,68 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'activity-select',
-    components: {
-        ActivityForm: __WEBPACK_IMPORTED_MODULE_0__ActivityForm_vue___default.a
-    },
-    props: {
-        participantid: String
-    },
-    data: function data() {
-        return {
-            activity: '',
-            activities: {}
-        };
-    },
-    created: function created() {
-        eventBus.$on('list-updated', this.updateList);
-    },
-    beforeDestroy: function beforeDestroy() {
-        eventBus.$off('list-updated', this.updateList);
-    },
-    mounted: function mounted() {
-        this.fetchActivities();
-    },
+  name: "activity-select",
+  components: {
+    ActivityForm: __WEBPACK_IMPORTED_MODULE_0__ActivityForm_vue___default.a
+  },
+  props: {
+    participantid: String
+  },
+  data: function data() {
+    return {
+      activity: "",
+      activities: {}
+    };
+  },
+  created: function created() {
+    eventBus.$on("list-updated", this.updateList);
+    eventBus.$on("activity-removed", this.restoreActivity);
+  },
+  beforeDestroy: function beforeDestroy() {
+    eventBus.$off("list-updated", this.updateList);
+    eventBus.$off("activity-removed", this.restoreActivity);
+  },
+  mounted: function mounted() {
+    this.fetchActivities();
+  },
 
-    methods: {
-        fetchActivities: function fetchActivities() {
-            var vm = this;
-            axios.get('/values/activities', { params: {
-                    participantid: this.participantid
-                } }).then(function (res) {
-                vm.$set(vm.$data, 'activities', res.data);
-            }).catch(function (err) {
-                alert(err.response.data);
-                console.log(err.response.data);
-            });
-        },
-        updateActivity: function updateActivity() {
-            function checkActivity(activity) {
-                return activity.id === this;
-            }
-            var activity = this.activities.find(checkActivity, this.activity);
-            this.$emit('activity-selected', activity, this.activity);
-        },
-        updateList: function updateList(i) {
-            function checkActivity(activity) {
-                return activity.id === this;
-            }
-            var activityidx = this.activities.findIndex(checkActivity, i);
-            this.activities.splice(activityidx, 1);
-            this.activity = '';
-        },
-        refreshActivities: function refreshActivities() {
-            this.fetchActivities();
-            $('#activity-form').modal('hide');
+  methods: {
+    fetchActivities: function fetchActivities() {
+      var vm = this;
+      axios.get("/values/activities", {
+        params: {
+          participantid: this.participantid
         }
+      }).then(function (res) {
+        vm.$set(vm.$data, "activities", res.data);
+      }).catch(function (err) {
+        alert(err.response.data);
+        console.log(err.response.data);
+      });
+    },
+    updateActivity: function updateActivity() {
+      function checkActivity(activity) {
+        return activity.id === this;
+      }
+      var activity = this.activities.find(checkActivity, this.activity);
+      this.$emit("activity-selected", activity, this.activity);
+    },
+    updateList: function updateList(i) {
+      function checkActivity(activity) {
+        return activity.id === this;
+      }
+      var activityidx = this.activities.findIndex(checkActivity, i);
+      this.activities.splice(activityidx, 1);
+      this.activity = "";
+    },
+    refreshActivities: function refreshActivities() {
+      this.fetchActivities();
+      $("#activity-form").modal("hide");
+    },
+    restoreActivity: function restoreActivity(activity) {
+      this.activities.push(activity);
     }
+  }
 });
 
 /***/ }),
@@ -52057,42 +52071,47 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 // import RoleSelect from './RoleSelect.vue';
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'activity-form',
-    // components: {
-    //     RoleSelect
-    // },
-    data: function data() {
-        return {
-            activity: {
-                activitytitle: '',
-                venue: '',
-                startdate: null,
-                enddate: null,
-                managedby: ''
-            },
-            // role: {
-            //     id: '',
-            //     name: ''
-            // },
-            error: ''
-        };
-    },
+  name: "activity-form",
+  // components: {
+  //     RoleSelect
+  // },
+  data: function data() {
+    return {
+      activity: {
+        activitytitle: "",
+        venue: "",
+        startdate: null,
+        enddate: null,
+        managedby: ""
+      },
+      // role: {
+      //     id: '',
+      //     name: ''
+      // },
+      error: ""
+    };
+  },
 
-    methods: {
-        save: function save() {
-            var _this = this;
+  methods: {
+    save: function save() {
+      var _this = this;
 
-            var vm = this;
-            axios.post('/values/activities', this.activity).then(function (res) {
-                console.table([res.data.data]);
-                // this.$emit('activity-created', {activity: res.data.data, new: true});
-                _this.$emit('activity-created');
-                _this.activity = {};
-            }).catch(function (err) {
-                _this.error = err.response.data;
-            });
-        }
+      var vm = this;
+      axios.post("/values/activities", this.activity).then(function (res) {
+        console.table([res.data.data]);
+        // this.$emit('activity-created', {activity: res.data.data, new: true});
+        _this.$emit("activity-created");
+        _this.activity = {};
+      }).catch(function (err) {
+        _this.error = err.response.data;
+      });
     }
+    // updateRole(role) {
+    //     this.role.id = role.id;
+    //     this.role.name = role.name;
+    // }
+
+  }
 });
 
 /***/ }),
@@ -52157,9 +52176,7 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-12" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "activitytitle" } }, [
-                            _vm._v("Title")
-                          ]),
+                          _vm._m(1),
                           _vm._v(" "),
                           _c("textarea", {
                             directives: [
@@ -52199,9 +52216,7 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-12" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "venue" } }, [
-                            _vm._v("Venue")
-                          ]),
+                          _vm._m(2),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -52243,9 +52258,7 @@ var render = function() {
                           "div",
                           { staticClass: "form-group" },
                           [
-                            _c("label", { attrs: { for: "startdate" } }, [
-                              _vm._v("Start Date:")
-                            ]),
+                            _vm._m(3),
                             _vm._v(" "),
                             _c("flat-pickr", {
                               model: {
@@ -52266,9 +52279,7 @@ var render = function() {
                           "div",
                           { staticClass: "form-group" },
                           [
-                            _c("label", { attrs: { for: "enddate" } }, [
-                              _vm._v("End Date")
-                            ]),
+                            _vm._m(4),
                             _vm._v(" "),
                             _c("flat-pickr", {
                               model: {
@@ -52328,7 +52339,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(5)
               ]
             )
           ])
@@ -52358,6 +52369,50 @@ var staticRenderFns = [
           },
           [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "activitytitle" } }, [
+      _vm._v("Title "),
+      _c("span", [
+        _c("small", { staticClass: "text-muted" }, [_vm._v("(Required)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "venue" } }, [
+      _vm._v("Venue "),
+      _c("span", [
+        _c("small", { staticClass: "text-muted" }, [_vm._v("(Required)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "startdate" } }, [
+      _vm._v("Start Date "),
+      _c("span", [
+        _c("small", { staticClass: "text-muted" }, [_vm._v("(Required)")])
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "enddate" } }, [
+      _vm._v("End Date "),
+      _c("span", [
+        _c("small", { staticClass: "text-muted" }, [_vm._v("(Required)")])
       ])
     ])
   },
@@ -52484,7 +52539,7 @@ var staticRenderFns = [
               title: "Create Activity"
             }
           },
-          [_c("i", { staticClass: "fa fa-plus" })]
+          [_c("i", { staticClass: "fa fa-plus-circle" })]
         )
       ])
     ])
@@ -52569,51 +52624,51 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'role-select',
-    components: {
-        RoleForm: __WEBPACK_IMPORTED_MODULE_0__RoleForm_vue___default.a
-    },
-    data: function data() {
-        return {
-            role: '',
-            roles: {}
-        };
-    },
-    created: function created() {
-        eventBus.$on('list-updated', this.resetRole);
-    },
-    beforeDestroy: function beforeDestroy() {
-        eventBus.$off('list-updated', this.resetRole);
-    },
-    mounted: function mounted() {
-        this.fetchRoles();
-    },
+  name: "role-select",
+  components: {
+    RoleForm: __WEBPACK_IMPORTED_MODULE_0__RoleForm_vue___default.a
+  },
+  data: function data() {
+    return {
+      role: "",
+      roles: {}
+    };
+  },
+  created: function created() {
+    eventBus.$on("list-updated", this.resetRole);
+  },
+  beforeDestroy: function beforeDestroy() {
+    eventBus.$off("list-updated", this.resetRole);
+  },
+  mounted: function mounted() {
+    this.fetchRoles();
+  },
 
-    methods: {
-        fetchRoles: function fetchRoles() {
-            var vm = this;
-            axios.get('/values/roles').then(function (res) {
-                vm.$set(vm.$data, 'roles', res.data);
-            }).catch(function (err) {
-                alert(err.response.data);
-                console.log(err.response.data);
-            });
-        },
-        updateRole: function updateRole() {
-            function checkRole(role) {
-                return role.id === this;
-            }
-            var role = this.roles.find(checkRole, this.role);
-            this.$emit('role-selected', role);
-        },
-        resetRole: function resetRole() {
-            this.role = '';
-        },
-        refreshRoles: function refreshRoles() {
-            this.fetchRoles();
-            $('#role-form').modal('hide');
-        }
+  methods: {
+    fetchRoles: function fetchRoles() {
+      var vm = this;
+      axios.get("/values/roles").then(function (res) {
+        vm.$set(vm.$data, "roles", res.data);
+      }).catch(function (err) {
+        alert(err.response.data);
+        console.log(err.response.data);
+      });
+    },
+    updateRole: function updateRole() {
+      function checkRole(role) {
+        return role.id === this;
+      }
+      var role = this.roles.find(checkRole, this.role);
+      this.$emit("role-selected", role);
+    },
+    resetRole: function resetRole() {
+      this.role = "";
+    },
+    refreshRoles: function refreshRoles() {
+      this.fetchRoles();
+      $("#role-form").modal("hide");
     }
+  }
 });
 
 /***/ }),
@@ -52716,31 +52771,31 @@ Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
 //
 
 /* harmony default export */ __webpack_exports__["default"] = ({
-    name: 'role-form',
-    data: function data() {
-        return {
-            role: {
-                name: '',
-                priority: ''
-            },
-            error: ''
-        };
-    },
+  name: "role-form",
+  data: function data() {
+    return {
+      role: {
+        name: "",
+        priority: ""
+      },
+      error: ""
+    };
+  },
 
-    methods: {
-        save: function save() {
-            var _this = this;
+  methods: {
+    save: function save() {
+      var _this = this;
 
-            var vm = this;
-            axios.post('/values/roles', this.role).then(function (res) {
-                console.table([res.data.data]);
-                _this.$emit('role-created');
-                _this.role = {};
-            }).catch(function (err) {
-                _this.error = err.response.data.error;
-            });
-        }
+      var vm = this;
+      axios.post("/values/roles", this.role).then(function (res) {
+        console.table([res.data.data]);
+        _this.$emit("role-created");
+        _this.role = {};
+      }).catch(function (err) {
+        _this.error = err.response.data.error;
+      });
     }
+  }
 });
 
 /***/ }),
@@ -52805,9 +52860,7 @@ var render = function() {
                     _c("div", { staticClass: "row" }, [
                       _c("div", { staticClass: "col-12" }, [
                         _c("div", { staticClass: "form-group" }, [
-                          _c("label", { attrs: { for: "name" } }, [
-                            _vm._v("Name")
-                          ]),
+                          _vm._m(1),
                           _vm._v(" "),
                           _c("input", {
                             directives: [
@@ -52881,7 +52934,7 @@ var render = function() {
                   ])
                 ]),
                 _vm._v(" "),
-                _vm._m(1)
+                _vm._m(2)
               ]
             )
           ])
@@ -52911,6 +52964,17 @@ var staticRenderFns = [
           },
           [_c("span", { attrs: { "aria-hidden": "true" } }, [_vm._v("×")])]
         )
+      ])
+    ])
+  },
+  function() {
+    var _vm = this
+    var _h = _vm.$createElement
+    var _c = _vm._self._c || _h
+    return _c("label", { attrs: { for: "name" } }, [
+      _vm._v("Name "),
+      _c("span", [
+        _c("small", { staticClass: "text-muted" }, [_vm._v("(Required)")])
       ])
     ])
   },
@@ -53026,7 +53090,7 @@ var staticRenderFns = [
               title: "Create Role"
             }
           },
-          [_c("i", { staticClass: "fa fa-plus" })]
+          [_c("i", { staticClass: "fa fa-plus-circle" })]
         )
       ])
     ])
@@ -53116,6 +53180,24 @@ var render = function() {
               _vm._v(" "),
               _c("td", [_vm._v(_vm._s(activity.role.name))]),
               _vm._v(" "),
+              _c("td", { staticClass: "text-center" }, [
+                activity.new
+                  ? _c(
+                      "a",
+                      {
+                        attrs: { href: "javascript:void();", title: "Remove" },
+                        on: {
+                          click: function($event) {
+                            $event.preventDefault()
+                            _vm.removeItem(index - 1, activity.activity)
+                          }
+                        }
+                      },
+                      [_c("i", { staticClass: "fa fa-trash-alt" })]
+                    )
+                  : _vm._e()
+              ]),
+              _vm._v(" "),
               activity.new
                 ? _c("input", {
                     attrs: { type: "hidden", name: "activities[]" },
@@ -53155,7 +53237,9 @@ var staticRenderFns = [
         _vm._v(" "),
         _c("th", [_vm._v("Managed By")]),
         _vm._v(" "),
-        _c("th", [_vm._v("Role")])
+        _c("th", [_vm._v("Role")]),
+        _vm._v(" "),
+        _c("th", [_vm._v("Task(s)")])
       ])
     ])
   }

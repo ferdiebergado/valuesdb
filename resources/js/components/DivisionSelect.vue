@@ -3,7 +3,7 @@
         <p id="ajax-loader" v-if="loading">
             Updating... &nbsp;<img src="/img/ajax-loader-square.gif">
         </p>
-        <select name="division_id" id="division_id" class="form-control" :disabled="disabled" v-show="!loading" v-model="division">
+        <select name="division_id" id="division_id" class="form-control" :disabled="disabled" v-if="!loading" v-model="division">
             <option value="">Select Division</option>
             <option v-for="division in divisions" :key="division.id" :value="division.id">{{ division.name }}</option>
         </select>
