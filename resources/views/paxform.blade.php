@@ -107,7 +107,7 @@
         <div class="col-9">
             <div class="form-group">
                 <label for="">Job Title <span><small class="text-muted">(Required)</small></span></label>
-                <select class="form-control" name="jobtitle_id" id="jobtitle_id">
+                <select class="form-control" name="jobtitle_id" id="jobtitle_id" required>
                     <option value="">Select Jobtitle</option>
                     @if (isset($jobtitles) && count($jobtitles) > 0)
                     @foreach ($jobtitles as $jobtitle)
@@ -148,7 +148,7 @@
         <div class="col-12">
             <div class="form-group">
                 <label for="">School/Office <span><small class="text-muted">(Required)</small></span></label>
-                <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->station}}">
+                <input type="text" name="station" id="station" class="form-control" placeholder="School/Office" aria-describedby="helpStation" value="{{ old('station') ?? $participant->station}}" required>
                 @if ($errors->has('station'))
                 <small class="form-text text-danger">{{ $errors->first('station') }}</small>
                 @endif
@@ -179,7 +179,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="mobile">Mobile No. <span><small class="text-muted">(Required)</small></span></label>
-                <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No." aria-describedby="helpMobile" value="{!! old('mobile', optional($participant)->mobile) !!}">
+                <input type="text" name="mobile" id="mobile" class="form-control" placeholder="Mobile No." aria-describedby="helpMobile" value="{!! old('mobile', optional($participant)->mobile) !!}" required>
                 @if ($errors->has('mobile'))
                 <small id="passwordHelpBlock" class="form-text text-danger">
                     {{ $errors->first('mobile') }}
@@ -190,7 +190,7 @@
         <div class="col-6">
             <div class="form-group">
                 <label for="email">Email Address <span><small class="text-muted">(Required)</small></span></label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->email) ? $participant->email : '' }}">
+                <input type="email" name="email" id="email" class="form-control" placeholder="Email Address" aria-describedby="helpEmail" value="{{ old('email') ?: isset($participant->email) ? $participant->email : '' }}" required>
                 @if ($errors->has('email'))
                 <small class="form-text text-danger">{{ $errors->first('email') }}</small>
                 @endif
@@ -243,13 +243,14 @@
         </div>
     </div>
     <div class="card-title mt-4">
-        <h3>SEMINAR WORKSHOPS/TRAININGS ATTENDED</h3>
+        <h3>SEMINAR WORKSHOPS/TRAININGS ATTENDED RELATED TO VALUES/ESP</h3>
         <hr>
     </div>
     <div class="row">
         <div class="col-12">
             <div class="form-group">
                 <p>Attended Seminar/Workshop/Training related to Values Education/EsP for the last two (2) years:</p>
+                <p class="text-muted"><span class="badge badge-info">NOTE:</span> Select an activity and a role from the dropdowns below then click the <i class="fa fa-th-list text-success"></i> button. To add an activity/role click the <i class="fa fa-plus-circle text-primary"></i> icon next to the dropdown.)</p>
             </div>
         </div>
     </div>
