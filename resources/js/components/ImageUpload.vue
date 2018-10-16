@@ -4,7 +4,7 @@
         <div class="col-4" v-if="image" style="display: flex; align-items: center; justify-content: center; margin: 0;">
             <img :src="image" class="img-responsive" height="120" width="160"></div>
             <div class="col-4">
-                <input type="file" v-on:change="onImageChange" accept=".jpg,.jpeg,.png" class="form-control" required></div>
+                <input type="file" v-on:change="onImageChange" accept=".jpg,.jpeg,.png" class="form-control"></div>
                 <input type="hidden" name="photo" :value="filename">
                     <div class="col-4">
                         <button class="btn btn-success btn-block" @click.prevent="uploadImage" :disabled="disabled">
@@ -13,7 +13,7 @@
                     </div>
                 </div>
                 <!-- <progress max="100" :value.prop="uploadPercentage" v-if="uploading"></progress> -->
-                <small class="form-text text-muted">Click "Choose File" and select an image file (.jpg, .jpeg, .png only). Then, click Upload Photo. (Required)</small>
+                <small class="form-text text-muted">Click "Choose File" and select an image file (.jpg, .jpeg, .png only). Then, click Upload Photo.</small>
             </div>
 </template>
 
