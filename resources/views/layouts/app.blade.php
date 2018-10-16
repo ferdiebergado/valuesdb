@@ -2,24 +2,28 @@
 <html lang="en">
 <head>
     <title>{{ config('app.name') }}</title>
-
+    
     <!-- Required meta tags -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
     <meta name="author" content="Ferdinand Saporas Bergado">
-
+    
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
-
+    
     <link rel="stylesheet" href="{{ mix('css/app.css') }}">
-
+    
     @stack('styles')
-
+    
 </head>
 
 <body>
     <div id="app">
-        <div class="text-center" style="color: white;">
+        @auth
+            @include('components.navbar')
+        @endauth
+       
+        <div class="text-center text-white">
             <h1 class="mt-5"><strong>{{ optional($currentevent)->activitytitle ?? config('app.name') }}</h1></strong>
             <h3>{{ optional($currentevent)->venue }}</h3>
             @php
@@ -28,19 +32,19 @@
             @endphp
             <h4 class="mb-5">{{ $start->format('F d')}} to {{ ($end->month >= $start->month) ? $end->day : ($end->month > $start->month) ? $end->format('F d') : $end->day }}, {{ $end->year }}</h4>
         </div>
-
+        
         @if (Route::is('search') || Route::is('login'))
-
+        
         <div class="flex-container">
             <div class="flex-row col-6">
                 @include('messages')
                 @yield('content')
             </div>
         </div> <!-- flex-container -->
-
+        
         @else
-
-        <div class="container-fluid">
+        
+        <div class="container-fluid">           
             {{-- <p><h1 class="text-center" style="color: white;"><strong>{{ config('app.name') }}</h1></strong></p> --}}
             <div class="row justify-content-center">
                 <div class="card card-primary">
@@ -54,6 +58,7 @@
                             @include('messages')
                             @yield('content')
                         </div>
+
                         <div class="card-footer text-muted">
                             <div class="text-center">
                                 <small class="text-center">&copy; Copyright 2018. <a href="javascript:void();" data-toggle="modal" data-target="#license">License</a></small>
@@ -63,10 +68,10 @@
                 </div>
             </div>
         </div> <!-- container-fluid -->
-
+        
         {{-- @include('footer') --}}
         @endif
-
+        
         <!-- Modal -->
         <div class="modal fade" id="license" tabindex="-1" role="dialog" aria-labelledby="License" aria-hidden="true">
             <div class="modal-dialog modal-lg" role="document">
@@ -86,9 +91,9 @@
                 </div>
             </div>
         </div> <!-- Modal -->
-
+        
     </div> <!-- app -->
-
+    
     <script src="{{ mix('js/app.js') }}"></script>
     @stack('scripts')
 </body>
