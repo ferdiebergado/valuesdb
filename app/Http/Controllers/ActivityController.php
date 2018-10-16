@@ -15,6 +15,11 @@ class ActivityController extends Controller
     use RequestParser;
     use RequestCriteria;
 
+    public function __construct()
+    {
+        $this->middleware('auth')->except('index');
+    }
+
     /**
      * Display a listing of the resource.
      *
