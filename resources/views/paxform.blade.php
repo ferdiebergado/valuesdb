@@ -134,9 +134,6 @@
         <div class="col-8">
             <div class="form-group">
                 <label for="division_id">Division</label>
-                <p id="ajax-loader" v-if="loading">
-                    Updating... &nbsp;<img src="{{ url('/storage') . '/' . 'ajax-loader-square.gif' }}">
-                </p>
                 <division-select divisionid="{{ old('division_id', optional($participant)->division_id) }}"></division-select>
                 @if ($errors->has('division_id'))
                 <small class="form-text text-danger">{{ $errors->first('division_id') }}</small>
@@ -250,7 +247,7 @@
         <div class="col-12">
             <div class="form-group">
                 <p>Attended Seminar/Workshop/Training related to Values Education/EsP for the last two (2) years:</p>
-                <p class="text-muted"><span class="badge badge-info">NOTE:</span> Select an activity and a role from the dropdowns below then click the <i class="fa fa-th-list text-success"></i> button. To add an activity/role click the <i class="fa fa-plus-circle text-primary"></i> icon next to the dropdown.)</p>
+                <p class="text-muted"><span class="badge badge-info">NOTE:</span> Select an activity and a role from the dropdowns below then click the <i class="fa fa-th-list text-success"></i> button. To add an activity/role click the <i class="fa fa-plus-circle text-primary"></i> icon next to the dropdown.</p>
             </div>
         </div>
     </div>
@@ -272,8 +269,7 @@
                 {{ $errors->first('photo') }}
             </small>
             @endif            
-        </div>
-        
+        </div>        
     </div>
     @endif
     <div class="row">
