@@ -28,7 +28,7 @@ Route::group(['prefix' => 'values'], function () {
     Route::resource('activities', 'ActivityController');
     Route::resource('roles', 'RoleController');
     Route::get('/regions', 'RegionDivisionController@index');
-    Route::get('/api/participants', 'ParticipantController@getData');
+    // Route::get('/api/participants', 'ParticipantController@getData');
 });
 
 Auth::routes();
