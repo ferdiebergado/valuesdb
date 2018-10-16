@@ -1,10 +1,10 @@
 <template>
     <div>
-        <p id="ajax-loader" v-if="loading">
+        <p id="ajax-loader" v-show="loading">
             Updating... &nbsp;<img src="/img/ajax-loader-square.gif">
         </p>
-        <select name="division_id" id="division_id" class="form-control" :disabled="disabled" v-if="!loading" v-model="division">
-            <option value="">Select Division</option>
+        <select name="division_id" id="division_id" class="form-control" :disabled="disabled" v-model="division">
+            <option value="">Please select a Division...</option>
             <option v-for="division in divisions" :key="division.id" :value="division.id">{{ division.name }}</option>
         </select>
     </div>
@@ -16,10 +16,10 @@ export default {
   },
   data() {
     return {
-      loading: false,
       disabled: true,
       division: parseInt(this.divisionid),
-      divisions: {}
+      divisions: {},
+      loading: false
     };
   },
   created() {
@@ -29,7 +29,7 @@ export default {
     eventBus.$off("region-updated", this.fetchDivisions);
   },
   methods: {
-    fetchDivisions(region) {
+    fetchDivisions(region, regval) {
       var vm = this;
       this.loading = true;
       if (region === "" || region === 19) {
@@ -44,10 +44,12 @@ export default {
         .then(function(res) {
           vm.$set(vm.$data, "divisions", res.data);
           vm.$set(vm.$data, "loading", false);
+          if (region !== regval) {
+            vm.$set(vm.$data, "division", "");
+          }
         })
         .catch(function(err) {
           alert(err.response.data);
-          console.log(err.response.data);
         });
     }
   }
