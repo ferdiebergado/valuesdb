@@ -62,17 +62,17 @@ class Participant extends BaseModel
 
     public function setLastnameAttribute($value)
     {
-        $this->attributes['lastname'] = ucfirst($value);
+        $this->attributes['lastname'] = ucfirst(strtolower($value));
     }
 
     public function setFirstnameAttribute($value)
     {
-        $this->attributes['firstname'] = ucfirst($value);
+        $this->attributes['firstname'] = ucfirst(strtolower($value));
     }
 
     public function setMiddlenameAttribute($value)
     {
-        $this->attributes['middlename'] = ucfirst($value);
+        $this->attributes['middlename'] = ucfirst(strtolower($value));
     }
 
     public function setLandlineAttribute($value)
