@@ -21,9 +21,9 @@
     },
     "dependencies": {
         "@fortawesome/fontawesome-free": "^5.3.1",
-        "datatables.net": "^1.10.19",
-        "datatables.net-bs": "^1.10.19",
-        "datatables.net-bs4": "^1.10.19",
+        "datatables.net": "^1.10.23",
+        "datatables.net-bs": "^1.10.23",
+        "datatables.net-bs4": "^1.10.23",
         "jquery-highlight": "^3.4.0",
         "notosans-fontface": "^1.1.0",
         "roboto-fontface": "^0.10.0"
